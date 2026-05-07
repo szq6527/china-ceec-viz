@@ -1,0 +1,185 @@
+/* === Design tokens === */
+:root {
+  --bg-0: #050810;
+  --bg-1: #0a0f1c;
+  --bg-2: #111728;
+  --ink-0: #f6f1e0;
+  --ink-1: #c9c2ad;
+  --ink-2: #6e6a5c;
+  --accent-cn: #ff4d3d;        /* China red, slightly muted */
+  --accent-cn-glow: #ff8366;
+  --accent-eu: #4cc9f0;        /* CEEC blue */
+  --accent-eu-glow: #8ae3ff;
+  --accent-warn: #f5b14a;      /* Highlight gold */
+  --accent-physics: #c77dff;   /* Physics/CERN purple */
+  --grid: rgba(201, 194, 173, 0.06);
+
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-0);
+  color: var(--ink-0);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+/* Subtle film grain over the whole page */
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}
+
+.mono {
+  font-family: var(--mono);
+  letter-spacing: 0.03em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* App-level layout */
+.app-shell {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  z-index: 5;
+}
+
+.top-bar .title {
+  color: var(--ink-1);
+}
+
+.top-bar .title strong {
+  color: var(--ink-0);
+  font-weight: 700;
+}
+
+.scene-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.scene-nav {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 16px 0 22px;
+  z-index: 5;
+}
+
+.scene-nav button {
+  background: none;
+  border: none;
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 6px 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.scene-nav button:hover {
+  color: var(--ink-1);
+}
+.scene-nav button.active {
+  color: var(--ink-0);
+  border-bottom-color: var(--accent-cn);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms ease;
+}
+.scene.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Story overlay text */
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-warn);
+  margin-bottom: 10px;
+}
+
+.headline {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.subhead {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-1);
+  max-width: 540px;
+}
+
+.stat-big {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: -0.02em;
+  color: var(--ink-0);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-top: 6px;
+}
