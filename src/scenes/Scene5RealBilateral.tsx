@@ -203,12 +203,12 @@ export function Scene5RealBilateral({ data, active }: Props) {
           position: "absolute",
           left: 48,
           right: 48,
-          top: 220,
-          bottom: 110,
+          top: "clamp(210px, 32vh, 245px)",
+          bottom: "clamp(112px, 18vh, 150px)",
           zIndex: 3,
           display: "flex",
           flexDirection: "column",
-          gap: 10,
+          gap: "clamp(3px, 0.55vh, 7px)",
         }}
       >
         {rows.map((row) => {
@@ -223,13 +223,14 @@ export function Scene5RealBilateral({ data, active }: Props) {
                 alignItems: "center",
                 gap: 14,
                 fontFamily: "var(--serif)",
+                minHeight: 0,
               }}
             >
               {/* Country name */}
               <div
                 style={{
                   width: 90,
-                  fontSize: 14,
+                  fontSize: "clamp(10px, 1.15vh, 14px)",
                   color: "var(--ink-1)",
                   textAlign: "right",
                 }}
@@ -241,7 +242,7 @@ export function Scene5RealBilateral({ data, active }: Props) {
               <div
                 style={{
                   flex: 1,
-                  height: 22,
+                  height: "clamp(10px, 1.25vh, 18px)",
                   position: "relative",
                   background: "rgba(255,255,255,0.02)",
                   borderRadius: 2,
@@ -284,7 +285,7 @@ export function Scene5RealBilateral({ data, active }: Props) {
                 style={{
                   width: 70,
                   textAlign: "right",
-                  fontSize: 13,
+                  fontSize: "clamp(10px, 1.1vh, 13px)",
                   color: "var(--ink-1)",
                 }}
               >
@@ -293,7 +294,7 @@ export function Scene5RealBilateral({ data, active }: Props) {
               <div
                 style={{
                   width: 56,
-                  fontSize: 11,
+                  fontSize: "clamp(9px, 0.95vh, 11px)",
                   textAlign: "right",
                   color: stripped ? "var(--ink-2)" : "var(--accent-physics)",
                   fontFamily: "var(--mono)",
@@ -312,12 +313,15 @@ export function Scene5RealBilateral({ data, active }: Props) {
           position: "absolute",
           left: 48,
           right: 48,
-          bottom: 32,
+          bottom: 36,
           display: "flex",
           gap: 40,
           zIndex: 4,
           alignItems: "flex-end",
           pointerEvents: "none",
+          paddingTop: 18,
+          background:
+            "linear-gradient(to bottom, rgba(5,8,16,0), rgba(5,8,16,0.9) 38%, var(--bg-0))",
         }}
       >
         <Insight
