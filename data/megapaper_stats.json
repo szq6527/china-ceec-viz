@@ -1,0 +1,683 @@
+{
+  "source": "OpenAlex /works API",
+  "fetched_at": "2026-05-09",
+  "filter": "authorships.countries:cn,authorships.countries:<CEEC>,publication_year:2016-2020",
+  "per_country_max_pages": 8,
+  "per_page": 200,
+  "bands": [
+    "1-9",
+    "10-49",
+    "50-99",
+    "100-499",
+    "500-999",
+    "1000+"
+  ],
+  "aggregate": {
+    "papers_sampled": 17098,
+    "authorships_total": 343972,
+    "band_papers": {
+      "100-499": 1286,
+      "10-49": 4857,
+      "1-9": 10099,
+      "50-99": 856
+    },
+    "band_authorships": {
+      "100-499": 128600,
+      "10-49": 100369,
+      "1-9": 55647,
+      "50-99": 59356
+    },
+    "share_big_papers": 0.07521347526026435,
+    "share_big_authorships": 0.373867640389334
+  },
+  "by_country": {
+    "POL": {
+      "papers_sampled": 1600,
+      "authorships_total": 40884,
+      "band_papers": {
+        "100-499": 178,
+        "10-49": 561,
+        "1-9": 777,
+        "50-99": 84
+      },
+      "band_authorships": {
+        "100-499": 17800,
+        "10-49": 12685,
+        "1-9": 4586,
+        "50-99": 5813
+      },
+      "top_venues": [
+        [
+          "Journal of Materials Chemistry A",
+          92
+        ],
+        [
+          "Physical Review Letters",
+          44
+        ],
+        [
+          "Chemical Communications",
+          40
+        ],
+        [
+          "Green Chemistry",
+          35
+        ],
+        [
+          "Nature Communications",
+          28
+        ],
+        [
+          "Astronomy and Astrophysics",
+          27
+        ],
+        [
+          "Chemical Science",
+          24
+        ],
+        [
+          "Energy & Environmental Science",
+          22
+        ]
+      ],
+      "iso": "POL",
+      "name_cn": "波兰",
+      "share_big_papers": 0.11125,
+      "share_big_authorships": 0.4353781430388416
+    },
+    "CZE": {
+      "papers_sampled": 1600,
+      "authorships_total": 39740,
+      "band_papers": {
+        "10-49": 605,
+        "100-499": 174,
+        "1-9": 735,
+        "50-99": 86
+      },
+      "band_authorships": {
+        "10-49": 11952,
+        "100-499": 17400,
+        "1-9": 4636,
+        "50-99": 5752
+      },
+      "top_venues": [
+        [
+          "Nature Communications",
+          64
+        ],
+        [
+          "Journal of Materials Chemistry A",
+          55
+        ],
+        [
+          "Physical Review Letters",
+          38
+        ],
+        [
+          "RSC Advances",
+          32
+        ],
+        [
+          "Nanoscale",
+          29
+        ],
+        [
+          "Chemical Communications",
+          28
+        ],
+        [
+          "Physical review. C",
+          22
+        ],
+        [
+          "Chemical Science",
+          20
+        ]
+      ],
+      "iso": "CZE",
+      "name_cn": "捷克",
+      "share_big_papers": 0.10875,
+      "share_big_authorships": 0.4378459989934575
+    },
+    "GRC": {
+      "papers_sampled": 1600,
+      "authorships_total": 34393,
+      "band_papers": {
+        "100-499": 109,
+        "10-49": 571,
+        "1-9": 828,
+        "50-99": 92
+      },
+      "band_authorships": {
+        "100-499": 10900,
+        "10-49": 12538,
+        "1-9": 4637,
+        "50-99": 6318
+      },
+      "top_venues": [
+        [
+          "Physical review. D/Physical review. D.",
+          31
+        ],
+        [
+          "Applied Catalysis B: Environmental",
+          28
+        ],
+        [
+          "The Science of The Total Environment",
+          20
+        ],
+        [
+          "The European Physical Journal C",
+          19
+        ],
+        [
+          "IEEE Transactions on Communications",
+          18
+        ],
+        [
+          "Journal of High Energy Physics",
+          18
+        ],
+        [
+          "IEEE Access",
+          18
+        ],
+        [
+          "The Astrophysical Journal",
+          17
+        ]
+      ],
+      "iso": "GRC",
+      "name_cn": "希腊",
+      "share_big_papers": 0.068125,
+      "share_big_authorships": 0.3169249556595819
+    },
+    "HUN": {
+      "papers_sampled": 1600,
+      "authorships_total": 41194,
+      "band_papers": {
+        "10-49": 513,
+        "100-499": 170,
+        "1-9": 790,
+        "50-99": 127
+      },
+      "band_authorships": {
+        "10-49": 11015,
+        "100-499": 17000,
+        "1-9": 4561,
+        "50-99": 8618
+      },
+      "top_venues": [
+        [
+          "Physical review. C",
+          44
+        ],
+        [
+          "RSC Advances",
+          38
+        ],
+        [
+          "Physical Review Letters",
+          35
+        ],
+        [
+          "Chemical Communications",
+          32
+        ],
+        [
+          "The Astrophysical Journal",
+          30
+        ],
+        [
+          "Journal of High Energy Physics",
+          30
+        ],
+        [
+          "The European Physical Journal C",
+          27
+        ],
+        [
+          "Scientific Reports",
+          26
+        ]
+      ],
+      "iso": "HUN",
+      "name_cn": "匈牙利",
+      "share_big_papers": 0.10625,
+      "share_big_authorships": 0.41268145846482496
+    },
+    "ROU": {
+      "papers_sampled": 1600,
+      "authorships_total": 32840,
+      "band_papers": {
+        "100-499": 132,
+        "10-49": 500,
+        "50-99": 69,
+        "1-9": 899
+      },
+      "band_authorships": {
+        "100-499": 13200,
+        "10-49": 9934,
+        "50-99": 4801,
+        "1-9": 4905
+      },
+      "top_venues": [
+        [
+          "The Science of The Total Environment",
+          47
+        ],
+        [
+          "Journal of Materials Chemistry A",
+          35
+        ],
+        [
+          "The European Physical Journal C",
+          33
+        ],
+        [
+          "Journal of High Energy Physics",
+          32
+        ],
+        [
+          "Physical review. C",
+          27
+        ],
+        [
+          "Physical Review Letters",
+          20
+        ],
+        [
+          "Scientific Reports",
+          19
+        ],
+        [
+          "Nature Communications",
+          19
+        ]
+      ],
+      "iso": "ROU",
+      "name_cn": "罗马尼亚",
+      "share_big_papers": 0.0825,
+      "share_big_authorships": 0.40194884287454324
+    },
+    "SRB": {
+      "papers_sampled": 1385,
+      "authorships_total": 19659,
+      "band_papers": {
+        "100-499": 43,
+        "10-49": 279,
+        "50-99": 70,
+        "1-9": 993
+      },
+      "band_authorships": {
+        "100-499": 4300,
+        "10-49": 6161,
+        "50-99": 4673,
+        "1-9": 4525
+      },
+      "top_venues": [
+        [
+          "Filomat",
+          32
+        ],
+        [
+          "DOAJ (DOAJ: Directory of Open Access Journals)",
+          25
+        ],
+        [
+          "Journal of the Serbian Chemical Society",
+          23
+        ],
+        [
+          "Etnoantropološki problemi / Issues in Ethnology and Anthropology",
+          23
+        ],
+        [
+          "Elsevier eBooks",
+          22
+        ],
+        [
+          "Annals of Tropical Medicine and Public Health",
+          16
+        ],
+        [
+          "Optik",
+          15
+        ],
+        [
+          "Linear and Multilinear Algebra",
+          14
+        ]
+      ],
+      "iso": "SRB",
+      "name_cn": "塞尔维亚",
+      "share_big_papers": 0.03104693140794224,
+      "share_big_authorships": 0.21872933516455567
+    },
+    "BGR": {
+      "papers_sampled": 1600,
+      "authorships_total": 22386,
+      "band_papers": {
+        "10-49": 311,
+        "100-499": 61,
+        "50-99": 54,
+        "1-9": 1174
+      },
+      "band_authorships": {
+        "10-49": 6042,
+        "100-499": 6100,
+        "50-99": 3808,
+        "1-9": 6436
+      },
+      "top_venues": [
+        [
+          "RSC Advances",
+          106
+        ],
+        [
+          "Journal of Materials Chemistry A",
+          59
+        ],
+        [
+          "The Journal of Engineering",
+          32
+        ],
+        [
+          "New Journal of Chemistry",
+          30
+        ],
+        [
+          "IET Generation Transmission & Distribution",
+          30
+        ],
+        [
+          "Chemical Communications",
+          28
+        ],
+        [
+          "Dalton Transactions",
+          25
+        ],
+        [
+          "Nanoscale",
+          24
+        ]
+      ],
+      "iso": "BGR",
+      "name_cn": "保加利亚",
+      "share_big_papers": 0.038125,
+      "share_big_authorships": 0.27249173590637005
+    },
+    "SVK": {
+      "papers_sampled": 1600,
+      "authorships_total": 19938,
+      "band_papers": {
+        "10-49": 402,
+        "100-499": 25,
+        "1-9": 1119,
+        "50-99": 54
+      },
+      "band_authorships": {
+        "10-49": 7051,
+        "100-499": 2500,
+        "1-9": 6527,
+        "50-99": 3860
+      },
+      "top_venues": [
+        [
+          "RSC Advances",
+          163
+        ],
+        [
+          "Journal of Materials Chemistry A",
+          67
+        ],
+        [
+          "Journal of Materials Chemistry C",
+          42
+        ],
+        [
+          "Nanoscale",
+          41
+        ],
+        [
+          "Chemical Communications",
+          40
+        ],
+        [
+          "Green Chemistry",
+          39
+        ],
+        [
+          "Dalton Transactions",
+          35
+        ],
+        [
+          "Physical Chemistry Chemical Physics",
+          35
+        ]
+      ],
+      "iso": "SVK",
+      "name_cn": "斯洛伐克",
+      "share_big_papers": 0.015625,
+      "share_big_authorships": 0.1253887049854549
+    },
+    "HRV": {
+      "papers_sampled": 1184,
+      "authorships_total": 34053,
+      "band_papers": {
+        "100-499": 179,
+        "10-49": 335,
+        "50-99": 78,
+        "1-9": 592
+      },
+      "band_authorships": {
+        "100-499": 17900,
+        "10-49": 7097,
+        "50-99": 5786,
+        "1-9": 3270
+      },
+      "top_venues": [
+        [
+          "Physical review. C",
+          52
+        ],
+        [
+          "Journal of High Energy Physics",
+          40
+        ],
+        [
+          "The European Physical Journal C",
+          35
+        ],
+        [
+          "Physical Review Letters",
+          22
+        ],
+        [
+          "SSRN Electronic Journal",
+          16
+        ],
+        [
+          "Energy Conversion and Management",
+          14
+        ],
+        [
+          "bioRxiv (Cold Spring Harbor Laboratory)",
+          14
+        ],
+        [
+          "International Transactions on Electrical Energy Systems",
+          13
+        ]
+      ],
+      "iso": "HRV",
+      "name_cn": "克罗地亚",
+      "share_big_papers": 0.15118243243243243,
+      "share_big_authorships": 0.5256511907908261
+    },
+    "SVN": {
+      "papers_sampled": 1600,
+      "authorships_total": 31540,
+      "band_papers": {
+        "10-49": 306,
+        "50-99": 60,
+        "100-499": 156,
+        "1-9": 1078
+      },
+      "band_authorships": {
+        "10-49": 6357,
+        "50-99": 4073,
+        "100-499": 15600,
+        "1-9": 5510
+      },
+      "top_venues": [
+        [
+          "Physical review. D/Physical review. D.",
+          80
+        ],
+        [
+          "Medicine",
+          48
+        ],
+        [
+          "RSC Advances",
+          45
+        ],
+        [
+          "Physical Review Letters",
+          27
+        ],
+        [
+          "Scientific Reports",
+          23
+        ],
+        [
+          "Journal of Materials Chemistry A",
+          15
+        ],
+        [
+          "Journal of Materials Chemistry C",
+          13
+        ],
+        [
+          "New Journal of Chemistry",
+          13
+        ]
+      ],
+      "iso": "SVN",
+      "name_cn": "斯洛文尼亚",
+      "share_big_papers": 0.0975,
+      "share_big_authorships": 0.49461001902346224
+    },
+    "EST": {
+      "papers_sampled": 1178,
+      "authorships_total": 20246,
+      "band_papers": {
+        "50-99": 57,
+        "10-49": 332,
+        "100-499": 51,
+        "1-9": 738
+      },
+      "band_authorships": {
+        "50-99": 4042,
+        "10-49": 6909,
+        "100-499": 5100,
+        "1-9": 4195
+      },
+      "top_venues": [
+        [
+          "bioRxiv (Cold Spring Harbor Laboratory)",
+          31
+        ],
+        [
+          "Journal of Luminescence",
+          19
+        ],
+        [
+          "Scientific Reports",
+          15
+        ],
+        [
+          "Nature Communications",
+          15
+        ],
+        [
+          "Optical Materials",
+          15
+        ],
+        [
+          "Journal of Alloys and Compounds",
+          14
+        ],
+        [
+          "Land Degradation and Development",
+          13
+        ],
+        [
+          "Journal of Materials Chemistry C",
+          11
+        ]
+      ],
+      "iso": "EST",
+      "name_cn": "爱沙尼亚",
+      "share_big_papers": 0.0432937181663837,
+      "share_big_authorships": 0.25190161019460633
+    },
+    "LVA": {
+      "papers_sampled": 551,
+      "authorships_total": 7099,
+      "band_papers": {
+        "100-499": 8,
+        "10-49": 142,
+        "50-99": 25,
+        "1-9": 376
+      },
+      "band_authorships": {
+        "100-499": 800,
+        "10-49": 2628,
+        "50-99": 1812,
+        "1-9": 1859
+      },
+      "top_venues": [
+        [
+          "SSRN Electronic Journal",
+          83
+        ],
+        [
+          "Scientific Reports",
+          11
+        ],
+        [
+          "Pest Management Science",
+          10
+        ],
+        [
+          "Nature Communications",
+          9
+        ],
+        [
+          "The Science of The Total Environment",
+          9
+        ],
+        [
+          "Insect Biochemistry and Molecular Biology",
+          6
+        ],
+        [
+          "Archives of Insect Biochemistry and Physiology",
+          6
+        ],
+        [
+          "Insect Molecular Biology",
+          5
+        ]
+      ],
+      "iso": "LVA",
+      "name_cn": "拉脱维亚",
+      "share_big_papers": 0.014519056261343012,
+      "share_big_authorships": 0.11269192844062544
+    }
+  }
+}

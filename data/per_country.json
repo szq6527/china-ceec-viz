@@ -1,0 +1,180 @@
+[
+  {
+    "name_cn": "波兰",
+    "iso": "POL",
+    "count_135": 6866,
+    "count_125": 3252,
+    "ratio_135": 0.387734357352609,
+    "rank_135": 23,
+    "rank_125": 21,
+    "growth": 1.11131611316113,
+    "rank_change": -2
+  },
+  {
+    "name_cn": "捷克",
+    "iso": "CZE",
+    "count_135": 5063,
+    "count_125": 2450,
+    "ratio_135": 0.285915970182968,
+    "rank_135": 30,
+    "rank_125": 27,
+    "growth": 1.0665306122449,
+    "rank_change": -3
+  },
+  {
+    "name_cn": "希腊",
+    "iso": "GRC",
+    "count_135": 4193,
+    "count_125": 2086,
+    "ratio_135": 0.236785633611927,
+    "rank_135": 37,
+    "rank_125": 30,
+    "growth": 1.01006711409396,
+    "rank_change": -7
+  },
+  {
+    "name_cn": "匈牙利",
+    "iso": "HUN",
+    "count_135": 3673,
+    "count_125": 1901,
+    "ratio_135": 0.207420374971764,
+    "rank_135": 39,
+    "rank_125": 34,
+    "growth": 0.932140978432404,
+    "rank_change": -5
+  },
+  {
+    "name_cn": "罗马尼亚",
+    "iso": "ROU",
+    "count_135": 3124,
+    "count_125": 1596,
+    "ratio_135": 0.1764174384459,
+    "rank_135": 41,
+    "rank_125": 38,
+    "growth": 0.957393483709273,
+    "rank_change": -3
+  },
+  {
+    "name_cn": "塞尔维亚",
+    "iso": "SRB",
+    "count_135": 1967,
+    "count_125": 1295,
+    "ratio_135": 0.111079737971538,
+    "rank_135": 47,
+    "rank_125": 42,
+    "growth": 0.518918918918919,
+    "rank_change": -5
+  },
+  {
+    "name_cn": "斯洛文尼亚",
+    "iso": "SVN",
+    "count_135": 1920,
+    "count_125": 1045,
+    "ratio_135": 0.108425570363677,
+    "rank_135": 48,
+    "rank_125": 46,
+    "growth": 0.837320574162679,
+    "rank_change": -2
+  },
+  {
+    "name_cn": "斯洛伐克",
+    "iso": "SVK",
+    "count_135": 1809,
+    "count_125": 896,
+    "ratio_135": 0.102157217077027,
+    "rank_135": 50,
+    "rank_125": 52,
+    "growth": 1.01897321428571,
+    "rank_change": 2
+  },
+  {
+    "name_cn": "克罗地亚",
+    "iso": "HRV",
+    "count_135": 1690,
+    "count_125": 907,
+    "ratio_135": 0.0954370905805286,
+    "rank_135": 51,
+    "rank_125": 51,
+    "growth": 0.863285556780595,
+    "rank_change": 0
+  },
+  {
+    "name_cn": "保加利亚",
+    "iso": "BGR",
+    "count_135": 1621,
+    "count_125": 693,
+    "ratio_135": 0.0915405466455839,
+    "rank_135": 52,
+    "rank_125": 55,
+    "growth": 1.33910533910534,
+    "rank_change": 3
+  },
+  {
+    "name_cn": "爱沙尼亚",
+    "iso": "EST",
+    "count_135": 1528,
+    "count_125": 714,
+    "ratio_135": 0.0862886830810933,
+    "rank_135": 53,
+    "rank_125": 54,
+    "growth": 1.14005602240896,
+    "rank_change": 1
+  },
+  {
+    "name_cn": "拉脱维亚",
+    "iso": "LVA",
+    "count_135": 1028,
+    "count_125": 97,
+    "ratio_135": 0.0580528574655523,
+    "rank_135": 64,
+    "rank_125": 87,
+    "growth": 9.5979381443299,
+    "rank_change": 23
+  },
+  {
+    "name_cn": "立陶宛",
+    "iso": "LTU",
+    "count_135": 720,
+    "count_125": 256,
+    "ratio_135": 0.040659588886379036,
+    "rank_135": 108,
+    "rank_125": 87,
+    "growth": 1.8125,
+    "rank_change": -21,
+    "_source": "OpenAlex 2026-05-09 (backfilled; ranks estimated by interpolation)"
+  },
+  {
+    "name_cn": "北马其顿",
+    "iso": "MKD",
+    "count_135": 506,
+    "count_125": 266,
+    "ratio_135": 0.02857465552292749,
+    "rank_135": 108,
+    "rank_125": 87,
+    "growth": 0.9022556390977443,
+    "rank_change": -21,
+    "_source": "OpenAlex 2026-05-09 (backfilled; ranks estimated by interpolation)"
+  },
+  {
+    "name_cn": "黑山",
+    "iso": "MNE",
+    "count_135": 129,
+    "count_125": 11,
+    "ratio_135": 0.00728484300880958,
+    "rank_135": 108,
+    "rank_125": 139,
+    "growth": 10.7272727272727,
+    "rank_change": 31
+  },
+  {
+    "name_cn": "阿尔巴尼亚",
+    "iso": "ALB",
+    "count_135": 71,
+    "count_125": 6,
+    "ratio_135": 0.00400948723740682,
+    "rank_135": 124,
+    "rank_125": 149,
+    "growth": 10.8333333333333,
+    "rank_change": 25
+  }
+]

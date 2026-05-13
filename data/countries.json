@@ -1,0 +1,121 @@
+{
+  "beijing": {
+    "name": "中国",
+    "lat": 39.9042,
+    "lon": 116.4074
+  },
+  "ceec": [
+    {
+      "en": "POLAND",
+      "cn": "波兰",
+      "iso": "POL",
+      "lat": 51.9194,
+      "lon": 19.1451
+    },
+    {
+      "en": "CZECH REPUBLIC",
+      "cn": "捷克",
+      "iso": "CZE",
+      "lat": 49.8175,
+      "lon": 15.473
+    },
+    {
+      "en": "HUNGARY",
+      "cn": "匈牙利",
+      "iso": "HUN",
+      "lat": 47.1625,
+      "lon": 19.5033
+    },
+    {
+      "en": "ROMANIA",
+      "cn": "罗马尼亚",
+      "iso": "ROU",
+      "lat": 45.9432,
+      "lon": 24.9668
+    },
+    {
+      "en": "BULGARIA",
+      "cn": "保加利亚",
+      "iso": "BGR",
+      "lat": 42.7339,
+      "lon": 25.4858
+    },
+    {
+      "en": "SLOVAKIA",
+      "cn": "斯洛伐克",
+      "iso": "SVK",
+      "lat": 48.669,
+      "lon": 19.699
+    },
+    {
+      "en": "CROATIA",
+      "cn": "克罗地亚",
+      "iso": "HRV",
+      "lat": 45.1,
+      "lon": 15.2
+    },
+    {
+      "en": "SLOVENIA",
+      "cn": "斯洛文尼亚",
+      "iso": "SVN",
+      "lat": 46.1512,
+      "lon": 14.9955
+    },
+    {
+      "en": "SERBIA",
+      "cn": "塞尔维亚",
+      "iso": "SRB",
+      "lat": 44.0165,
+      "lon": 21.0059
+    },
+    {
+      "en": "GREECE",
+      "cn": "希腊",
+      "iso": "GRC",
+      "lat": 39.0742,
+      "lon": 21.8243
+    },
+    {
+      "en": "ALBANIA",
+      "cn": "阿尔巴尼亚",
+      "iso": "ALB",
+      "lat": 41.1533,
+      "lon": 20.1683
+    },
+    {
+      "en": "LATVIA",
+      "cn": "拉脱维亚",
+      "iso": "LVA",
+      "lat": 56.8796,
+      "lon": 24.6032
+    },
+    {
+      "en": "LITHUANIA",
+      "cn": "立陶宛",
+      "iso": "LTU",
+      "lat": 55.1694,
+      "lon": 23.8813
+    },
+    {
+      "en": "ESTONIA",
+      "cn": "爱沙尼亚",
+      "iso": "EST",
+      "lat": 58.5953,
+      "lon": 25.0136
+    },
+    {
+      "en": "MONTENEGRO",
+      "cn": "黑山",
+      "iso": "MNE",
+      "lat": 42.7087,
+      "lon": 19.3744
+    },
+    {
+      "en": "NORTH MACEDONIA",
+      "cn": "北马其顿",
+      "iso": "MKD",
+      "lat": 41.6086,
+      "lon": 21.7453
+    }
+  ]
+}

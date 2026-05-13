@@ -1,0 +1,638 @@
+{
+  "BGR": {
+    "name_cn": "保加利亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 1033
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 341
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 126
+      },
+      {
+        "code": "0804",
+        "en": "Instrumentation Science and Technology",
+        "cn": "仪器科学与技术",
+        "count": 116
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 84
+      },
+      {
+        "code": "0827",
+        "en": "Nuclear Science and Technology",
+        "cn": "核科学与技术",
+        "count": 82
+      },
+      {
+        "code": "1001",
+        "en": "Basic Medicine",
+        "cn": "基础医学",
+        "count": 55
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 53
+      }
+    ]
+  },
+  "HRV": {
+    "name_cn": "克罗地亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 960
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 317
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 169
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 127
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 81
+      },
+      {
+        "code": "1001",
+        "en": "Basic Medicine",
+        "cn": "基础医学",
+        "count": 79
+      },
+      {
+        "code": "0820",
+        "en": "Oil and Natural Gas Engineering",
+        "cn": "石油与天然气工程",
+        "count": 70
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 67
+      }
+    ]
+  },
+  "HUN": {
+    "name_cn": "匈牙利",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 2007
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 733
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 303
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 283
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 266
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 204
+      },
+      {
+        "code": "0827",
+        "en": "Nuclear Science and Technology",
+        "cn": "核科学与技术",
+        "count": 179
+      },
+      {
+        "code": "0804",
+        "en": "Instrumentation Science and Technology",
+        "cn": "仪器科学与技术",
+        "count": 156
+      }
+    ]
+  },
+  "SRB": {
+    "name_cn": "塞尔维亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 1161
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 393
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 187
+      },
+      {
+        "code": "0701",
+        "en": "Mathematics",
+        "cn": "数学",
+        "count": 148
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 86
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 74
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 72
+      },
+      {
+        "code": "1001",
+        "en": "Basic Medicine",
+        "cn": "基础医学",
+        "count": 69
+      }
+    ]
+  },
+  "GRC": {
+    "name_cn": "希腊",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 1828
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 628
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 550
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 329
+      },
+      {
+        "code": "0812",
+        "en": "Computer Science and Technology",
+        "cn": "计算机科学与技术",
+        "count": 255
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 241
+      },
+      {
+        "code": "0810",
+        "en": "Information and Communication Engineering",
+        "cn": "信息与通信工程",
+        "count": 232
+      },
+      {
+        "code": "0830",
+        "en": "Environmental Science and Engineering",
+        "cn": "环境科学与工程",
+        "count": 232
+      }
+    ]
+  },
+  "LVA": {
+    "name_cn": "拉脱维亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "",
+        "count": 754
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "",
+        "count": 155
+      },
+      {
+        "code": "0827",
+        "en": "Nuclear Science and Technology",
+        "cn": "",
+        "count": 112
+      },
+      {
+        "code": "0804",
+        "en": "Instrumentation Science and Technology",
+        "cn": "",
+        "count": 62
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "",
+        "count": 58
+      },
+      {
+        "code": "0803",
+        "en": "Optical Engineering",
+        "cn": "",
+        "count": 35
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "",
+        "count": 27
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "",
+        "count": 23
+      }
+    ]
+  },
+  "CZE": {
+    "name_cn": "捷克",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 2299
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 721
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 540
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 471
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 440
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 358
+      },
+      {
+        "code": "0830",
+        "en": "Environmental Science and Engineering",
+        "cn": "环境科学与工程",
+        "count": 325
+      },
+      {
+        "code": "1001",
+        "en": "Basic Medicine",
+        "cn": "基础医学",
+        "count": 257
+      }
+    ]
+  },
+  "SVK": {
+    "name_cn": "斯洛伐克",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 1047
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 255
+      },
+      {
+        "code": "0827",
+        "en": "Nuclear Science and Technology",
+        "cn": "核科学与技术",
+        "count": 130
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 107
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 106
+      },
+      {
+        "code": "0701",
+        "en": "Mathematics",
+        "cn": "数学",
+        "count": 103
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 103
+      },
+      {
+        "code": "0804",
+        "en": "Instrumentation Science and Technology",
+        "cn": "仪器科学与技术",
+        "count": 86
+      }
+    ]
+  },
+  "SVN": {
+    "name_cn": "斯洛文尼亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 1051
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 285
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 152
+      },
+      {
+        "code": "0701",
+        "en": "Mathematics",
+        "cn": "数学",
+        "count": 129
+      },
+      {
+        "code": "0827",
+        "en": "Nuclear Science and Technology",
+        "cn": "核科学与技术",
+        "count": 128
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 122
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 117
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 109
+      }
+    ]
+  },
+  "POL": {
+    "name_cn": "波兰",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 2899
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 1138
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 696
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 657
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 626
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 509
+      },
+      {
+        "code": "0812",
+        "en": "Computer Science and Technology",
+        "cn": "计算机科学与技术",
+        "count": 424
+      },
+      {
+        "code": "1001",
+        "en": "Basic Medicine",
+        "cn": "基础医学",
+        "count": 342
+      }
+    ]
+  },
+  "EST": {
+    "name_cn": "爱沙尼亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 756
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 213
+      },
+      {
+        "code": "0710",
+        "en": "Biology",
+        "cn": "生物学",
+        "count": 127
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 125
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 113
+      },
+      {
+        "code": "1001",
+        "en": "Basic Medicine",
+        "cn": "基础医学",
+        "count": 87
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 76
+      },
+      {
+        "code": "0830",
+        "en": "Environmental Science and Engineering",
+        "cn": "环境科学与工程",
+        "count": 72
+      }
+    ]
+  },
+  "ROU": {
+    "name_cn": "罗马尼亚",
+    "subjects": [
+      {
+        "code": "0702",
+        "en": "Physics",
+        "cn": "物理学",
+        "count": 1630
+      },
+      {
+        "code": "0704",
+        "en": "Astronomy",
+        "cn": "天文学",
+        "count": 367
+      },
+      {
+        "code": "1002",
+        "en": "Clinical Medicine",
+        "cn": "临床医学",
+        "count": 362
+      },
+      {
+        "code": "0701",
+        "en": "Mathematics",
+        "cn": "数学",
+        "count": 338
+      },
+      {
+        "code": "0703",
+        "en": "Chemistry",
+        "cn": "化学",
+        "count": 210
+      },
+      {
+        "code": "0805",
+        "en": "Materials Science and Engineering",
+        "cn": "材料科学与工程",
+        "count": 204
+      },
+      {
+        "code": "0827",
+        "en": "Nuclear Science and Technology",
+        "cn": "核科学与技术",
+        "count": 184
+      },
+      {
+        "code": "0804",
+        "en": "Instrumentation Science and Technology",
+        "cn": "仪器科学与技术",
+        "count": 168
+      }
+    ]
+  }
+}

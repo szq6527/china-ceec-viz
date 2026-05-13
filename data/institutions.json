@@ -1,0 +1,610 @@
+{
+  "cn_125": [
+    {
+      "en": "Chinese Academy of Sciences",
+      "cn": "中国科学院",
+      "country": "CHINA MAINLAND",
+      "count": 2598
+    },
+    {
+      "en": "Institute of High Energy Physics, CAS",
+      "cn": "中国科学院高能物理研究所",
+      "country": "CHINA MAINLAND",
+      "count": 1022
+    },
+    {
+      "en": "Peking University",
+      "cn": "北京大学",
+      "country": "CHINA MAINLAND",
+      "count": 908
+    },
+    {
+      "en": "University of Science & Technology of China, CAS",
+      "cn": "中国科学技术大学",
+      "country": "CHINA MAINLAND",
+      "count": 900
+    },
+    {
+      "en": "Tsinghua University",
+      "cn": "清华大学",
+      "country": "CHINA MAINLAND",
+      "count": 652
+    },
+    {
+      "en": "Shandong University",
+      "cn": "山东大学",
+      "country": "CHINA MAINLAND",
+      "count": 616
+    },
+    {
+      "en": "State Oceanic Administration",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 609
+    },
+    {
+      "en": "Microsoft Research Asia",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 608
+    },
+    {
+      "en": "Lanzhou Institute of Technology",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 607
+    },
+    {
+      "en": "Shenzhen Institute of Information Technology",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 606
+    },
+    {
+      "en": "Heilongjiang River Fisheries Research Institute, CAFS",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 605
+    },
+    {
+      "en": "Yellow Sea Fisheries Research Institute, CAFS",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 604
+    },
+    {
+      "en": "Ministry of Water Resources",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 603
+    },
+    {
+      "en": "NYU Shanghai",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 602
+    },
+    {
+      "en": "National Institute for Viral Disease Control & Prevention, Chinese Center for Disease Control & Prevention",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 601
+    },
+    {
+      "en": "National Institute for Communicable Disease Control & Prevention, Chinese Center for Disease Control & Prevention",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 600
+    },
+    {
+      "en": "Hebei Academy of Agricultural & Forestry Sciences",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 599
+    },
+    {
+      "en": "Anhui Academy of Agricultural Sciences",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 598
+    },
+    {
+      "en": "Heilongjiang Academy of Agricultural Sciences",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 597
+    },
+    {
+      "en": "Sun Yat Sen University",
+      "cn": "中山大学",
+      "country": "CHINA MAINLAND",
+      "count": 596
+    },
+    {
+      "en": "Research Institute of Resources Insects, CAF",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 596
+    },
+    {
+      "en": "Research Institute of Forest Resources Information Technique, CAF",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 595
+    },
+    {
+      "en": "Ningde Normal University",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 594
+    },
+    {
+      "en": "Sanming University",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 593
+    },
+    {
+      "en": "Graduate School, CAAS",
+      "cn": "",
+      "country": "CHINA MAINLAND",
+      "count": 592
+    }
+  ],
+  "cn_135": [
+    {
+      "en": "Tsinghua University",
+      "cn": "清华大学",
+      "country": "CHINA MAINLAND",
+      "count": 1685
+    },
+    {
+      "en": "Peking University",
+      "cn": "北京大学",
+      "country": "CHINA MAINLAND",
+      "count": 1535
+    },
+    {
+      "en": "Institute of High Energy Physics, CAS",
+      "cn": "中国科学院高能物理研究所",
+      "country": "CHINA MAINLAND",
+      "count": 1382
+    },
+    {
+      "en": "University of Chinese Academy of Sciences, CAS",
+      "cn": "中国科学院大学",
+      "country": "CHINA MAINLAND",
+      "count": 1318
+    },
+    {
+      "en": "University of Science & Technology of China, CAS",
+      "cn": "中国科学技术大学",
+      "country": "CHINA MAINLAND",
+      "count": 1099
+    },
+    {
+      "en": "Shanghai Jiao Tong University",
+      "cn": "上海交通大学",
+      "country": "CHINA MAINLAND",
+      "count": 1054
+    },
+    {
+      "en": "Sun Yat Sen University",
+      "cn": "中山大学",
+      "country": "CHINA MAINLAND",
+      "count": 989
+    },
+    {
+      "en": "Beihang University",
+      "cn": "北京航空航天大学",
+      "country": "CHINA MAINLAND",
+      "count": 833
+    },
+    {
+      "en": "Shandong University",
+      "cn": "山东大学",
+      "country": "CHINA MAINLAND",
+      "count": 829
+    },
+    {
+      "en": "Nanjing University",
+      "cn": "南京大学",
+      "country": "CHINA MAINLAND",
+      "count": 803
+    },
+    {
+      "en": "Central China Normal University",
+      "cn": "华中师范大学",
+      "country": "CHINA MAINLAND",
+      "count": 642
+    },
+    {
+      "en": "Fudan University",
+      "cn": "复旦大学",
+      "country": "CHINA MAINLAND",
+      "count": 528
+    },
+    {
+      "en": "University of Electronic Science & Technology of China",
+      "cn": "电子科技大学",
+      "country": "CHINA MAINLAND",
+      "count": 528
+    },
+    {
+      "en": "Wuhan University",
+      "cn": "武汉大学",
+      "country": "CHINA MAINLAND",
+      "count": 436
+    },
+    {
+      "en": "Zhejiang University",
+      "cn": "浙江大学",
+      "country": "CHINA MAINLAND",
+      "count": 423
+    },
+    {
+      "en": "China Institute of Atomic Energy",
+      "cn": "中国原子能科学研究院",
+      "country": "CHINA MAINLAND",
+      "count": 332
+    },
+    {
+      "en": "Xi'an Jiaotong University",
+      "cn": "西安交通大学",
+      "country": "CHINA MAINLAND",
+      "count": 318
+    },
+    {
+      "en": "Huazhong University of Science & Technology",
+      "cn": "华中科技大学",
+      "country": "CHINA MAINLAND",
+      "count": 297
+    },
+    {
+      "en": "Capital Medical University",
+      "cn": "首都医科大学",
+      "country": "CHINA MAINLAND",
+      "count": 261
+    },
+    {
+      "en": "National Astronomical Observatory, CAS",
+      "cn": "中国科学院国家天文台",
+      "country": "CHINA MAINLAND",
+      "count": 249
+    },
+    {
+      "en": "Northwestern Polytechnical University",
+      "cn": "西北工业大学",
+      "country": "CHINA MAINLAND",
+      "count": 247
+    },
+    {
+      "en": "Shanghai Institute of Applied Physics, CAS",
+      "cn": "中国科学院上海应用物理研究所",
+      "country": "CHINA MAINLAND",
+      "count": 240
+    },
+    {
+      "en": "Suzhou University",
+      "cn": "苏州大学",
+      "country": "CHINA MAINLAND",
+      "count": 238
+    },
+    {
+      "en": "Beijing Normal University",
+      "cn": "北京师范大学",
+      "country": "CHINA MAINLAND",
+      "count": 236
+    },
+    {
+      "en": "Chinese Academy of Medical Sciences - Peking Union Medical College",
+      "cn": "中国医学科学院 北京协和医学院",
+      "country": "CHINA MAINLAND",
+      "count": 234
+    }
+  ],
+  "ceec_125": [
+    {
+      "en": "Charles University Prague",
+      "cn": "查理大学",
+      "country": "CZECH REPUBLIC",
+      "count": 1397
+    },
+    {
+      "en": "Hungarian Wigner Research Centre for Physics",
+      "cn": "匈牙利维格纳物理研究中心",
+      "country": "HUNGARY",
+      "count": 1162
+    },
+    {
+      "en": "National & Kapodistrian University of Athens",
+      "cn": "雅典大学",
+      "country": "GREECE",
+      "count": 1121
+    },
+    {
+      "en": "University of Belgrade",
+      "cn": "贝尔格莱德大学",
+      "country": "SERBIA",
+      "count": 1111
+    },
+    {
+      "en": "Institute of Nuclear Physics - Polish Academy of Sciences",
+      "cn": "波兰科学院核物理研究所",
+      "country": "POLAND",
+      "count": 1044
+    },
+    {
+      "en": "Horia Hulubei National Institute of Physics & Nuclear Engineering",
+      "cn": "霍里亚·胡鲁比国家物理和核工程研究所",
+      "country": "ROMANIA",
+      "count": 952
+    },
+    {
+      "en": "Czech Technical University Prague",
+      "cn": "罗兰大学",
+      "country": "CZECH REPUBLIC",
+      "count": 857
+    },
+    {
+      "en": "Institute of Physics of the Czech Academy of Sciences",
+      "cn": "萨洛尼卡大学",
+      "country": "CZECH REPUBLIC",
+      "count": 832
+    },
+    {
+      "en": "AGH University of Science & Technology",
+      "cn": "德谟克利特国家科学研究中心",
+      "country": "POLAND",
+      "count": 818
+    },
+    {
+      "en": "Slovenian Academy of Sciences & Arts (SASA)",
+      "cn": "斯洛文尼亚约瑟夫·斯蒂芬研究所",
+      "country": "SLOVENIA",
+      "count": 737
+    },
+    {
+      "en": "Jozef Stefan Institute",
+      "cn": "斯洛文尼亚约瑟夫·斯蒂芬研究所",
+      "country": "SLOVENIA",
+      "count": 694
+    },
+    {
+      "en": "Comenius University Bratislava",
+      "cn": "布拉迪斯拉发夸美纽斯大学",
+      "country": "克拉科夫AGH科技大学",
+      "count": 687
+    },
+    {
+      "en": "University of Ljubljana",
+      "cn": "捷克科学院物理研究所",
+      "country": "SLOVENIA",
+      "count": 669
+    },
+    {
+      "en": "Aristotle University of Thessaloniki",
+      "cn": "斯普利特大学",
+      "country": "GREECE",
+      "count": 619
+    },
+    {
+      "en": "University of Warsaw",
+      "cn": "雅盖隆大学",
+      "country": "POLAND",
+      "count": 585
+    },
+    {
+      "en": "National Technical University of Athens",
+      "cn": "雅典国家技术大学",
+      "country": "GREECE",
+      "count": 584
+    },
+    {
+      "en": "Jagiellonian University",
+      "cn": "卢布尔雅那大学",
+      "country": "POLAND",
+      "count": 571
+    },
+    {
+      "en": "National Centre for Nuclear Research",
+      "cn": "波兰国家核研究中心",
+      "country": "POLAND",
+      "count": 568
+    },
+    {
+      "en": "Rudjer Boskovic Institute",
+      "cn": "鲁杰尔·博什科维奇研究所",
+      "country": "CROATIA",
+      "count": 560
+    },
+    {
+      "en": "University of Split",
+      "cn": "德布勒森大学",
+      "country": "CROATIA",
+      "count": 551
+    },
+    {
+      "en": "University of Debrecen",
+      "cn": "约阿尼纳大学",
+      "country": "HUNGARY",
+      "count": 547
+    },
+    {
+      "en": "Eotvos Lorand University",
+      "cn": "华沙大学",
+      "country": "HUNGARY",
+      "count": 528
+    },
+    {
+      "en": "Palacky University Olomouc",
+      "cn": "帕拉茨基大学",
+      "country": "CZECH REPUBLIC",
+      "count": 517
+    },
+    {
+      "en": "University of Ioannina",
+      "cn": "萨格勒布大学",
+      "country": "GREECE",
+      "count": 473
+    },
+    {
+      "en": "Hungarian Institute for Nuclear Research",
+      "cn": "匈牙利科学院核研究所",
+      "country": "HUNGARY",
+      "count": 473
+    }
+  ],
+  "ceec_135": [
+    {
+      "en": "Hungarian Wigner Research Centre for Physics",
+      "cn": "匈牙利维格纳物理研究中心",
+      "country": "HUNGARY",
+      "count": 1974
+    },
+    {
+      "en": "Charles University Prague",
+      "cn": "查理大学",
+      "country": "CZECH REPUBLIC",
+      "count": 1934
+    },
+    {
+      "en": "National & Kapodistrian University of Athens",
+      "cn": "雅典大学",
+      "country": "GREECE",
+      "count": 1697
+    },
+    {
+      "en": "University of Belgrade",
+      "cn": "贝尔格莱德大学",
+      "country": "SERBIA",
+      "count": 1566
+    },
+    {
+      "en": "Horia Hulubei National Institute of Physics & Nuclear Engineering",
+      "cn": "霍里亚·胡鲁比国家物理和核工程研究所",
+      "country": "ROMANIA",
+      "count": 1536
+    },
+    {
+      "en": "National Technical University of Athens",
+      "cn": "雅典国家技术大学",
+      "country": "GREECE",
+      "count": 1499
+    },
+    {
+      "en": "Institute of Nuclear Physics - Polish Academy of Sciences",
+      "cn": "波兰科学院核物理研究所",
+      "country": "POLAND",
+      "count": 1485
+    },
+    {
+      "en": "National Centre for Nuclear Research",
+      "cn": "波兰国家核研究中心",
+      "country": "POLAND",
+      "count": 1386
+    },
+    {
+      "en": "Comenius University Bratislava",
+      "cn": "布拉迪斯拉发夸美纽斯大学",
+      "country": "SLOVAKIA",
+      "count": 1280
+    },
+    {
+      "en": "Warsaw University of Technology",
+      "cn": "华沙工业大学",
+      "country": "POLAND",
+      "count": 1272
+    },
+    {
+      "en": "Slovenian Academy of Sciences & Arts (SASA)",
+      "cn": "斯洛文尼亚约瑟夫·斯蒂芬研究所",
+      "country": "SLOVENIA",
+      "count": 1170
+    },
+    {
+      "en": "Jozef Stefan Institute",
+      "cn": "波兰",
+      "country": "克拉科夫AGH科技大学",
+      "count": 1140
+    },
+    {
+      "en": "AGH University of Science & Technology",
+      "cn": "德谟克利特国家科学研究中心",
+      "country": "POLAND",
+      "count": 1114
+    },
+    {
+      "en": "National Centre of Scientific Research Demokritos",
+      "cn": "捷克理工大学",
+      "country": "GREECE",
+      "count": 1105
+    },
+    {
+      "en": "Czech Technical University Prague",
+      "cn": "罗兰大学",
+      "country": "CZECH REPUBLIC",
+      "count": 1054
+    },
+    {
+      "en": "Eotvos Lorand University",
+      "cn": "华沙大学",
+      "country": "HUNGARY",
+      "count": 1030
+    },
+    {
+      "en": "University of Warsaw",
+      "cn": "雅盖隆大学",
+      "country": "POLAND",
+      "count": 1025
+    },
+    {
+      "en": "Jagiellonian University",
+      "cn": "卢布尔雅那大学",
+      "country": "POLAND",
+      "count": 985
+    },
+    {
+      "en": "University of Ljubljana",
+      "cn": "捷克科学院物理研究所",
+      "country": "SLOVENIA",
+      "count": 971
+    },
+    {
+      "en": "Institute of Physics of the Czech Academy of Sciences",
+      "cn": "萨洛尼卡大学",
+      "country": "CZECH REPUBLIC",
+      "count": 967
+    },
+    {
+      "en": "Aristotle University of Thessaloniki",
+      "cn": "斯普利特大学",
+      "country": "GREECE",
+      "count": 907
+    },
+    {
+      "en": "University of Split",
+      "cn": "德布勒森大学",
+      "country": "CROATIA",
+      "count": 888
+    },
+    {
+      "en": "University of Debrecen",
+      "cn": "约阿尼纳大学",
+      "country": "HUNGARY",
+      "count": 797
+    },
+    {
+      "en": "University of Ioannina",
+      "cn": "萨格勒布大学",
+      "country": "GREECE",
+      "count": 774
+    },
+    {
+      "en": "University of Zagreb",
+      "cn": "维尔纽斯大学",
+      "country": "CROATIA",
+      "count": 742
+    }
+  ]
+}
