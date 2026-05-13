@@ -16,17 +16,82 @@ const SCENES = [
   { id: 6, label: "06 · 另一种地图" },
 ];
 
+// Autoplay dwell time (ms) per scene — long enough for the entrance animation +
+// the viewer to read the headline. Tuned per scene's length.
+const SCENE_DWELL: Record<number, number> = {
+  1: 7000,
+  2: 11000, // 8s race + 1.5s hold + read time
+  3: 7000,
+  4: 9000,
+  5: 12000, // two 4s loop ticks for the strip toggle
+  6: 8000,
+};
+
 export default function App() {
   const data = useData();
   const [scene, setScene] = useState(1);
+  const [transitioning, setTransitioning] = useState(false);
+  const [autoplay, setAutoplay] = useState(false);
 
+  // Fire the cinematic flash + letterbox whenever scene changes
+  useEffect(() => {
+    setTransitioning(true);
+    const id = setTimeout(() => setTransitioning(false), 720);
+    return () => clearTimeout(id);
+  }, [scene]);
+
+  // Keyboard: arrows step, space toggles autoplay
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") setScene((s) => Math.min(SCENES.length, s + 1));
       if (e.key === "ArrowLeft") setScene((s) => Math.max(1, s - 1));
+      if (e.key === " " || e.code === "Space") {
+        e.preventDefault();
+        setAutoplay((a) => !a);
+      }
+      if (e.key === "Escape") setAutoplay(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Mouse wheel: step scenes (debounced)
+  useEffect(() => {
+    let last = 0;
+    const onWheel = (e: WheelEvent) => {
+      const now = performance.now();
+      if (now - last < 600) return;
+      // require enough delta to count as a deliberate scroll
+      if (Math.abs(e.deltaY) < 30) return;
+      last = now;
+      if (e.deltaY > 0) setScene((s) => Math.min(SCENES.length, s + 1));
+      else setScene((s) => Math.max(1, s - 1));
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, []);
+
+  // Autoplay scheduler: advance scene after its dwell time, loop back to 1 at end
+  useEffect(() => {
+    if (!autoplay) return;
+    const dwell = SCENE_DWELL[scene] ?? 8000;
+    const id = setTimeout(() => {
+      setScene((s) => (s < SCENES.length ? s + 1 : 1));
+    }, dwell);
+    return () => clearTimeout(id);
+  }, [autoplay, scene]);
+
+  // Viewport scaling: design size is 1440×900; scale down to fit smaller viewports.
+  useEffect(() => {
+    const update = () => {
+      const sx = window.innerWidth / 1440;
+      const sy = window.innerHeight / 900;
+      const scale = Math.min(sx, sy, 1);
+      document.documentElement.style.setProperty("--app-scale", String(scale));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
   return (
@@ -35,10 +100,33 @@ export default function App() {
         <div className="title">
           <strong>中欧合作</strong> · 粒子对撞机里的科技外交
         </div>
-        <div>2011 — 2020 · scidb.cn / china-ceec coauthorship</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <span>2011 — 2020 · scidb.cn / china-ceec coauthorship</span>
+          <button
+            onClick={() => setAutoplay((a) => !a)}
+            title="按空格键切换自动播放"
+            style={{
+              background: autoplay ? "var(--accent-cn)" : "transparent",
+              color: autoplay ? "#150202" : "var(--ink-2)",
+              border: `1px solid ${autoplay ? "var(--accent-cn)" : "rgba(201,194,173,0.18)"}`,
+              padding: "4px 10px",
+              fontFamily: "var(--mono)",
+              fontSize: 10,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              borderRadius: 2,
+            }}
+          >
+            {autoplay ? "● 自动播放" : "○ 自动播放 [SPACE]"}
+          </button>
+        </div>
       </div>
 
       <div className="scene-stage">
+        <div className={`scene-bar top${transitioning ? " firing" : ""}`} />
+        <div className={`scene-bar bottom${transitioning ? " firing" : ""}`} />
+        <div className={`scene-flash${transitioning ? " firing" : ""}`} />
         {!data && <LoadingScreen />}
         {data && (
           <>
@@ -75,6 +163,33 @@ export default function App() {
           </button>
         ))}
       </nav>
+
+      {/* Autoplay progress bar at the very bottom */}
+      {autoplay && (
+        <div
+          key={scene}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 2,
+            background: "rgba(255, 77, 61, 0.12)",
+            zIndex: 50,
+            pointerEvents: "none",
+          }}
+        >
+          <div
+            style={{
+              height: "100%",
+              background:
+                "linear-gradient(90deg, var(--accent-cn), var(--accent-cn-glow))",
+              transformOrigin: "left center",
+              animation: `autoplayBar ${SCENE_DWELL[scene] ?? 8000}ms linear forwards`,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

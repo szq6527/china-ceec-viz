@@ -1,4 +1,11 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import {
+  EffectComposer,
+  Bloom,
+  ChromaticAberration,
+  Vignette,
+} from "@react-three/postprocessing";
+import { BlendFunction, KernelSize } from "postprocessing";
 import { useMemo, useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import type { AppData } from "../data/useData";
@@ -22,26 +29,68 @@ export function Scene4Collider({ data, active }: Props) {
       <Canvas
         camera={{ position: [0, 1.4, 7.5], fov: 45 }}
         dpr={[1, 2]}
-        gl={{ antialias: true, alpha: false }}
+        gl={{ antialias: true, alpha: false, toneMappingExposure: 1.15 }}
       >
         <color attach="background" args={["#040713"]} />
         <fog attach="fog" args={["#040713", 8, 22]} />
-        <ambientLight intensity={0.25} />
-        <pointLight position={[0, 0, 0]} intensity={3.5} color="#c77dff" distance={12} />
-        <pointLight position={[5, 4, 6]} intensity={0.6} color="#4cc9f0" />
-        <pointLight position={[-5, -4, 6]} intensity={0.6} color="#ff4d3d" />
+        <ambientLight intensity={0.18} />
+        <pointLight position={[0, 0, 0]} intensity={4.2} color="#c77dff" distance={14} />
+        <pointLight position={[5, 4, 6]} intensity={0.7} color="#4cc9f0" />
+        <pointLight position={[-5, -4, 6]} intensity={0.7} color="#ff4d3d" />
         {active && (
           <>
+            <CameraDolly />
             <ColliderGeometry />
             <EnergyCore />
             <ParticleBurst count={3024} />
             <BeamLines />
+            <EffectComposer multisampling={0}>
+              <Bloom
+                intensity={1.6}
+                luminanceThreshold={0.18}
+                luminanceSmoothing={0.55}
+                kernelSize={KernelSize.LARGE}
+                mipmapBlur
+              />
+              <ChromaticAberration
+                blendFunction={BlendFunction.NORMAL}
+                offset={new THREE.Vector2(0.0008, 0.0012)}
+                radialModulation={false}
+                modulationOffset={0}
+              />
+              <Vignette eskil={false} offset={0.25} darkness={0.85} />
+            </EffectComposer>
           </>
         )}
       </Canvas>
       <Overlay data={data} active={active} />
     </div>
   );
+}
+
+/* ============================================================
+ * Camera dolly-in — flies the camera from far Z toward the rest position
+ * to give a "diving into the collider" feel on scene enter.
+ * ============================================================ */
+const DOLLY_DURATION = 1700; // ms
+const REST = new THREE.Vector3(0, 1.4, 7.5);
+const START = new THREE.Vector3(0, 4.5, 26);
+
+function CameraDolly() {
+  const { camera } = useThree();
+  const startTime = useRef<number | null>(null);
+  useFrame(() => {
+    if (startTime.current === null) {
+      startTime.current = performance.now();
+      camera.position.copy(START);
+    }
+    const t = Math.min(1, (performance.now() - startTime.current) / DOLLY_DURATION);
+    // ease-out quintic
+    const e = 1 - Math.pow(1 - t, 5);
+    camera.position.lerpVectors(START, REST, e);
+    camera.lookAt(0, 0, 0);
+  });
+  return null;
 }
 
 /* ============================================================
@@ -52,10 +101,10 @@ export function Scene4Collider({ data, active }: Props) {
 function ColliderGeometry() {
   const rings = useMemo(
     () => [
-      { r: 1.3,  tube: 0.06,  color: "#c77dff", op: 0.55 },
-      { r: 1.7,  tube: 0.08,  color: "#9d4edd", op: 0.45 },
-      { r: 2.15, tube: 0.10,  color: "#7b2cbf", op: 0.35 },
-      { r: 2.6,  tube: 0.04,  color: "#4cc9f0", op: 0.55 },
+      { r: 1.3,  tube: 0.06,  color: "#c77dff", op: 0.65, emis: 2.2 },
+      { r: 1.7,  tube: 0.08,  color: "#9d4edd", op: 0.55, emis: 1.8 },
+      { r: 2.15, tube: 0.10,  color: "#7b2cbf", op: 0.45, emis: 1.4 },
+      { r: 2.6,  tube: 0.04,  color: "#4cc9f0", op: 0.65, emis: 2.4 },
     ],
     []
   );
@@ -73,11 +122,12 @@ function ColliderGeometry() {
           <meshStandardMaterial
             color={ring.color}
             emissive={ring.color}
-            emissiveIntensity={1.4}
+            emissiveIntensity={ring.emis}
             metalness={0.4}
             roughness={0.3}
             transparent
             opacity={ring.op}
+            toneMapped={false}
           />
         </mesh>
       ))}
@@ -104,10 +154,11 @@ function ColliderGeometry() {
           <meshStandardMaterial
             color="#c77dff"
             emissive="#c77dff"
-            emissiveIntensity={1.6}
+            emissiveIntensity={2.6}
             transparent
-            opacity={0.55}
+            opacity={0.65}
             side={THREE.DoubleSide}
+            toneMapped={false}
           />
         </mesh>
       ))}
@@ -151,12 +202,12 @@ function EnergyCore() {
     <>
       <mesh ref={ref}>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshBasicMaterial color="#ffe6a8" transparent opacity={0.95} />
+        <meshBasicMaterial color="#fff2c8" transparent opacity={0.98} toneMapped={false} />
       </mesh>
       {/* outer halo */}
-      <mesh>
+      <mesh scale={1.4}>
         <sphereGeometry args={[0.85, 24, 24]} />
-        <meshBasicMaterial color="#c77dff" transparent opacity={0.18} />
+        <meshBasicMaterial color="#c77dff" transparent opacity={0.22} toneMapped={false} />
       </mesh>
     </>
   );
@@ -269,13 +320,14 @@ function ParticleBurst({ count }: { count: number }) {
         <bufferAttribute attach="attributes-color" args={[colors, 3]} count={count} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.06}
         sizeAttenuation
         vertexColors
         transparent
         opacity={1}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
+        toneMapped={false}
       />
     </points>
   );
@@ -289,31 +341,88 @@ function BeamLines() {
     <>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.025, 0.025, 6, 16]} />
-        <meshBasicMaterial color="#ff4d3d" transparent opacity={0.55} />
+        <meshBasicMaterial color="#ff4d3d" transparent opacity={0.7} toneMapped={false} />
       </mesh>
       {[-3, 3].map((z) => (
         <mesh key={z} position={[0, 0, z]}>
-          <sphereGeometry args={[0.06, 12, 12]} />
-          <meshBasicMaterial color="#ffe6a8" />
+          <sphereGeometry args={[0.07, 12, 12]} />
+          <meshBasicMaterial color="#fff2c8" toneMapped={false} />
         </mesh>
       ))}
     </>
   );
 }
 
+interface FeaturePaper {
+  doi: string;
+  title: string;
+  venue: string;
+  year: number;
+  collaboration: string;
+  total_authors: number;
+  distinct_countries: number;
+  distinct_institutions: number;
+}
+
+interface MegaPaperStats {
+  aggregate: {
+    papers_sampled: number;
+    authorships_total: number;
+    band_papers: Record<string, number>;
+    band_authorships: Record<string, number>;
+    share_big_papers: number;        // ≥ 100 authors
+    share_big_authorships: number;
+  };
+  by_country: Record<string, {
+    name_cn: string;
+    papers_sampled: number;
+    authorships_total: number;
+    share_big_papers: number;
+    share_big_authorships: number;
+  }>;
+}
+
 /* ============================================================
  * 2D narrative overlay
  * ============================================================ */
 function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
+  const [paper, setPaper] = useState<FeaturePaper | null>(null);
+  const [stats, setStats] = useState<MegaPaperStats | null>(null);
+  useEffect(() => {
+    fetch("./data/feature_paper.json")
+      .then((r) => r.json())
+      .then(setPaper)
+      .catch(() => setPaper(null));
+    fetch("./data/megapaper_stats.json")
+      .then((r) => r.json())
+      .then(setStats)
+      .catch(() => setStats(null));
+  }, []);
+
+  // Worst-affected country (most CERN-distorted)
+  const worstCountry = stats
+    ? Object.values(stats.by_country).sort(
+        (a, b) => b.share_big_authorships - a.share_big_authorships
+      )[0]
+    : null;
+
+  const TARGET = paper?.total_authors ?? 2932;
   const [authorCount, setAuthorCount] = useState(0);
-  const TARGET = 3024;
   useEffect(() => {
     if (!active) return;
     setAuthorCount(0);
     let raf = 0;
+    const ANIM_DELAY = 2100;   // wait for dolly + stats panel reveal
+    const ANIM_DURATION = 2400;
     const start = performance.now();
     const tick = () => {
-      const t = Math.min(1, (performance.now() - start) / 2400);
+      const elapsed = performance.now() - start;
+      if (elapsed < ANIM_DELAY) {
+        setAuthorCount(0);
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      const t = Math.min(1, (elapsed - ANIM_DELAY) / ANIM_DURATION);
       // ease-out so the count whips toward target
       const e = 1 - Math.pow(1 - t, 3);
       setAuthorCount(Math.round(e * TARGET));
@@ -321,12 +430,14 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [active]);
+  }, [active, TARGET]);
 
   return (
     <>
       {/* Top-left: kicker + headline */}
       <div
+        key={`headline-${active}`}
+        className="scene4-panel delay-headline"
         style={{
           position: "absolute",
           top: 56,
@@ -344,21 +455,88 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
           style={{
             marginTop: 4,
             fontSize: "clamp(28px, 3.4vw, 48px)",
+            lineHeight: 1.08,
           }}
         >
-          一篇论文,<br />
-          <span style={{ color: "#ffe6a8" }}>3,024 位作者</span><br />
-          横跨 38 国
+          <span style={{ color: "#ffe6a8" }}>
+            {stats ? `${(stats.aggregate.share_big_papers * 100).toFixed(1)}%` : "—"}
+          </span>{" "}
+          的论文,<br />
+          制造了{" "}
+          <span style={{ color: "var(--accent-physics)" }}>
+            {stats ? `${(stats.aggregate.share_big_authorships * 100).toFixed(1)}%` : "—"}
+          </span>{" "}
+          的"合作量"
         </h1>
         <p className="subhead" style={{ marginTop: 14, fontSize: 15 }}>
-          打开「波兰 × 中科院高能物理研究所」这条最粗的弧线 ——<br />
-          它的本体,是一个个 <strong style={{ color: "var(--accent-physics)" }}>CERN ATLAS / CMS 大科学协作</strong>
-          的论文,每一位作者都被算作一次"中欧合作"。
+          在 OpenAlex 抽样的{" "}
+          <strong className="mono tabular">
+            {stats?.aggregate.papers_sampled.toLocaleString() ?? "17,098"}
+          </strong>{" "}
+          篇中-中东欧合作论文里(2016-2020),作者数 ≥ 100 的"大科学协作"只占
+          一小部分,却吃下了大半"合作量"。一篇 ATLAS 论文,把 38 国连成一次"合作"。
         </p>
       </div>
 
+      {/* Mid-left: the disproportion bars — the proof */}
+      {stats && (
+        <div
+          key={`bars-${active}`}
+          className="scene4-panel delay-headline"
+          style={{
+            position: "absolute",
+            left: 48,
+            top: 360,
+            width: 380,
+            zIndex: 5,
+            pointerEvents: "none",
+            fontFamily: "var(--serif)",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--mono)",
+              fontSize: 10,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "var(--ink-2)",
+              marginBottom: 12,
+            }}
+          >
+            按作者数分桶
+          </div>
+          <DisproportionRow
+            label="论文数占比"
+            bands={bandShares(stats.aggregate.band_papers)}
+          />
+          <div style={{ height: 10 }} />
+          <DisproportionRow
+            label="合作量占比"
+            bands={bandShares(stats.aggregate.band_authorships)}
+            emphasize
+          />
+          <div
+            style={{
+              marginTop: 14,
+              fontFamily: "var(--mono)",
+              fontSize: 10,
+              color: "var(--ink-2)",
+              letterSpacing: "0.16em",
+              lineHeight: 1.8,
+            }}
+          >
+            <span style={{ color: "#88e3a0" }}>■</span> 1-9 作者&nbsp;&nbsp;
+            <span style={{ color: "#4cc9f0" }}>■</span> 10-49&nbsp;&nbsp;
+            <span style={{ color: "#f5b14a" }}>■</span> 50-99&nbsp;&nbsp;
+            <span style={{ color: "#c77dff" }}>■</span> 100+ (大科学)
+          </div>
+        </div>
+      )}
+
       {/* Top-right: real paper card */}
       <div
+        key={`paper-${active}`}
+        className="scene4-panel delay-paper"
         style={{
           position: "absolute",
           top: 70,
@@ -379,11 +557,11 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
             marginBottom: 10,
           }}
         >
-          一个真实样本 · Phys. Lett. B
+          一个真实样本 · {paper?.venue ?? "Phys. Lett. B"}
         </div>
         <div style={{ fontSize: 14, lineHeight: 1.5, color: "var(--ink-0)" }}>
-          “Observation of a new particle in the search for the Standard Model
-          Higgs boson with the ATLAS detector at the LHC”
+          “{paper?.title ??
+            "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"}”
         </div>
         <div
           style={{
@@ -394,13 +572,16 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
             letterSpacing: "0.1em",
           }}
         >
-          ATLAS Collaboration · 2012<br />
-          DOI: 10.1016/j.physletb.2012.08.020
+          {paper?.collaboration ?? "ATLAS Collaboration"} · {paper?.year ?? 2012}
+          <br />
+          DOI: {paper?.doi ?? "10.1016/j.physletb.2012.08.020"} · 数据 OpenAlex
         </div>
       </div>
 
       {/* Bottom: stat counters */}
       <div
+        key={`stats-${active}`}
+        className="scene4-panel delay-stats"
         style={{
           position: "absolute",
           left: 48,
@@ -413,16 +594,120 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
           flexWrap: "wrap",
         }}
       >
-        <Counter label="该论文作者数" value={authorCount.toLocaleString()} />
-        <Counter label="参与国家数" value="38" />
-        <Counter label="参与机构数" value="174" />
         <Counter
-          label="物理 + 天文学占比"
-          value="40.4%"
-          sub="中-中东欧合作论文"
+          label="抽样论文"
+          value={stats?.aggregate.papers_sampled.toLocaleString() ?? "—"}
+          sub="OpenAlex · 2016-2020"
+        />
+        <Counter
+          label="≥100 作者的论文比例"
+          value={
+            stats ? `${(stats.aggregate.share_big_papers * 100).toFixed(1)}%` : "—"
+          }
+          sub="少数派"
+        />
+        <Counter
+          label="↑ 它们吃下的合作量"
+          value={
+            stats ? `${(stats.aggregate.share_big_authorships * 100).toFixed(1)}%` : "—"
+          }
+          sub="多数派 · 5× 不成比例"
+        />
+        <Counter
+          label={worstCountry ? `最严重 · ${worstCountry.name_cn}` : "代表样本作者数"}
+          value={
+            worstCountry
+              ? `${(worstCountry.share_big_authorships * 100).toFixed(0)}%`
+              : authorCount.toLocaleString()
+          }
+          sub={worstCountry ? "合作量被 megapaper 占" : ""}
         />
       </div>
     </>
+  );
+}
+
+const BAND_ORDER = ["1-9", "10-49", "50-99", "100-499"] as const;
+const BAND_COLORS: Record<string, string> = {
+  "1-9": "#88e3a0",
+  "10-49": "#4cc9f0",
+  "50-99": "#f5b14a",
+  "100-499": "#c77dff",
+};
+
+function bandShares(record: Record<string, number>): Array<{ key: string; share: number }> {
+  const sum = BAND_ORDER.reduce((s, b) => s + (record[b] || 0), 0);
+  if (!sum) return [];
+  return BAND_ORDER.map((b) => ({ key: b, share: (record[b] || 0) / sum }));
+}
+
+function DisproportionRow({
+  label,
+  bands,
+  emphasize,
+}: {
+  label: string;
+  bands: Array<{ key: string; share: number }>;
+  emphasize?: boolean;
+}) {
+  const last = bands[bands.length - 1];
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          marginBottom: 6,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--mono)",
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--ink-1)",
+          }}
+        >
+          {label}
+        </span>
+        <span
+          className="mono tabular"
+          style={{
+            fontSize: emphasize ? 22 : 16,
+            fontWeight: 700,
+            color: emphasize ? "var(--accent-physics)" : "var(--ink-0)",
+          }}
+        >
+          {last ? `${(last.share * 100).toFixed(1)}%` : "—"}
+          <span style={{ fontSize: 10, color: "var(--ink-2)", marginLeft: 6 }}>
+            100+
+          </span>
+        </span>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          height: emphasize ? 16 : 10,
+          background: "rgba(255,255,255,0.04)",
+          borderRadius: 2,
+          overflow: "hidden",
+          boxShadow: emphasize ? "0 0 18px rgba(199, 125, 255, 0.25)" : "none",
+        }}
+      >
+        {bands.map((b) => (
+          <div
+            key={b.key}
+            style={{
+              flex: b.share,
+              background: BAND_COLORS[b.key],
+              transition: "flex 800ms cubic-bezier(0.65,0,0.35,1)",
+            }}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

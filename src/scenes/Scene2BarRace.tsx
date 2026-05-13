@@ -83,7 +83,7 @@ export function Scene2BarRace({ data, active }: Props) {
   // Choose narrative callout based on year
   const callout = useMemo(() => {
     const y = currentYear;
-    if (y <= 2012) return { title: "起点 · 2011-2012", body: "14 国挤在同一起跑线,差距还能用一只手数清。" };
+    if (y <= 2012) return { title: "起点 · 2011-2012", body: "16 国挤在同一起跑线,差距还能用一只手数清。" };
     if (y <= 2014) return { title: "波兰提速", body: "波兰开始与捷克、希腊拉开数量级。" };
     if (y <= 2016)
       return {
@@ -418,7 +418,7 @@ export function Scene2BarRace({ data, active }: Props) {
         style={{
           position: "absolute",
           left: 48,
-          bottom: 24,
+          bottom: 6,
           right: 400,
           zIndex: 3,
           fontFamily: "var(--mono)",
@@ -427,9 +427,51 @@ export function Scene2BarRace({ data, active }: Props) {
           letterSpacing: "0.14em",
           textTransform: "uppercase",
           lineHeight: 1.5,
+          opacity: 0.7,
         }}
       >
-        各国数据为 ScienceDB 原始 125 / 135 期间总量;年内分布按全局年度走势估算 · 各国总量含与多国共著的论文,因此各国数和 ≠ CEEC 总数
+        ScienceDB 原始 125/135 期间总量 · 年内分布按全局年度走势估算 · 立陶宛/北马其顿由 OpenAlex 回填 · 各国数和 ≠ CEEC 总数(因多国共著)
+      </div>
+
+      {/* Bridge to Scene 3 — fades in only at the end of the race */}
+      <div
+        style={{
+          position: "absolute",
+          left: 48,
+          right: 400,
+          bottom: 56,
+          zIndex: 4,
+          pointerEvents: "none",
+          fontFamily: "var(--serif)",
+          opacity: currentYear >= 2020 ? 1 : 0,
+          transform: currentYear >= 2020 ? "translateY(0)" : "translateY(8px)",
+          transition: "opacity 800ms ease, transform 800ms ease",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--mono)",
+            fontSize: 10,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "var(--accent-warn)",
+            marginBottom: 8,
+          }}
+        >
+          下一个问题 →
+        </div>
+        <div
+          style={{
+            fontSize: 22,
+            color: "var(--ink-0)",
+            fontWeight: 700,
+            lineHeight: 1.3,
+            maxWidth: 720,
+          }}
+        >
+          量都涨了 —— 可在中国全球合作伙伴的名单里,他们的{" "}
+          <span style={{ color: "var(--accent-cn-glow)" }}>排位</span> 呢?
+        </div>
       </div>
 
       <style>{`

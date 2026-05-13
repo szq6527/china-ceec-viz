@@ -576,6 +576,102 @@
     ]
   },
   {
+    "iso": "LTU",
+    "name_cn": "立陶宛",
+    "total": 976,
+    "growth": 1.8125,
+    "yearly": [
+      {
+        "year": 2011,
+        "count": 34
+      },
+      {
+        "year": 2012,
+        "count": 44
+      },
+      {
+        "year": 2013,
+        "count": 52
+      },
+      {
+        "year": 2014,
+        "count": 59
+      },
+      {
+        "year": 2015,
+        "count": 68
+      },
+      {
+        "year": 2016,
+        "count": 103
+      },
+      {
+        "year": 2017,
+        "count": 113
+      },
+      {
+        "year": 2018,
+        "count": 136
+      },
+      {
+        "year": 2019,
+        "count": 173
+      },
+      {
+        "year": 2020,
+        "count": 195
+      }
+    ]
+  },
+  {
+    "iso": "MKD",
+    "name_cn": "北马其顿",
+    "total": 772,
+    "growth": 0.9022556390977443,
+    "yearly": [
+      {
+        "year": 2011,
+        "count": 35
+      },
+      {
+        "year": 2012,
+        "count": 46
+      },
+      {
+        "year": 2013,
+        "count": 54
+      },
+      {
+        "year": 2014,
+        "count": 61
+      },
+      {
+        "year": 2015,
+        "count": 70
+      },
+      {
+        "year": 2016,
+        "count": 72
+      },
+      {
+        "year": 2017,
+        "count": 79
+      },
+      {
+        "year": 2018,
+        "count": 95
+      },
+      {
+        "year": 2019,
+        "count": 122
+      },
+      {
+        "year": 2020,
+        "count": 137
+      }
+    ]
+  },
+  {
     "iso": "MNE",
     "name_cn": "黑山",
     "total": 140,

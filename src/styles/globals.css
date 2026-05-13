@@ -29,12 +29,21 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background: var(--bg-0);
+  background: #000;
   color: var(--ink-0);
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow: hidden;
+}
+
+/* The app is designed at 1440 × 900. We scale it down to fit smaller viewports
+   while preserving aspect ratio (letterbox style). On viewports ≥ 1440 it
+   simply renders at native size, centered. */
+#root {
+  display: grid;
+  place-items: center;
+  background: #000;
 }
 
 a {
@@ -63,12 +72,18 @@ body::before {
   font-variant-numeric: tabular-nums;
 }
 
-/* App-level layout */
+/* App-level layout — fixed design size, scaled to viewport via --app-scale */
 .app-shell {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  width: 1440px;
+  height: 900px;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  background: var(--bg-0);
+  transform: scale(var(--app-scale, 1));
+  transform-origin: center center;
+  overflow: hidden;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
 }
 
 .top-bar {
@@ -132,12 +147,87 @@ body::before {
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 600ms ease;
+  transform: translateY(14px);
+  transition:
+    opacity 720ms cubic-bezier(0.65, 0, 0.35, 1),
+    transform 720ms cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: opacity, transform;
 }
 .scene.active {
   opacity: 1;
   pointer-events: auto;
+  transform: translateY(0);
 }
+
+/* Cinematic transition flash + scan-line — pulses on every scene change */
+.scene-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(5, 8, 16, 0) 0%,
+      rgba(5, 8, 16, 0) 38%,
+      rgba(5, 8, 16, 0.55) 50%,
+      rgba(5, 8, 16, 0) 62%,
+      rgba(5, 8, 16, 0) 100%
+    );
+  background-size: 100% 220%;
+  background-position: 0 0;
+}
+.scene-flash.firing {
+  animation: sceneFlashSweep 720ms ease both;
+}
+/* Scene 4 overlay panels: appear after the camera dive completes */
+.scene4-panel {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: scene4Reveal 700ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.scene4-panel.delay-headline { animation-delay: 1600ms; }
+.scene4-panel.delay-paper    { animation-delay: 1900ms; }
+.scene4-panel.delay-stats    { animation-delay: 2100ms; }
+@keyframes scene4Reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes autoplayBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes sceneFlashSweep {
+  0% {
+    opacity: 0;
+    background-position: 0 -110%;
+  }
+  35% {
+    opacity: 1;
+    background-position: 0 0%;
+  }
+  100% {
+    opacity: 0;
+    background-position: 0 110%;
+  }
+}
+
+/* Top/bottom letterbox bars that briefly slide in during transitions */
+.scene-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: var(--bg-0);
+  pointer-events: none;
+  z-index: 99;
+  transition: height 360ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.scene-bar.top { top: 0; }
+.scene-bar.bottom { bottom: 0; }
+.scene-bar.firing { height: 28px; }
 
 /* Story overlay text */
 .kicker {

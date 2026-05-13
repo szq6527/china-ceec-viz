@@ -132,6 +132,30 @@
     "rank_change": 23
   },
   {
+    "name_cn": "立陶宛",
+    "iso": "LTU",
+    "count_135": 720,
+    "count_125": 256,
+    "ratio_135": 0.040659588886379036,
+    "rank_135": 108,
+    "rank_125": 87,
+    "growth": 1.8125,
+    "rank_change": -21,
+    "_source": "OpenAlex 2026-05-09 (backfilled; ranks estimated by interpolation)"
+  },
+  {
+    "name_cn": "北马其顿",
+    "iso": "MKD",
+    "count_135": 506,
+    "count_125": 266,
+    "ratio_135": 0.02857465552292749,
+    "rank_135": 108,
+    "rank_125": 87,
+    "growth": 0.9022556390977443,
+    "rank_change": -21,
+    "_source": "OpenAlex 2026-05-09 (backfilled; ranks estimated by interpolation)"
+  },
+  {
     "name_cn": "黑山",
     "iso": "MNE",
     "count_135": 129,

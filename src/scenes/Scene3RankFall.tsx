@@ -105,7 +105,7 @@ export function Scene3RankFall({ data, active }: Props) {
             fontSize: "clamp(26px, 3.2vw, 44px)",
           }}
         >
-          量在涨,<br />
+          答案:量在涨,<br />
           <span style={{ color: "var(--accent-cn-glow)" }}>排位却在掉</span>
         </h1>
         <p className="subhead" style={{ marginTop: 14, fontSize: 15 }}>
@@ -322,7 +322,7 @@ export function Scene3RankFall({ data, active }: Props) {
             marginBottom: 10,
           }}
         >
-          14 国 · 排位变化分布
+          {data.perCountry.length} 国 · 排位变化分布
         </div>
         <div style={{ display: "flex", gap: 28 }}>
           <Stat label="排位下降" value={fallers} hint="重量级国家" color="#ff8366" />

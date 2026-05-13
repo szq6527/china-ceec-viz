@@ -79,6 +79,8 @@ export function Scene5RealBilateral({ data, active }: Props) {
 
   const rows: CountryBuckets[] = useMemo(() => {
     return data.perCountry
+      // Only countries with subject-level data (2 are backfilled, no subject breakdown)
+      .filter((c) => !!data.countrySubjects[c.iso])
       .map((c) => {
         const cs = data.countrySubjects[c.iso];
         const buckets: Record<Bucket, number> = {
@@ -337,7 +339,7 @@ export function Scene5RealBilateral({ data, active }: Props) {
           tint="#80ed99"
         />
         <Insight
-          label="14 国 · 物理 + 天文均值"
+          label={`${rows.length} 国(有学科数据)· 物理 + 天文均值`}
           name="—"
           value={`${(groupPhysicsShare * 100).toFixed(0)}%`}
           tint="var(--accent-physics)"

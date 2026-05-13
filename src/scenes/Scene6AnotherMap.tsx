@@ -9,6 +9,59 @@ interface Props {
 
 const PHYS_CODES = new Set(["0702", "0704", "0827"]); // Physics, Astronomy, Nuclear
 
+// Compute the strongest "real bilateral" specialties — (country × non-physics subject)
+// pairs that emerge once CERN-style mega-collaboration is stripped out.
+// Strategy:
+//   1. For every country, look at its non-physics subjects from countrySubjects.
+//   2. Score = subject.count × share_in_country (favors both volume and concentration).
+//   3. Deduplicate by country (max 1 highlight per country to ensure diversity).
+//   4. Keep top 5.
+interface Highlight {
+  iso: string;
+  countryCn: string;
+  subjectEn: string;
+  subjectCn: string;
+  count: number;
+  shareInCountry: number;
+}
+function computeHighlights(
+  countrySubjects: Record<string, { name_cn: string; subjects: Array<{ code: string; en: string; cn: string; count: number }> }>,
+  perCountry: Array<{ iso: string; name_cn: string; count_135: number }>,
+  limit = 4
+): Highlight[] {
+  const candidates: Highlight[] = [];
+  for (const c of perCountry) {
+    const cs = countrySubjects[c.iso];
+    if (!cs || !c.count_135) continue;
+    for (const s of cs.subjects) {
+      if (PHYS_CODES.has(s.code)) continue;
+      candidates.push({
+        iso: c.iso,
+        countryCn: c.name_cn,
+        subjectEn: s.en,
+        subjectCn: s.cn || s.en,
+        count: s.count,
+        shareInCountry: s.count / c.count_135,
+      });
+    }
+  }
+  // Score = count × share. Prefer pairs that are both big and distinctive.
+  candidates.sort((a, b) => b.count * b.shareInCountry - a.count * a.shareInCountry);
+  // Diversify on both axes: each country and each subject appears at most once.
+  const seenCountry = new Set<string>();
+  const seenSubject = new Set<string>();
+  const picks: Highlight[] = [];
+  for (const cand of candidates) {
+    if (seenCountry.has(cand.iso)) continue;
+    if (seenSubject.has(cand.subjectEn)) continue;
+    seenCountry.add(cand.iso);
+    seenSubject.add(cand.subjectEn);
+    picks.push(cand);
+    if (picks.length >= limit) break;
+  }
+  return picks;
+}
+
 /**
  * Scene 6 ── 「合作的另一种地图」
  *
@@ -56,6 +109,11 @@ export function Scene6AnotherMap({ data, active }: Props) {
       })
       .sort((a, b) => (stripped ? b.real - a.real : b.full - a.full));
   }, [data, stripped]);
+
+  const highlights = useMemo(
+    () => computeHighlights(data.countrySubjects, data.perCountry, 4),
+    [data]
+  );
 
   const max = Math.max(...ranked.map((r) => (stripped ? r.real : r.full)));
   const arcs = ranked.map((d, idx) => ({
@@ -118,7 +176,8 @@ export function Scene6AnotherMap({ data, active }: Props) {
           )}
         </h1>
         <p className="subhead" style={{ marginTop: 14, fontSize: 14 }}>
-          剥离物理 + 天文 + 核科学后的"实质合作量"。点击右下方按钮可在两种视图间切换。
+          剥离物理 + 天文 + 核科学后的"实质合作量"。地图重画 —— 真正的双边专长浮出水面。
+          右上按钮可切换视图。
         </p>
       </div>
 
@@ -272,12 +331,108 @@ export function Scene6AnotherMap({ data, active }: Props) {
         </div>
       </div>
 
+      {/* Bilateral specialties — the data-driven take-aways */}
+      {stripped && (
+        <div
+          style={{
+            position: "absolute",
+            left: 48,
+            bottom: 88,
+            right: 360,
+            zIndex: 5,
+            pointerEvents: "none",
+            opacity: progress > 0.55 ? 1 : 0,
+            transform: progress > 0.55 ? "translateY(0)" : "translateY(10px)",
+            transition: "opacity 700ms ease, transform 700ms ease",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--mono)",
+              fontSize: 11,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "var(--accent-warn)",
+              marginBottom: 12,
+            }}
+          >
+            剥离物理之后,这些双边浮出水面
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${highlights.length}, 1fr)`,
+              gap: 22,
+              fontFamily: "var(--serif)",
+            }}
+          >
+            {highlights.map((h, i) => (
+              <div
+                key={h.iso + h.subjectEn}
+                style={{
+                  paddingLeft: 14,
+                  borderLeft: "2px solid var(--accent-warn)",
+                  opacity: progress > 0.55 + i * 0.07 ? 1 : 0,
+                  transform: progress > 0.55 + i * 0.07 ? "translateX(0)" : "translateX(-8px)",
+                  transition: "all 500ms ease",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 10,
+                    color: "var(--ink-2)",
+                    letterSpacing: "0.16em",
+                  }}
+                >
+                  0{i + 1}
+                </div>
+                <div
+                  style={{
+                    fontSize: 18,
+                    color: "var(--ink-0)",
+                    fontWeight: 700,
+                    marginTop: 4,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  中-{h.countryCn}
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: "var(--accent-warn)",
+                    marginTop: 2,
+                  }}
+                >
+                  {h.subjectCn}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 12,
+                    color: "var(--ink-2)",
+                    marginTop: 8,
+                    letterSpacing: "0.08em",
+                  }}
+                >
+                  <span className="tabular" style={{ color: "var(--ink-1)" }}>
+                    {h.count.toLocaleString()}
+                  </span>{" "}
+                  篇 · {(h.shareInCountry * 100).toFixed(1)}% 该国合作
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Closing line */}
       <div
         style={{
           position: "absolute",
           left: 48,
-          bottom: 48,
+          bottom: 24,
           right: 48,
           textAlign: "center",
           zIndex: 5,
@@ -286,28 +441,14 @@ export function Scene6AnotherMap({ data, active }: Props) {
       >
         <div
           style={{
-            fontFamily: "var(--serif)",
-            fontSize: 22,
-            color: "var(--ink-1)",
-            fontWeight: 400,
-            letterSpacing: "0.05em",
-            opacity: progress > 0.7 ? 1 : 0,
-            transition: "opacity 1s ease",
-          }}
-        >
-          看见数字之外的合作。
-        </div>
-        <div
-          style={{
             fontFamily: "var(--mono)",
             fontSize: 10,
             color: "var(--ink-2)",
-            marginTop: 12,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
           }}
         >
-          数据来源 · ScienceDB China-CEEC Co-authorship 2011-2020 · WoS
+          数据来源 · ScienceDB China-CEEC Co-authorship 2011-2020 · WoS · OpenAlex
         </div>
       </div>
     </div>
