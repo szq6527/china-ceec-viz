@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { AppData } from "../data/useData";
+import { Scene2HeatMap } from "./Scene2HeatMap";
 
 interface Props {
   data: AppData;
   active: boolean;
+  viewMode: "bars" | "heatmap";
 }
 
 /**
@@ -16,7 +18,7 @@ interface Props {
  * Layout:  bars on the left two-thirds, year ticker top-right, narrative
  * callouts that fade in/out at specific years.
  */
-export function Scene2BarRace({ data, active }: Props) {
+export function Scene2BarRace({ data, active, viewMode }: Props) {
   const series = data.perCountryYearly;
   const years = useMemo(() => {
     if (!series.length) return [] as number[];
@@ -32,8 +34,11 @@ export function Scene2BarRace({ data, active }: Props) {
       startedAt.current = null;
       return;
     }
+    // Reset timer when viewMode or active changes
+    startedAt.current = null;
+    setT(0);
     let raf = 0;
-    const total = 8000; // 8 s for the full race; +1s hold at end
+    const total = viewMode === "heatmap" ? 12000 : 24000; // 12 s heatmap, 24 s bars; +1.5s hold at end
     const tick = (now: number) => {
       if (startedAt.current === null) startedAt.current = now;
       const elapsed = now - (startedAt.current ?? now);
@@ -45,7 +50,7 @@ export function Scene2BarRace({ data, active }: Props) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [active, years.length]);
+  }, [active, years.length, viewMode]);
 
   // Interpolate counts at fractional year cursor t (0..n-1)
   const cursorCounts = useMemo(() => {
@@ -75,7 +80,7 @@ export function Scene2BarRace({ data, active }: Props) {
   // the global CEEC count.
   const top = ranked[0];
   const bottom = ranked[ranked.length - 1];
-  const ratio = bottom && bottom.value > 0 ? top.value / bottom.value : 0;
+  const ratio = bottom && Math.round(bottom.value) > 0 ? top.value / bottom.value : 0;
   const top5Sum = ranked.slice(0, 5).reduce((a, b) => a + b.value, 0);
   const allSum = ranked.reduce((a, b) => a + b.value, 0);
   const top5Share = allSum > 0 ? top5Sum / allSum : 0;
@@ -93,7 +98,9 @@ export function Scene2BarRace({ data, active }: Props) {
     if (y <= 2018) return { title: "十三五加速期", body: "波兰单年首次破千 —— 与排名末位拉到两个数量级。" };
     return {
       title: "终点 · 2020",
-      body: `${top?.name ?? "波兰"} 是 ${bottom?.name ?? "末位"} 的 ${ratio.toFixed(0)} 倍 —— 同名"合作",量级悬殊。`,
+      body: ratio > 0
+        ? `${top?.name ?? "波兰"} 是 ${bottom?.name ?? "末位"} 的 ${ratio.toFixed(0)} 倍 —— 同名"合作",量级悬殊。`
+        : `领头羊与末位之间，已是难以跨越的鸿沟。`,
     };
   }, [currentYear, top, bottom, ratio, top5Share]);
 
@@ -116,8 +123,11 @@ export function Scene2BarRace({ data, active }: Props) {
         inset: 0,
         background: "var(--bg-0)",
         overflow: "hidden",
+        pointerEvents: "auto",
       }}
     >
+      {viewMode === "bars" ? (
+        <>
       {/* Subtle vertical grid */}
       <svg
         style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
@@ -278,7 +288,6 @@ export function Scene2BarRace({ data, active }: Props) {
                           ? `linear-gradient(90deg, ${color} 0%, rgba(255,255,255,0.25) 100%)`
                           : "rgba(76,201,240,0.35)",
                     boxShadow: glow,
-                    transition: "width 350ms linear",
                   }}
                 />
               </div>
@@ -480,6 +489,16 @@ export function Scene2BarRace({ data, active }: Props) {
           to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
+      </>
+      ) : (
+        <Scene2HeatMap
+          data={data}
+          cursorCounts={cursorCounts}
+          currentYear={currentYear}
+          max={max}
+        />
+      )}
+
     </div>
   );
 }

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(conda info *)",
+      "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv', encoding='gb18030' if True else 'utf-8'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")",
+      "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv', encoding='utf-8-sig'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")",
+      "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")"
+    ]
+  }
+}

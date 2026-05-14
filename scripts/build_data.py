@@ -254,7 +254,7 @@ def per_country_yearly():
 
 def write(name, data):
     p = OUT / f"{name}.json"
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2))
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  → {p.name} ({p.stat().st_size / 1024:.1f} KB)")
 
 
