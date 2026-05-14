@@ -32,6 +32,7 @@ export default function App() {
   const [scene, setScene] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
+  const [viewMode, setViewMode] = useState<"bars" | "heatmap">("bars");
 
   // Fire the cinematic flash + letterbox whenever scene changes
   useEffect(() => {
@@ -134,7 +135,7 @@ export default function App() {
               <Scene1Opening data={data} active={scene === 1} />
             </Scene>
             <Scene className={`scene${scene === 2 ? " active" : ""}`}>
-              <Scene2BarRace data={data} active={scene === 2} />
+              <Scene2BarRace data={data} active={scene === 2} viewMode={viewMode} />
             </Scene>
             <Scene className={`scene${scene === 3 ? " active" : ""}`}>
               <Scene3RankFall data={data} active={scene === 3} />
@@ -152,7 +153,7 @@ export default function App() {
         )}
       </div>
 
-      <nav className="scene-nav">
+      <nav className="scene-nav" style={{ position: "relative" }}>
         {SCENES.map((s) => (
           <button
             key={s.id}
@@ -162,6 +163,36 @@ export default function App() {
             {s.label}
           </button>
         ))}
+        {scene === 2 && (
+          <button
+            onClick={() => setViewMode((v) => v === "bars" ? "heatmap" : "bars")}
+            style={{
+              position: "absolute",
+              right: 64,
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              borderRadius: 6,
+              color: "var(--ink-1)",
+              fontFamily: "var(--mono)",
+              fontSize: 11,
+              letterSpacing: "0.12em",
+              padding: "8px 16px",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.15)";
+              (e.currentTarget as HTMLButtonElement).style.color = "var(--ink-0)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)";
+              (e.currentTarget as HTMLButtonElement).style.color = "var(--ink-1)";
+            }}
+          >
+            {viewMode === "bars" ? "▸ 热力地图" : "▸ 动态条形图"}
+          </button>
+        )}
       </nav>
 
       {/* Autoplay progress bar at the very bottom */}
