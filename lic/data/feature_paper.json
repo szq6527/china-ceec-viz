@@ -1,0 +1,14 @@
+{
+  "source": "OpenAlex",
+  "fetched_at": "2026-05-09",
+  "openalex_id": "W1858542512",
+  "doi": "10.1016/j.physletb.2012.08.020",
+  "title": "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC",
+  "venue": "Phys. Lett. B",
+  "year": 2012,
+  "collaboration": "ATLAS Collaboration",
+  "total_authors": 2932,
+  "distinct_countries": 38,
+  "distinct_institutions": 574,
+  "_note": "Authors / countries / institutions distinct counts queried from OpenAlex 2026-05-09. The total_authors of 2932 reflects what OpenAlex parsed from the published author list; press coverage often quotes ~3000."
+}
