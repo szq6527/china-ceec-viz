@@ -44,18 +44,24 @@ export function Scene3RankFall({ data, active }: Props) {
 
   const W = 1440;
   const H = 760;
-  const padX = 280;
+  const padX = 427;
   const padTop = 200;
   const padBottom = 140;
 
-  // Y range needs to cover all observed ranks. From data: best rank ~21 (Poland),
-  // worst rank ~149 (Albania 125). Use linear scale, slightly padded.
-  const allRanks = data.perCountry.flatMap((c) => [c.rank_125, c.rank_135]);
-  const yMin = 1;
-  const yMax = Math.max(...allRanks) + 5;
+  // Y: fixed range 15–160. Two-segment scale with 70 as dividing point,
+  // so the crowded top half (where most countries cluster) gets more room.
+  const yMin = 15;
+  const yMax = 160;
+  const midRank = 70;
+  const plotHeight = H - padTop - padBottom;
+  const midY = padTop + plotHeight * 0.7;
 
   function yScale(rank: number) {
-    return padTop + ((rank - yMin) / (yMax - yMin)) * (H - padTop - padBottom);
+    const r = Math.max(yMin, Math.min(yMax, rank));
+    if (r <= midRank) {
+      return padTop + ((r - yMin) / (midRank - yMin)) * (midY - padTop);
+    }
+    return midY + ((r - midRank) / (yMax - midRank)) * (H - padBottom - midY);
   }
 
   const x125 = padX;
@@ -71,6 +77,10 @@ export function Scene3RankFall({ data, active }: Props) {
   const biggestFaller = [...data.perCountry].sort(
     (a, b) => a.rank_change - b.rank_change
   )[0];
+
+  const sorted = useMemo(() => {
+    return [...data.perCountry].sort((a, b) => a.rank_135 - b.rank_135);
+  }, [data.perCountry]);
 
   const radiusFor = (count: number) => {
     const max = Math.max(...data.perCountry.map((c) => c.count_135));
@@ -92,7 +102,7 @@ export function Scene3RankFall({ data, active }: Props) {
           position: "absolute",
           top: 56,
           left: 48,
-          maxWidth: 540,
+          maxWidth: 360,
           zIndex: 5,
           pointerEvents: "none",
         }}
@@ -194,7 +204,7 @@ export function Scene3RankFall({ data, active }: Props) {
         )}
 
         {/* Country trajectories */}
-        {data.perCountry.map((c) => {
+        {sorted.map((c, i) => {
           const y1 = yScale(c.rank_125);
           const y2start = y1;
           const y2end = yScale(c.rank_135);
@@ -209,6 +219,9 @@ export function Scene3RankFall({ data, active }: Props) {
           const r2 = radiusFor(c.count_135);
           const r2cur = r1 + (r2 - r1) * progress;
           const isHover = hover === c.iso;
+          const isLeft = i % 2 === 0;
+          const labelX = isLeft ? x125 - 38 : x135 + 38;
+          const labelAnchor = isLeft ? "end" : "start";
           return (
             <g
               key={c.iso}
@@ -261,11 +274,12 @@ export function Scene3RankFall({ data, active }: Props) {
                 </>
               )}
 
-              {/* Country label at the 135 endpoint */}
+              {/* Country label at the 135 endpoint, alternates left/right */}
               {progress > 0.6 && (
                 <text
-                  x={x135 + 18}
-                  y={y2end + 4}
+                  x={labelX}
+                  y={isLeft ? y1 + 4 : y2end + 4}
+                  textAnchor={labelAnchor}
                   fontSize={c.rank_135 <= 50 ? 14 : 12}
                   fontFamily="var(--serif)"
                   fontWeight={c.rank_135 <= 50 ? 700 : 400}
@@ -273,16 +287,32 @@ export function Scene3RankFall({ data, active }: Props) {
                   opacity={progress > 0.9 ? 1 : (progress - 0.6) / 0.3}
                   style={{ paintOrder: "stroke", stroke: "var(--bg-0)", strokeWidth: 3 }}
                 >
-                  {c.name_cn}
-                  <tspan
-                    fontFamily="var(--mono)"
-                    fontSize="10"
-                    fill="var(--ink-2)"
-                    dx="8"
-                    fontWeight={400}
-                  >
-                    {c.rank_change < 0 ? `↓${Math.abs(c.rank_change)}` : c.rank_change > 0 ? `↑${c.rank_change}` : `±0`}
-                  </tspan>
+                  {isLeft ? (
+                    <>
+                      <tspan
+                        fontFamily="var(--mono)"
+                        fontSize="10"
+                        fill="var(--ink-2)"
+                        fontWeight={400}
+                      >
+                        {c.rank_change < 0 ? `↓${Math.abs(c.rank_change)}` : c.rank_change > 0 ? `↑${c.rank_change}` : `±0`}
+                      </tspan>
+                      <tspan dx="4">{c.name_cn}</tspan>
+                    </>
+                  ) : (
+                    <>
+                      {c.name_cn}
+                      <tspan
+                        fontFamily="var(--mono)"
+                        fontSize="10"
+                        fill="var(--ink-2)"
+                        dx="8"
+                        fontWeight={400}
+                      >
+                        {c.rank_change < 0 ? `↓${Math.abs(c.rank_change)}` : c.rank_change > 0 ? `↑${c.rank_change}` : `±0`}
+                      </tspan>
+                    </>
+                  )}
                 </text>
               )}
 
