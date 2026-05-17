@@ -6,6 +6,7 @@ import { Scene3RankFall } from "./scenes/Scene3RankFall";
 import { Scene4Collider } from "./scenes/Scene4Collider";
 import { Scene5RealBilateral } from "./scenes/Scene5RealBilateral";
 import { Scene6AnotherMap } from "./scenes/Scene6AnotherMap";
+import { Scene7InstitutionNetwork } from "./scenes/Scene7InstitutionNetwork";
 
 const SCENES = [
   { id: 1, label: "01 · 最热的友谊" },
@@ -14,6 +15,7 @@ const SCENES = [
   { id: 4, label: "04 · 粒子对撞机" },
   { id: 5, label: "05 · 真正的双边" },
   { id: 6, label: "06 · 另一种地图" },
+  { id: 7, label: "07 · 谁在和谁对话" },
 ];
 
 // Autoplay dwell time (ms) per scene — long enough for the entrance animation +
@@ -25,6 +27,7 @@ const SCENE_DWELL: Record<number, number> = {
   4: 9000,
   5: 12000, // two 4s loop ticks for the strip toggle
   6: 8000,
+  7: 10000,
 };
 
 export default function App() {
@@ -148,6 +151,9 @@ export default function App() {
             </Scene>
             <Scene className={`scene${scene === 6 ? " active" : ""}`}>
               <Scene6AnotherMap data={data} active={scene === 6} />
+            </Scene>
+            <Scene className={`scene${scene === 7 ? " active" : ""}`}>
+              <Scene7InstitutionNetwork active={scene === 7} />
             </Scene>
           </>
         )}

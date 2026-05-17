@@ -4,7 +4,16 @@
       "Bash(conda info *)",
       "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv', encoding='gb18030' if True else 'utf-8'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")",
       "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv', encoding='utf-8-sig'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")",
-      "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")"
+      "Bash(E:/Python/envs/data_visualization/python.exe -c \"import pandas as pd; df = pd.read_csv\\(r'E:\\\\CCProjects\\\\data_raw\\\\extracted\\\\数据（1119更新）\\\\original_0512.csv'\\); print\\(df.head\\(20\\)\\); print\\('---'\\); print\\(df.columns.tolist\\(\\)\\); print\\('---'\\); print\\(df.shape\\)\")",
+      "Bash(python scripts/fetch_institution_network.py)",
+      "Bash(npx tsc *)",
+      "Bash(npx vite *)",
+      "Bash(python -c ' *)",
+      "Bash(curl -s \"https://api.ror.org/organizations/01xexqx38\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'Name: {d.get\\(\\\\\"name\\\\\"\\)}'\\); print\\(f'Country: {d.get\\(\\\\\"country\\\\\",{}\\).get\\(\\\\\"country_name\\\\\"\\)}'\\); print\\(f'Types: {d.get\\(\\\\\"types\\\\\"\\)}'\\); locs=d.get\\('locations',[]\\); print\\(f'Location: {locs[0].get\\(\\\\\"geonames_details\\\\\",{}\\).get\\(\\\\\"name\\\\\"\\) if locs else \\\\\"N/A\\\\\"}'\\)\")",
+      "Bash(curl -s \"https://api.ror.org/organizations/023ktd084\")",
+      "mcp__ide__executeCode",
+      "Bash(node *)"
     ]
   }
 }
