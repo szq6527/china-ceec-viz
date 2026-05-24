@@ -16,14 +16,14 @@ interface Props {
 }
 
 /**
- * Scene 4 ── “粒子对撞机里的中欧外交”
+ * Scene 5 ── “大科学幻象”
  *
  * Concept: zoom into a single arc (Beijing → Warsaw, IHEP × IFJ-PAN). Reveal
  * that under the hood the cooperation is a stylised CERN/LHC detector firing
  * thousands of co-author “particles”. Each particle is one author of one real
  * multi-author physics paper. China and Poland get tinted highlights.
  */
-export function Scene4Collider({ data, active }: Props) {
+export function Scene5Collider({ data, active }: Props) {
   return (
     <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)" }}>
       <Canvas
@@ -448,7 +448,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
         }}
       >
         <div className="kicker" style={{ color: "var(--accent-physics)" }}>
-          SCENE 04 · 揭穿
+          SCENE 05 · 大科学幻象
         </div>
         <h1
           className="headline"

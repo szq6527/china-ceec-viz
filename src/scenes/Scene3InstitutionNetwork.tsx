@@ -239,7 +239,7 @@ const W = 1200;
 const H = 750;
 const CN_TOP = 100;
 const CEEC_TOP = 80;
-const DEFAULT_LABELS = 8;
+const DEFAULT_LABELS = 10;
 const H_SPREAD = 320;
 const MIN_EDGE_WEIGHT = 3;
 
@@ -257,7 +257,7 @@ interface Props {
  * changes opacity — node positions, sizes, and edge thicknesses
  * stay identical across views so the reader can compare directly.
  * ============================================================ */
-export function Scene7InstitutionNetwork({ active }: Props) {
+export function Scene3InstitutionNetwork({ active }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [data, setData] = useState<NetworkData | null>(null);
   const [period, setPeriod] = useState<"125" | "135">("135");
@@ -1197,16 +1197,14 @@ export function Scene7InstitutionNetwork({ active }: Props) {
         style={{ flex: 1, width: "100%", height: "100%", cursor: "grab", display: viewMode === "map" ? "block" : "none", background: "#080d18" }}
       />
 
-      {/* Top‑left: period label */}
+      {/* Top‑left: header */}
       <div style={{ position: "absolute", top: 28, left: 36, zIndex: 2, pointerEvents: "none" }}>
-        <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--ink-2)", marginBottom: 6 }}>
-          {viewMode === "map" ? "合作机构地理分布" : "合作机构网络"}
+        <div className="kicker" style={{ marginBottom: 6 }}>SCENE 03 · 谁在和谁对话</div>
+        <div style={{ fontSize: 32, fontWeight: 700, color: "var(--ink-0)", fontFamily: "var(--serif)", lineHeight: 1.1, maxWidth: 460 }}>
+          合作不是国家与国家,<br />是<span style={{ color: "var(--accent-cn-glow)" }}>机构</span>与<span style={{ color: "var(--accent-eu-glow)" }}>机构</span>
         </div>
-        <div style={{ fontSize: 42, fontWeight: 700, color: "var(--ink-0)", fontFamily: "var(--serif)", lineHeight: 1.1 }}>
-          {period === "135" ? "2016–2020" : "2011–2015"}
-        </div>
-        <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ink-2)", marginTop: 4, letterSpacing: "0.08em" }}>
-          {viewMode === "map" ? mapStatsText : networkStatsText}
+        <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ink-2)", marginTop: 6, letterSpacing: "0.08em" }}>
+          {period === "135" ? "2016–2020" : "2011–2015"} · {viewMode === "map" ? mapStatsText : networkStatsText}
         </div>
       </div>
 
@@ -1311,22 +1309,22 @@ export function Scene7InstitutionNetwork({ active }: Props) {
         <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 6 }}>
           {viewMode === "map"
             ? (filterPhysics ? "地理视角 · 剥离物理后" : "地理视角")
-            : (filterPhysics ? "剥离物理后" : "全景网络 · 位置固定，大小动态")}
+            : (filterPhysics ? "剥离物理后" : "全景网络 · 两侧机构间的合作连线")}
         </div>
-        <div style={{ fontSize: 15, color: "var(--ink-1)", lineHeight: 1.5, fontWeight: 400 }}>
+        <div style={{ fontSize: 14, color: "var(--ink-1)", lineHeight: 1.55, fontWeight: 400 }}>
           {viewMode === "map"
             ? (filterPhysics
-              ? "剥离大型物理实验合作后，地理格局变得更加多元。非物理领域的合作——材料、医学、化学——分布更广，不再仅由少数巨型研究机构主导，地方大学与学科特色院校崭露头角。"
-              : "科研合作的版图由少数城市主导。北京集中了前十五所中方机构中的近半数，形成了以首都为枢纽的合作放射结构。中东欧各国的科研资源则高度集中于首都城市，一条条连线勾勒出两个地区之间十余年的机构级协作网络。")
+              ? "剥离物理合作后,地理格局更加多元。材料、医学、化学等领域的合作分布更广,地方大学与学科特色院校崭露头角。"
+              : "北京集中了超过半数的顶级中方机构,形成以首都为枢纽的合作放射结构。中东欧各国的科研资源高度集中于首都,一条条连线勾勒出机构级的协作版图。")
             : (filterPhysics
-              ? "剥离大型物理合作项目后，机构网络显著缩小。剩余的合作更多集中在材料科学、医学和化学领域，由大学主导的双边关系构成。"
-              : "节点位置在四种视图间保持一致，大小与边粗细随所选时期动态变化，以便读者在不同视角间直接对比网络结构。")}
+              ? "剥离物理合作后,网络显著缩小。剩余的合作更多集中在材料科学、医学和化学领域,由大学主导的双边关系构成。"
+              : "左侧为中国大陆机构,右侧为中东欧机构。节点大小反映合作论文数量,连线粗细反映合作强度。悬停节点查看详情。右侧控件可切换时期与物理过滤。")}
         </div>
       </div>
 
       {/* Footnote */}
       <div style={{ position: "absolute", left: 36, bottom: 14, zIndex: 2, fontFamily: "var(--mono)", fontSize: 8, color: "var(--ink-2)", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.6, pointerEvents: "none" }}>
-        数据来源: OpenAlex /works API · 比例抽样 cite-sort · 机构黑名单去伪 · 中国机构坐标基于名称硬编码查表 · CEEC 按国家首都聚合
+        数据来源: OpenAlex /works API · 2016–2020 机构级共现网络 · 节点大小=论文数 连线粗细=合作强度
       </div>
     </div>
   );

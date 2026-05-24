@@ -19,7 +19,7 @@ interface Props {
  * Connecting line = ball's path between periods. Color encodes direction:
  *   red = rank fell (number got bigger), green-ish = rank rose, gold = held.
  */
-export function Scene3RankFall({ data, active }: Props) {
+export function Scene4RankFall({ data, active }: Props) {
   const [progress, setProgress] = useState(0);
   const [hover, setHover] = useState<string | null>(null);
 
@@ -107,7 +107,7 @@ export function Scene3RankFall({ data, active }: Props) {
           pointerEvents: "none",
         }}
       >
-        <div className="kicker">SCENE 03 · 反转</div>
+        <div className="kicker">SCENE 04 · 反转</div>
         <h1
           className="headline"
           style={{

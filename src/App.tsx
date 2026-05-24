@@ -2,32 +2,37 @@ import { useEffect, useState } from "react";
 import { useData } from "./data/useData";
 import { Scene1Opening } from "./scenes/Scene1Opening";
 import { Scene2BarRace } from "./scenes/Scene2BarRace";
-import { Scene3RankFall } from "./scenes/Scene3RankFall";
-import { Scene4Collider } from "./scenes/Scene4Collider";
-import { Scene5RealBilateral } from "./scenes/Scene5RealBilateral";
-import { Scene6AnotherMap } from "./scenes/Scene6AnotherMap";
-import { Scene7InstitutionNetwork } from "./scenes/Scene7InstitutionNetwork";
+import { Scene3InstitutionNetwork } from "./scenes/Scene3InstitutionNetwork";
+import { Scene4RankFall } from "./scenes/Scene4RankFall";
+import { Scene5Collider } from "./scenes/Scene5Collider";
+import { Scene6BigScienceDecomposition } from "./scenes/Scene6BigScienceDecomposition";
+import { Scene6RealBilateral } from "./scenes/Scene6RealBilateral";
+import { Scene8SubjectHeatmap } from "./scenes/Scene8SubjectHeatmap";
+import { Scene9DualOutward } from "./scenes/Scene9DualOutward";
 
 const SCENES = [
   { id: 1, label: "01 · 最热的友谊" },
   { id: 2, label: "02 · 但有人被甩开了" },
-  { id: 3, label: "03 · 排位在掉" },
-  { id: 4, label: "04 · 粒子对撞机" },
-  { id: 5, label: "05 · 真正的双边" },
-  { id: 6, label: "06 · 另一种地图" },
-  { id: 7, label: "07 · 谁在和谁对话" },
+  { id: 3, label: "03 · 谁在和谁对话" },
+  { id: 4, label: "04 · 排位在掉" },
+  { id: 5, label: "05 · 大科学幻象" },
+  { id: 6, label: "06 · 大科学的真实面目" },
+  { id: 7, label: "07 · 真正的双边" },
+  { id: 8, label: "08 · 学科专长指纹" },
+  { id: 9, label: "09 · 双外向型" },
 ];
 
-// Autoplay dwell time (ms) per scene — long enough for the entrance animation +
-// the viewer to read the headline. Tuned per scene's length.
+// Autoplay dwell time (ms) per scene
 const SCENE_DWELL: Record<number, number> = {
   1: 7000,
-  2: 11000, // 8s race + 1.5s hold + read time
-  3: 7000,
-  4: 9000,
-  5: 12000, // two 4s loop ticks for the strip toggle
-  6: 8000,
-  7: 10000,
+  2: 11000,
+  3: 10000,
+  4: 7000,
+  5: 10000,
+  6: 10000,
+  7: 9000,
+  8: 10000,
+  9: 12000,
 };
 
 export default function App() {
@@ -102,7 +107,7 @@ export default function App() {
     <div className="app-shell">
       <div className="top-bar">
         <div className="title">
-          <strong>中欧合作</strong> · 粒子对撞机里的科技外交
+          <strong>中欧合作</strong> · 数据叙事报告
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <span>2011 — 2020 · scidb.cn / china-ceec coauthorship</span>
@@ -141,19 +146,25 @@ export default function App() {
               <Scene2BarRace data={data} active={scene === 2} viewMode={viewMode} />
             </Scene>
             <Scene className={`scene${scene === 3 ? " active" : ""}`}>
-              <Scene3RankFall data={data} active={scene === 3} />
+              <Scene3InstitutionNetwork active={scene === 3} />
             </Scene>
             <Scene className={`scene${scene === 4 ? " active" : ""}`}>
-              <Scene4Collider data={data} active={scene === 4} />
+              <Scene4RankFall data={data} active={scene === 4} />
             </Scene>
             <Scene className={`scene${scene === 5 ? " active" : ""}`}>
-              <Scene5RealBilateral data={data} active={scene === 5} />
+              <Scene5Collider data={data} active={scene === 5} />
             </Scene>
             <Scene className={`scene${scene === 6 ? " active" : ""}`}>
-              <Scene6AnotherMap data={data} active={scene === 6} />
+              <Scene6BigScienceDecomposition active={scene === 6} />
             </Scene>
             <Scene className={`scene${scene === 7 ? " active" : ""}`}>
-              <Scene7InstitutionNetwork active={scene === 7} />
+              <Scene6RealBilateral data={data} active={scene === 7} />
+            </Scene>
+            <Scene className={`scene${scene === 8 ? " active" : ""}`}>
+              <Scene8SubjectHeatmap active={scene === 8} />
+            </Scene>
+            <Scene className={`scene${scene === 9 ? " active" : ""}`}>
+              <Scene9DualOutward active={scene === 9} />
             </Scene>
           </>
         )}

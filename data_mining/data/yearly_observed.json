@@ -1,0 +1,1041 @@
+{
+  "source": "OpenAlex /works API (group_by=publication_year)",
+  "fetched_at": "2026-05-23T16:04:23.244712",
+  "method": {
+    "description": "Observed yearly counts from OpenAlex group_by=publication_year, normalized within each 5-year period to match authoritative ScienceDB period totals from per_country.json",
+    "normalization": "proportional within each period, drift correction on last year"
+  },
+  "ceec_aggregate": {
+    "science_db_yearly": {
+      "2011": 1046,
+      "2012": 1367,
+      "2013": 1610,
+      "2014": 1843,
+      "2015": 2111,
+      "2016": 2533,
+      "2017": 2782,
+      "2018": 3342,
+      "2019": 4260,
+      "2020": 4791
+    },
+    "openalex_sum_yearly": {
+      "2011": 2807,
+      "2012": 3249,
+      "2013": 4318,
+      "2014": 5874,
+      "2015": 6330,
+      "2016": 6350,
+      "2017": 6584,
+      "2018": 7864,
+      "2019": 9712,
+      "2020": 12155
+    },
+    "adjusted_sum_yearly": {
+      "2011": 2216,
+      "2012": 2637,
+      "2013": 3259,
+      "2014": 4406,
+      "2015": 4957,
+      "2016": 5266,
+      "2017": 5554,
+      "2018": 6651,
+      "2019": 8204,
+      "2020": 10252
+    },
+    "double_count_ratio_avg": 0.7648667099759978
+  },
+  "countries": [
+    {
+      "iso": "ALB",
+      "name_cn": "阿尔巴尼亚",
+      "period_125_total_sciencedb": 6,
+      "period_135_total_sciencedb": 71,
+      "obs_125_sum": 486,
+      "obs_135_sum": 202,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 30,
+          "adjusted": 0
+        },
+        {
+          "year": 2012,
+          "observed": 48,
+          "adjusted": 1
+        },
+        {
+          "year": 2013,
+          "observed": 142,
+          "adjusted": 2
+        },
+        {
+          "year": 2014,
+          "observed": 163,
+          "adjusted": 2
+        },
+        {
+          "year": 2015,
+          "observed": 103,
+          "adjusted": 1
+        },
+        {
+          "year": 2016,
+          "observed": 22,
+          "adjusted": 8
+        },
+        {
+          "year": 2017,
+          "observed": 28,
+          "adjusted": 10
+        },
+        {
+          "year": 2018,
+          "observed": 36,
+          "adjusted": 13
+        },
+        {
+          "year": 2019,
+          "observed": 41,
+          "adjusted": 14
+        },
+        {
+          "year": 2020,
+          "observed": 75,
+          "adjusted": 26
+        }
+      ]
+    },
+    {
+      "iso": "BGR",
+      "name_cn": "保加利亚",
+      "period_125_total_sciencedb": 693,
+      "period_135_total_sciencedb": 1621,
+      "obs_125_sum": 2119,
+      "obs_135_sum": 2088,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 281,
+          "adjusted": 92
+        },
+        {
+          "year": 2012,
+          "observed": 312,
+          "adjusted": 102
+        },
+        {
+          "year": 2013,
+          "observed": 479,
+          "adjusted": 157
+        },
+        {
+          "year": 2014,
+          "observed": 529,
+          "adjusted": 173
+        },
+        {
+          "year": 2015,
+          "observed": 518,
+          "adjusted": 169
+        },
+        {
+          "year": 2016,
+          "observed": 322,
+          "adjusted": 250
+        },
+        {
+          "year": 2017,
+          "observed": 362,
+          "adjusted": 281
+        },
+        {
+          "year": 2018,
+          "observed": 399,
+          "adjusted": 310
+        },
+        {
+          "year": 2019,
+          "observed": 466,
+          "adjusted": 362
+        },
+        {
+          "year": 2020,
+          "observed": 539,
+          "adjusted": 418
+        }
+      ]
+    },
+    {
+      "iso": "CZE",
+      "name_cn": "捷克",
+      "period_125_total_sciencedb": 2450,
+      "period_135_total_sciencedb": 5063,
+      "obs_125_sum": 5693,
+      "obs_135_sum": 9364,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 702,
+          "adjusted": 302
+        },
+        {
+          "year": 2012,
+          "observed": 742,
+          "adjusted": 319
+        },
+        {
+          "year": 2013,
+          "observed": 1091,
+          "adjusted": 470
+        },
+        {
+          "year": 2014,
+          "observed": 1551,
+          "adjusted": 667
+        },
+        {
+          "year": 2015,
+          "observed": 1607,
+          "adjusted": 692
+        },
+        {
+          "year": 2016,
+          "observed": 1586,
+          "adjusted": 858
+        },
+        {
+          "year": 2017,
+          "observed": 1440,
+          "adjusted": 779
+        },
+        {
+          "year": 2018,
+          "observed": 1639,
+          "adjusted": 886
+        },
+        {
+          "year": 2019,
+          "observed": 2049,
+          "adjusted": 1108
+        },
+        {
+          "year": 2020,
+          "observed": 2650,
+          "adjusted": 1432
+        }
+      ]
+    },
+    {
+      "iso": "EST",
+      "name_cn": "爱沙尼亚",
+      "period_125_total_sciencedb": 714,
+      "period_135_total_sciencedb": 1528,
+      "obs_125_sum": 354,
+      "obs_135_sum": 1232,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 40,
+          "adjusted": 81
+        },
+        {
+          "year": 2012,
+          "observed": 54,
+          "adjusted": 109
+        },
+        {
+          "year": 2013,
+          "observed": 65,
+          "adjusted": 131
+        },
+        {
+          "year": 2014,
+          "observed": 91,
+          "adjusted": 184
+        },
+        {
+          "year": 2015,
+          "observed": 104,
+          "adjusted": 209
+        },
+        {
+          "year": 2016,
+          "observed": 120,
+          "adjusted": 149
+        },
+        {
+          "year": 2017,
+          "observed": 153,
+          "adjusted": 190
+        },
+        {
+          "year": 2018,
+          "observed": 233,
+          "adjusted": 289
+        },
+        {
+          "year": 2019,
+          "observed": 307,
+          "adjusted": 381
+        },
+        {
+          "year": 2020,
+          "observed": 419,
+          "adjusted": 519
+        }
+      ]
+    },
+    {
+      "iso": "GRC",
+      "name_cn": "希腊",
+      "period_125_total_sciencedb": 2086,
+      "period_135_total_sciencedb": 4193,
+      "obs_125_sum": 1648,
+      "obs_135_sum": 3782,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 223,
+          "adjusted": 282
+        },
+        {
+          "year": 2012,
+          "observed": 288,
+          "adjusted": 365
+        },
+        {
+          "year": 2013,
+          "observed": 300,
+          "adjusted": 380
+        },
+        {
+          "year": 2014,
+          "observed": 407,
+          "adjusted": 515
+        },
+        {
+          "year": 2015,
+          "observed": 430,
+          "adjusted": 544
+        },
+        {
+          "year": 2016,
+          "observed": 434,
+          "adjusted": 481
+        },
+        {
+          "year": 2017,
+          "observed": 562,
+          "adjusted": 623
+        },
+        {
+          "year": 2018,
+          "observed": 717,
+          "adjusted": 795
+        },
+        {
+          "year": 2019,
+          "observed": 899,
+          "adjusted": 997
+        },
+        {
+          "year": 2020,
+          "observed": 1170,
+          "adjusted": 1297
+        }
+      ]
+    },
+    {
+      "iso": "HRV",
+      "name_cn": "克罗地亚",
+      "period_125_total_sciencedb": 907,
+      "period_135_total_sciencedb": 1690,
+      "obs_125_sum": 528,
+      "obs_135_sum": 1197,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 79,
+          "adjusted": 136
+        },
+        {
+          "year": 2012,
+          "observed": 90,
+          "adjusted": 155
+        },
+        {
+          "year": 2013,
+          "observed": 99,
+          "adjusted": 170
+        },
+        {
+          "year": 2014,
+          "observed": 113,
+          "adjusted": 194
+        },
+        {
+          "year": 2015,
+          "observed": 147,
+          "adjusted": 252
+        },
+        {
+          "year": 2016,
+          "observed": 152,
+          "adjusted": 215
+        },
+        {
+          "year": 2017,
+          "observed": 215,
+          "adjusted": 304
+        },
+        {
+          "year": 2018,
+          "observed": 220,
+          "adjusted": 311
+        },
+        {
+          "year": 2019,
+          "observed": 261,
+          "adjusted": 368
+        },
+        {
+          "year": 2020,
+          "observed": 349,
+          "adjusted": 492
+        }
+      ]
+    },
+    {
+      "iso": "HUN",
+      "name_cn": "匈牙利",
+      "period_125_total_sciencedb": 1901,
+      "period_135_total_sciencedb": 3673,
+      "obs_125_sum": 1575,
+      "obs_135_sum": 3408,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 211,
+          "adjusted": 255
+        },
+        {
+          "year": 2012,
+          "observed": 257,
+          "adjusted": 310
+        },
+        {
+          "year": 2013,
+          "observed": 291,
+          "adjusted": 351
+        },
+        {
+          "year": 2014,
+          "observed": 361,
+          "adjusted": 436
+        },
+        {
+          "year": 2015,
+          "observed": 455,
+          "adjusted": 549
+        },
+        {
+          "year": 2016,
+          "observed": 584,
+          "adjusted": 629
+        },
+        {
+          "year": 2017,
+          "observed": 496,
+          "adjusted": 535
+        },
+        {
+          "year": 2018,
+          "observed": 610,
+          "adjusted": 657
+        },
+        {
+          "year": 2019,
+          "observed": 749,
+          "adjusted": 807
+        },
+        {
+          "year": 2020,
+          "observed": 969,
+          "adjusted": 1045
+        }
+      ]
+    },
+    {
+      "iso": "LTU",
+      "name_cn": "立陶宛",
+      "period_125_total_sciencedb": 0,
+      "period_135_total_sciencedb": 0,
+      "obs_125_sum": 259,
+      "obs_135_sum": 732,
+      "data_source_125": "openalex_direct",
+      "data_source_135": "openalex_direct",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 38,
+          "adjusted": 38
+        },
+        {
+          "year": 2012,
+          "observed": 55,
+          "adjusted": 55
+        },
+        {
+          "year": 2013,
+          "observed": 52,
+          "adjusted": 52
+        },
+        {
+          "year": 2014,
+          "observed": 52,
+          "adjusted": 52
+        },
+        {
+          "year": 2015,
+          "observed": 62,
+          "adjusted": 62
+        },
+        {
+          "year": 2016,
+          "observed": 80,
+          "adjusted": 80
+        },
+        {
+          "year": 2017,
+          "observed": 97,
+          "adjusted": 97
+        },
+        {
+          "year": 2018,
+          "observed": 121,
+          "adjusted": 121
+        },
+        {
+          "year": 2019,
+          "observed": 182,
+          "adjusted": 182
+        },
+        {
+          "year": 2020,
+          "observed": 252,
+          "adjusted": 252
+        }
+      ]
+    },
+    {
+      "iso": "LVA",
+      "name_cn": "拉脱维亚",
+      "period_125_total_sciencedb": 97,
+      "period_135_total_sciencedb": 1028,
+      "obs_125_sum": 738,
+      "obs_135_sum": 578,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 89,
+          "adjusted": 12
+        },
+        {
+          "year": 2012,
+          "observed": 88,
+          "adjusted": 12
+        },
+        {
+          "year": 2013,
+          "observed": 150,
+          "adjusted": 20
+        },
+        {
+          "year": 2014,
+          "observed": 233,
+          "adjusted": 31
+        },
+        {
+          "year": 2015,
+          "observed": 178,
+          "adjusted": 22
+        },
+        {
+          "year": 2016,
+          "observed": 77,
+          "adjusted": 137
+        },
+        {
+          "year": 2017,
+          "observed": 94,
+          "adjusted": 167
+        },
+        {
+          "year": 2018,
+          "observed": 109,
+          "adjusted": 194
+        },
+        {
+          "year": 2019,
+          "observed": 142,
+          "adjusted": 253
+        },
+        {
+          "year": 2020,
+          "observed": 156,
+          "adjusted": 277
+        }
+      ]
+    },
+    {
+      "iso": "MKD",
+      "name_cn": "北马其顿",
+      "period_125_total_sciencedb": 0,
+      "period_135_total_sciencedb": 0,
+      "obs_125_sum": 267,
+      "obs_135_sum": 513,
+      "data_source_125": "openalex_direct",
+      "data_source_135": "openalex_direct",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 40,
+          "adjusted": 40
+        },
+        {
+          "year": 2012,
+          "observed": 48,
+          "adjusted": 48
+        },
+        {
+          "year": 2013,
+          "observed": 33,
+          "adjusted": 33
+        },
+        {
+          "year": 2014,
+          "observed": 60,
+          "adjusted": 60
+        },
+        {
+          "year": 2015,
+          "observed": 86,
+          "adjusted": 86
+        },
+        {
+          "year": 2016,
+          "observed": 99,
+          "adjusted": 99
+        },
+        {
+          "year": 2017,
+          "observed": 86,
+          "adjusted": 86
+        },
+        {
+          "year": 2018,
+          "observed": 77,
+          "adjusted": 77
+        },
+        {
+          "year": 2019,
+          "observed": 109,
+          "adjusted": 109
+        },
+        {
+          "year": 2020,
+          "observed": 142,
+          "adjusted": 142
+        }
+      ]
+    },
+    {
+      "iso": "MNE",
+      "name_cn": "黑山",
+      "period_125_total_sciencedb": 11,
+      "period_135_total_sciencedb": 129,
+      "obs_125_sum": 179,
+      "obs_135_sum": 766,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 18,
+          "adjusted": 1
+        },
+        {
+          "year": 2012,
+          "observed": 37,
+          "adjusted": 2
+        },
+        {
+          "year": 2013,
+          "observed": 34,
+          "adjusted": 2
+        },
+        {
+          "year": 2014,
+          "observed": 46,
+          "adjusted": 3
+        },
+        {
+          "year": 2015,
+          "observed": 44,
+          "adjusted": 3
+        },
+        {
+          "year": 2016,
+          "observed": 54,
+          "adjusted": 9
+        },
+        {
+          "year": 2017,
+          "observed": 110,
+          "adjusted": 19
+        },
+        {
+          "year": 2018,
+          "observed": 183,
+          "adjusted": 31
+        },
+        {
+          "year": 2019,
+          "observed": 207,
+          "adjusted": 35
+        },
+        {
+          "year": 2020,
+          "observed": 212,
+          "adjusted": 35
+        }
+      ]
+    },
+    {
+      "iso": "POL",
+      "name_cn": "波兰",
+      "period_125_total_sciencedb": 3252,
+      "period_135_total_sciencedb": 6866,
+      "obs_125_sum": 4223,
+      "obs_135_sum": 9789,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 487,
+          "adjusted": 375
+        },
+        {
+          "year": 2012,
+          "observed": 533,
+          "adjusted": 410
+        },
+        {
+          "year": 2013,
+          "observed": 711,
+          "adjusted": 548
+        },
+        {
+          "year": 2014,
+          "observed": 1138,
+          "adjusted": 876
+        },
+        {
+          "year": 2015,
+          "observed": 1354,
+          "adjusted": 1043
+        },
+        {
+          "year": 2016,
+          "observed": 1523,
+          "adjusted": 1068
+        },
+        {
+          "year": 2017,
+          "observed": 1521,
+          "adjusted": 1067
+        },
+        {
+          "year": 2018,
+          "observed": 1740,
+          "adjusted": 1220
+        },
+        {
+          "year": 2019,
+          "observed": 2217,
+          "adjusted": 1555
+        },
+        {
+          "year": 2020,
+          "observed": 2788,
+          "adjusted": 1956
+        }
+      ]
+    },
+    {
+      "iso": "ROU",
+      "name_cn": "罗马尼亚",
+      "period_125_total_sciencedb": 1596,
+      "period_135_total_sciencedb": 3124,
+      "obs_125_sum": 1379,
+      "obs_135_sum": 3405,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 174,
+          "adjusted": 201
+        },
+        {
+          "year": 2012,
+          "observed": 193,
+          "adjusted": 223
+        },
+        {
+          "year": 2013,
+          "observed": 287,
+          "adjusted": 332
+        },
+        {
+          "year": 2014,
+          "observed": 343,
+          "adjusted": 397
+        },
+        {
+          "year": 2015,
+          "observed": 382,
+          "adjusted": 443
+        },
+        {
+          "year": 2016,
+          "observed": 437,
+          "adjusted": 401
+        },
+        {
+          "year": 2017,
+          "observed": 558,
+          "adjusted": 512
+        },
+        {
+          "year": 2018,
+          "observed": 657,
+          "adjusted": 603
+        },
+        {
+          "year": 2019,
+          "observed": 792,
+          "adjusted": 727
+        },
+        {
+          "year": 2020,
+          "observed": 961,
+          "adjusted": 881
+        }
+      ]
+    },
+    {
+      "iso": "SRB",
+      "name_cn": "塞尔维亚",
+      "period_125_total_sciencedb": 1295,
+      "period_135_total_sciencedb": 1967,
+      "obs_125_sum": 1037,
+      "obs_135_sum": 1406,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 111,
+          "adjusted": 139
+        },
+        {
+          "year": 2012,
+          "observed": 171,
+          "adjusted": 214
+        },
+        {
+          "year": 2013,
+          "observed": 206,
+          "adjusted": 257
+        },
+        {
+          "year": 2014,
+          "observed": 274,
+          "adjusted": 342
+        },
+        {
+          "year": 2015,
+          "observed": 275,
+          "adjusted": 343
+        },
+        {
+          "year": 2016,
+          "observed": 243,
+          "adjusted": 340
+        },
+        {
+          "year": 2017,
+          "observed": 242,
+          "adjusted": 339
+        },
+        {
+          "year": 2018,
+          "observed": 279,
+          "adjusted": 390
+        },
+        {
+          "year": 2019,
+          "observed": 317,
+          "adjusted": 443
+        },
+        {
+          "year": 2020,
+          "observed": 325,
+          "adjusted": 455
+        }
+      ]
+    },
+    {
+      "iso": "SVK",
+      "name_cn": "斯洛伐克",
+      "period_125_total_sciencedb": 896,
+      "period_135_total_sciencedb": 1809,
+      "obs_125_sum": 1147,
+      "obs_135_sum": 2369,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 158,
+          "adjusted": 123
+        },
+        {
+          "year": 2012,
+          "observed": 172,
+          "adjusted": 134
+        },
+        {
+          "year": 2013,
+          "observed": 196,
+          "adjusted": 153
+        },
+        {
+          "year": 2014,
+          "observed": 286,
+          "adjusted": 223
+        },
+        {
+          "year": 2015,
+          "observed": 335,
+          "adjusted": 263
+        },
+        {
+          "year": 2016,
+          "observed": 366,
+          "adjusted": 279
+        },
+        {
+          "year": 2017,
+          "observed": 367,
+          "adjusted": 280
+        },
+        {
+          "year": 2018,
+          "observed": 456,
+          "adjusted": 348
+        },
+        {
+          "year": 2019,
+          "observed": 553,
+          "adjusted": 422
+        },
+        {
+          "year": 2020,
+          "observed": 627,
+          "adjusted": 480
+        }
+      ]
+    },
+    {
+      "iso": "SVN",
+      "name_cn": "斯洛文尼亚",
+      "period_125_total_sciencedb": 1045,
+      "period_135_total_sciencedb": 1920,
+      "obs_125_sum": 946,
+      "obs_135_sum": 1834,
+      "data_source_125": "sciencedb_calibrated",
+      "data_source_135": "sciencedb_calibrated",
+      "yearly": [
+        {
+          "year": 2011,
+          "observed": 126,
+          "adjusted": 139
+        },
+        {
+          "year": 2012,
+          "observed": 161,
+          "adjusted": 178
+        },
+        {
+          "year": 2013,
+          "observed": 182,
+          "adjusted": 201
+        },
+        {
+          "year": 2014,
+          "observed": 227,
+          "adjusted": 251
+        },
+        {
+          "year": 2015,
+          "observed": 250,
+          "adjusted": 276
+        },
+        {
+          "year": 2016,
+          "observed": 251,
+          "adjusted": 263
+        },
+        {
+          "year": 2017,
+          "observed": 253,
+          "adjusted": 265
+        },
+        {
+          "year": 2018,
+          "observed": 388,
+          "adjusted": 406
+        },
+        {
+          "year": 2019,
+          "observed": 421,
+          "adjusted": 441
+        },
+        {
+          "year": 2020,
+          "observed": 521,
+          "adjusted": 545
+        }
+      ]
+    }
+  ]
+}

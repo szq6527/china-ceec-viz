@@ -1,0 +1,259 @@
+{
+  "source": "OpenAlex /works API + CORDIS H2020 CSV (if available)",
+  "fetched_at": "2026-05-23T16:05:01.831917",
+  "method": {
+    "primary": "EU6 cooperation intensity from OpenAlex group_by queries per CEEC country per EU6 partner",
+    "eu6_countries": [
+      "DE",
+      "FR",
+      "GB",
+      "IT",
+      "ES",
+      "NL"
+    ],
+    "supplementary": "CORDIS H2020 project CSV from cordis.europa.eu",
+    "h2020_available": false
+  },
+  "by_country": [
+    {
+      "iso": "ALB",
+      "name_cn": "阿尔巴尼亚",
+      "geopolitical_group": "eu_candidate",
+      "eu6_papers_2020": 552,
+      "china_papers_2020": 26,
+      "eu6_china_ratio_2020": 21.23,
+      "eu6_intensity_2020": 0.3641,
+      "h2020_participations": null
+    },
+    {
+      "iso": "BGR",
+      "name_cn": "保加利亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 3472,
+      "china_papers_2020": 418,
+      "eu6_china_ratio_2020": 8.31,
+      "eu6_intensity_2020": 0.3073,
+      "h2020_participations": null
+    },
+    {
+      "iso": "CZE",
+      "name_cn": "捷克",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 17503,
+      "china_papers_2020": 1432,
+      "eu6_china_ratio_2020": 12.22,
+      "eu6_intensity_2020": 0.436,
+      "h2020_participations": null
+    },
+    {
+      "iso": "EST",
+      "name_cn": "爱沙尼亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 3499,
+      "china_papers_2020": 519,
+      "eu6_china_ratio_2020": 6.74,
+      "eu6_intensity_2020": 0.6025,
+      "h2020_participations": null
+    },
+    {
+      "iso": "GRC",
+      "name_cn": "希腊",
+      "geopolitical_group": "eurozone_special",
+      "eu6_papers_2020": 17181,
+      "china_papers_2020": 1297,
+      "eu6_china_ratio_2020": 13.25,
+      "eu6_intensity_2020": 0.4481,
+      "h2020_participations": null
+    },
+    {
+      "iso": "HRV",
+      "name_cn": "克罗地亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 4753,
+      "china_papers_2020": 492,
+      "eu6_china_ratio_2020": 9.66,
+      "eu6_intensity_2020": 0.3589,
+      "h2020_participations": null
+    },
+    {
+      "iso": "HUN",
+      "name_cn": "匈牙利",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 8669,
+      "china_papers_2020": 1045,
+      "eu6_china_ratio_2020": 8.3,
+      "eu6_intensity_2020": 0.3744,
+      "h2020_participations": null
+    },
+    {
+      "iso": "LTU",
+      "name_cn": "立陶宛",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 2803,
+      "china_papers_2020": 252,
+      "eu6_china_ratio_2020": 11.12,
+      "eu6_intensity_2020": 0.3725,
+      "h2020_participations": null
+    },
+    {
+      "iso": "LVA",
+      "name_cn": "拉脱维亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 1379,
+      "china_papers_2020": 277,
+      "eu6_china_ratio_2020": 4.98,
+      "eu6_intensity_2020": 0.2728,
+      "h2020_participations": null
+    },
+    {
+      "iso": "MKD",
+      "name_cn": "北马其顿",
+      "geopolitical_group": "eu_candidate",
+      "eu6_papers_2020": 791,
+      "china_papers_2020": 142,
+      "eu6_china_ratio_2020": 5.57,
+      "eu6_intensity_2020": 0.2452,
+      "h2020_participations": null
+    },
+    {
+      "iso": "MNE",
+      "name_cn": "黑山",
+      "geopolitical_group": "eu_candidate",
+      "eu6_papers_2020": 333,
+      "china_papers_2020": 35,
+      "eu6_china_ratio_2020": 9.51,
+      "eu6_intensity_2020": 0.1873,
+      "h2020_participations": null
+    },
+    {
+      "iso": "POL",
+      "name_cn": "波兰",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 23024,
+      "china_papers_2020": 1956,
+      "eu6_china_ratio_2020": 11.77,
+      "eu6_intensity_2020": 0.2552,
+      "h2020_participations": null
+    },
+    {
+      "iso": "ROU",
+      "name_cn": "罗马尼亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "eu6_papers_2020": 7446,
+      "china_papers_2020": 881,
+      "eu6_china_ratio_2020": 8.45,
+      "eu6_intensity_2020": 0.2777,
+      "h2020_participations": null
+    },
+    {
+      "iso": "SRB",
+      "name_cn": "塞尔维亚",
+      "geopolitical_group": "eu_candidate",
+      "eu6_papers_2020": 3877,
+      "china_papers_2020": 455,
+      "eu6_china_ratio_2020": 8.52,
+      "eu6_intensity_2020": 0.2793,
+      "h2020_participations": null
+    },
+    {
+      "iso": "SVK",
+      "name_cn": "斯洛伐克",
+      "geopolitical_group": "eurozone_core",
+      "eu6_papers_2020": 4476,
+      "china_papers_2020": 480,
+      "eu6_china_ratio_2020": 9.32,
+      "eu6_intensity_2020": 0.3135,
+      "h2020_participations": null
+    },
+    {
+      "iso": "SVN",
+      "name_cn": "斯洛文尼亚",
+      "geopolitical_group": "eurozone_core",
+      "eu6_papers_2020": 5416,
+      "china_papers_2020": 545,
+      "eu6_china_ratio_2020": 9.94,
+      "eu6_intensity_2020": 0.4538,
+      "h2020_participations": null
+    }
+  ],
+  "correlations": {
+    "eu6_intensity_vs_china_rca": {
+      "pearson_r": 0.6376,
+      "p_value": 0.007879,
+      "n": 16,
+      "significant_at_0_05": true
+    }
+  },
+  "geopolitical_group_eu6_china_ratios": {
+    "eurozone_core": {
+      "label": "欧元区核心",
+      "mean_eu6_china_ratio": 9.63,
+      "countries": [
+        "SVK",
+        "SVN"
+      ],
+      "individual_ratios": [
+        9.32,
+        9.94
+      ]
+    },
+    "eurozone_special": {
+      "label": "希腊(欧元区·债务危机)",
+      "mean_eu6_china_ratio": 13.25,
+      "countries": [
+        "GRC"
+      ],
+      "individual_ratios": [
+        13.25
+      ]
+    },
+    "eu_non_eurozone": {
+      "label": "欧盟·非欧元区",
+      "mean_eu6_china_ratio": 9.06,
+      "countries": [
+        "POL",
+        "CZE",
+        "HUN",
+        "ROU",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+      ],
+      "individual_ratios": [
+        11.77,
+        12.22,
+        8.3,
+        8.45,
+        8.31,
+        9.66,
+        6.74,
+        4.98,
+        11.12
+      ]
+    },
+    "eu_candidate": {
+      "label": "欧盟候选/潜在候选国",
+      "mean_eu6_china_ratio": 11.21,
+      "countries": [
+        "SRB",
+        "MNE",
+        "ALB",
+        "MKD"
+      ],
+      "individual_ratios": [
+        8.52,
+        9.51,
+        21.23,
+        5.57
+      ]
+    }
+  },
+  "eastward_substitution": {
+    "eu_members_mean_eu6_china_ratio": 9.51,
+    "eu_candidates_mean_eu6_china_ratio": 11.21,
+    "ratio_members_to_candidates": 0.85,
+    "interpretation": "Higher EU6/China ratio = more EU-oriented. EU members show stronger EU orientation than candidates."
+  }
+}

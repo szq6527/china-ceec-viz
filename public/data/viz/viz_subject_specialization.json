@@ -1,0 +1,2071 @@
+{
+  "source": "OpenAlex group_by=primary_topic.field.id",
+  "description": "Country-level subject specialization ratios for China-CEEC cooperation (2016-2020)",
+  "field_metadata": {
+    "22": {
+      "name": "Engineering",
+      "moe_code": "0802",
+      "moe_cn": "机械工程"
+    },
+    "31": {
+      "name": "Physics and Astronomy",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "27": {
+      "name": "Medicine",
+      "moe_code": "1002",
+      "moe_cn": "临床医学"
+    },
+    "25": {
+      "name": "Materials Science",
+      "moe_code": "0805",
+      "moe_cn": "材料科学与工程"
+    },
+    "16": {
+      "name": "Chemistry",
+      "moe_code": "0703",
+      "moe_cn": "化学"
+    },
+    "13": {
+      "name": "Biochemistry, Genetics and Molecular Biology",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "17": {
+      "name": "Computer Science",
+      "moe_code": "0812",
+      "moe_cn": "计算机科学与技术"
+    },
+    "11": {
+      "name": "Agricultural and Biological Sciences",
+      "moe_code": "0901",
+      "moe_cn": "作物学"
+    },
+    "23": {
+      "name": "Environmental Science",
+      "moe_code": "0830",
+      "moe_cn": "环境科学与工程"
+    },
+    "21": {
+      "name": "Energy",
+      "moe_code": "0807",
+      "moe_cn": "动力工程及工程热物理"
+    },
+    "19": {
+      "name": "Earth and Planetary Sciences",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "33": {
+      "name": "Social Sciences",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "26": {
+      "name": "Mathematics",
+      "moe_code": "0701",
+      "moe_cn": "数学"
+    },
+    "15": {
+      "name": "Chemical Engineering",
+      "moe_code": "0817",
+      "moe_cn": "化学工程"
+    },
+    "28": {
+      "name": "Neuroscience",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "20": {
+      "name": "Economics, Econometrics and Finance",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "32": {
+      "name": "Psychology",
+      "moe_code": "0402",
+      "moe_cn": "心理学"
+    },
+    "18": {
+      "name": "Decision Sciences",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "24": {
+      "name": "Immunology and Microbiology",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "12": {
+      "name": "Arts and Humanities",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "14": {
+      "name": "Business, Management and Accounting",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "30": {
+      "name": "Pharmacology, Toxicology and Pharmaceutics",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "29": {
+      "name": "Nursing",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "36": {
+      "name": "Health Professions",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "35": {
+      "name": "Dentistry",
+      "moe_code": null,
+      "moe_cn": null
+    },
+    "34": {
+      "name": "Veterinary",
+      "moe_code": null,
+      "moe_cn": null
+    }
+  },
+  "ceec_field_distribution": {
+    "11": 2658,
+    "12": 328,
+    "13": 3236,
+    "14": 420,
+    "16": 2083,
+    "17": 2027,
+    "18": 464,
+    "19": 1326,
+    "20": 712,
+    "21": 951,
+    "22": 6487,
+    "23": 2720,
+    "24": 425,
+    "25": 3987,
+    "26": 987,
+    "27": 5816,
+    "28": 554,
+    "29": 143,
+    "31": 4639,
+    "32": 548,
+    "33": 1098,
+    "35": 57,
+    "36": 196,
+    "15": 290,
+    "30": 229,
+    "34": 22
+  },
+  "ceec_total_135": 42403,
+  "countries": [
+    {
+      "iso": "ALB",
+      "name_cn": "阿尔巴尼亚",
+      "period_135_total": 202,
+      "physics_share": 0.009900990099009901,
+      "big_science_share": 0.024752475247524754,
+      "physics_count": 2,
+      "physics_big_count": 0,
+      "non_physics_total": 200,
+      "top5_non_physics": [
+        {
+          "id": "26",
+          "name": "Mathematics",
+          "count": 30
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 30
+        },
+        {
+          "id": "17",
+          "name": "Computer Science",
+          "count": 25
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 20
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 16
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "26",
+          "field_name": "Mathematics",
+          "count": 30,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 6.38
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 25,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.59
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 12,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.29
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 10,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.58
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 16,
+          "big_count": 1,
+          "big_penetration": 0.0625,
+          "specialization_ratio": 1.23
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 30,
+          "big_count": 3,
+          "big_penetration": 0.1,
+          "specialization_ratio": 1.08
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 8,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.81
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 20,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.65
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 11,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.58
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 7,
+          "big_count": 1,
+          "big_penetration": 0.1429,
+          "specialization_ratio": 0.45
+        }
+      ]
+    },
+    {
+      "iso": "BGR",
+      "name_cn": "保加利亚",
+      "period_135_total": 2086,
+      "physics_share": 0.05656759348034516,
+      "big_science_share": 0.03595397890699904,
+      "physics_count": 118,
+      "physics_big_count": 43,
+      "non_physics_total": 1968,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 500
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 201
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 198
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 171
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 140
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "21",
+          "field_name": "Energy",
+          "count": 83,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.77
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 500,
+          "big_count": 3,
+          "big_penetration": 0.006,
+          "specialization_ratio": 1.57
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 115,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.12
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 171,
+          "big_count": 7,
+          "big_penetration": 0.0409,
+          "specialization_ratio": 1.07
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 106,
+          "big_count": 1,
+          "big_penetration": 0.0094,
+          "specialization_ratio": 1.06
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 140,
+          "big_count": 3,
+          "big_penetration": 0.0214,
+          "specialization_ratio": 1.05
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 201,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.02
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 198,
+          "big_count": 14,
+          "big_penetration": 0.0707,
+          "specialization_ratio": 0.69
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 89,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.68
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 118,
+          "big_count": 43,
+          "big_penetration": 0.3644,
+          "specialization_ratio": 0.52
+        }
+      ]
+    },
+    {
+      "iso": "CZE",
+      "name_cn": "捷克",
+      "period_135_total": 9303,
+      "physics_share": 0.09910781468343545,
+      "big_science_share": 0.05170375147801785,
+      "physics_count": 922,
+      "physics_big_count": 400,
+      "non_physics_total": 8381,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 1246
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 1107
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 1023
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 981
+        },
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 836
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 836,
+          "big_count": 3,
+          "big_penetration": 0.0036,
+          "specialization_ratio": 1.43
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 981,
+          "big_count": 19,
+          "big_penetration": 0.0194,
+          "specialization_ratio": 1.38
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 353,
+          "big_count": 2,
+          "big_penetration": 0.0057,
+          "specialization_ratio": 1.21
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 1023,
+          "big_count": 2,
+          "big_penetration": 0.002,
+          "specialization_ratio": 1.17
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 514,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.12
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 617,
+          "big_count": 8,
+          "big_penetration": 0.013,
+          "specialization_ratio": 1.03
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 922,
+          "big_count": 400,
+          "big_penetration": 0.4338,
+          "specialization_ratio": 0.91
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 1246,
+          "big_count": 5,
+          "big_penetration": 0.004,
+          "specialization_ratio": 0.88
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 1107,
+          "big_count": 22,
+          "big_penetration": 0.0199,
+          "specialization_ratio": 0.87
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 374,
+          "big_count": 7,
+          "big_penetration": 0.0187,
+          "specialization_ratio": 0.84
+        }
+      ]
+    },
+    {
+      "iso": "EST",
+      "name_cn": "爱沙尼亚",
+      "period_135_total": 1230,
+      "physics_share": 0.03008130081300813,
+      "big_science_share": 0.043089430894308944,
+      "physics_count": 37,
+      "physics_big_count": 1,
+      "non_physics_total": 1193,
+      "top5_non_physics": [
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 228
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 162
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 147
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 139
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 127
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 228,
+          "big_count": 1,
+          "big_penetration": 0.0044,
+          "specialization_ratio": 2.96
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 162,
+          "big_count": 1,
+          "big_penetration": 0.0062,
+          "specialization_ratio": 2.05
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 72,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.87
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 147,
+          "big_count": 28,
+          "big_penetration": 0.1905,
+          "specialization_ratio": 1.57
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 49,
+          "big_count": 1,
+          "big_penetration": 0.0204,
+          "specialization_ratio": 1.54
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 127,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.1
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 139,
+          "big_count": 1,
+          "big_penetration": 0.0072,
+          "specialization_ratio": 0.74
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 40,
+          "big_count": 2,
+          "big_penetration": 0.05,
+          "specialization_ratio": 0.68
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 97,
+          "big_count": 11,
+          "big_penetration": 0.1134,
+          "specialization_ratio": 0.57
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 37,
+          "big_count": 1,
+          "big_penetration": 0.027,
+          "specialization_ratio": 0.27
+        }
+      ]
+    },
+    {
+      "iso": "GRC",
+      "name_cn": "希腊",
+      "period_135_total": 3755,
+      "physics_share": 0.10812250332889481,
+      "big_science_share": 0.0426098535286285,
+      "physics_count": 406,
+      "physics_big_count": 65,
+      "non_physics_total": 3349,
+      "top5_non_physics": [
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 832
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 662
+        },
+        {
+          "id": "17",
+          "name": "Computer Science",
+          "count": 286
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 278
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 190
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 832,
+          "big_count": 32,
+          "big_penetration": 0.0385,
+          "specialization_ratio": 1.62
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 286,
+          "big_count": 3,
+          "big_penetration": 0.0105,
+          "specialization_ratio": 1.59
+        },
+        {
+          "field_id": "26",
+          "field_name": "Mathematics",
+          "count": 126,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.44
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 662,
+          "big_count": 4,
+          "big_penetration": 0.006,
+          "specialization_ratio": 1.15
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 278,
+          "big_count": 3,
+          "big_penetration": 0.0108,
+          "specialization_ratio": 1.15
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 134,
+          "big_count": 1,
+          "big_penetration": 0.0075,
+          "specialization_ratio": 1.14
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 406,
+          "big_count": 65,
+          "big_penetration": 0.1601,
+          "specialization_ratio": 0.99
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 142,
+          "big_count": 2,
+          "big_penetration": 0.0141,
+          "specialization_ratio": 0.6
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 165,
+          "big_count": 27,
+          "big_penetration": 0.1636,
+          "specialization_ratio": 0.58
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 190,
+          "big_count": 4,
+          "big_penetration": 0.0211,
+          "specialization_ratio": 0.54
+        }
+      ]
+    },
+    {
+      "iso": "HRV",
+      "name_cn": "克罗地亚",
+      "period_135_total": 1187,
+      "physics_share": 0.21229991575400167,
+      "big_science_share": 0.14743049705139005,
+      "physics_count": 252,
+      "physics_big_count": 129,
+      "non_physics_total": 935,
+      "top5_non_physics": [
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 192
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 187
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 96
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 65
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 52
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 252,
+          "big_count": 129,
+          "big_penetration": 0.5119,
+          "specialization_ratio": 1.94
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 44,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.19
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 192,
+          "big_count": 20,
+          "big_penetration": 0.1042,
+          "specialization_ratio": 1.18
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 35,
+          "big_count": 1,
+          "big_penetration": 0.0286,
+          "specialization_ratio": 1.14
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 96,
+          "big_count": 13,
+          "big_penetration": 0.1354,
+          "specialization_ratio": 1.06
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 187,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.03
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 65,
+          "big_count": 1,
+          "big_penetration": 0.0154,
+          "specialization_ratio": 0.85
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 38,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.67
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 41,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.55
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 52,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.47
+        }
+      ]
+    },
+    {
+      "iso": "HUN",
+      "name_cn": "匈牙利",
+      "period_135_total": 3373,
+      "physics_share": 0.15090423954936258,
+      "big_science_share": 0.06937444411503113,
+      "physics_count": 509,
+      "physics_big_count": 179,
+      "non_physics_total": 2864,
+      "top5_non_physics": [
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 525
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 332
+        },
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 278
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 278
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 209
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "12",
+          "field_name": "Arts and Humanities",
+          "count": 87,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 3.33
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 190,
+          "big_count": 2,
+          "big_penetration": 0.0105,
+          "specialization_ratio": 2.18
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 509,
+          "big_count": 179,
+          "big_penetration": 0.3517,
+          "specialization_ratio": 1.38
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 278,
+          "big_count": 4,
+          "big_penetration": 0.0144,
+          "specialization_ratio": 1.31
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 189,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.14
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 525,
+          "big_count": 20,
+          "big_penetration": 0.0381,
+          "specialization_ratio": 1.13
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 278,
+          "big_count": 11,
+          "big_penetration": 0.0396,
+          "specialization_ratio": 1.08
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 209,
+          "big_count": 5,
+          "big_penetration": 0.0239,
+          "specialization_ratio": 0.97
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 332,
+          "big_count": 4,
+          "big_penetration": 0.012,
+          "specialization_ratio": 0.64
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 171,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.54
+        }
+      ]
+    },
+    {
+      "iso": "LTU",
+      "name_cn": "立陶宛",
+      "period_135_total": 732,
+      "physics_share": 0.08196721311475409,
+      "big_science_share": 0.04234972677595628,
+      "physics_count": 60,
+      "physics_big_count": 10,
+      "non_physics_total": 672,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 130
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 94
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 62
+        },
+        {
+          "id": "18",
+          "name": "Decision Sciences",
+          "count": 58
+        },
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 42
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "18",
+          "field_name": "Decision Sciences",
+          "count": 58,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 7.24
+        },
+        {
+          "field_id": "12",
+          "field_name": "Arts and Humanities",
+          "count": 26,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 4.59
+        },
+        {
+          "field_id": "14",
+          "field_name": "Business, Management and Accounting",
+          "count": 29,
+          "big_count": 1,
+          "big_penetration": 0.0345,
+          "specialization_ratio": 4.0
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 36,
+          "big_count": 1,
+          "big_penetration": 0.0278,
+          "specialization_ratio": 1.9
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 62,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.32
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 130,
+          "big_count": 3,
+          "big_penetration": 0.0231,
+          "specialization_ratio": 1.16
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 37,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.06
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 94,
+          "big_count": 10,
+          "big_penetration": 0.1064,
+          "specialization_ratio": 0.94
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 42,
+          "big_count": 1,
+          "big_penetration": 0.0238,
+          "specialization_ratio": 0.92
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 60,
+          "big_count": 10,
+          "big_penetration": 0.1667,
+          "specialization_ratio": 0.75
+        }
+      ]
+    },
+    {
+      "iso": "LVA",
+      "name_cn": "拉脱维亚",
+      "period_135_total": 575,
+      "physics_share": 0.02434782608695652,
+      "big_science_share": 0.01217391304347826,
+      "physics_count": 14,
+      "physics_big_count": 0,
+      "non_physics_total": 561,
+      "top5_non_physics": [
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 111
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 78
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 45
+        },
+        {
+          "id": "20",
+          "name": "Economics, Econometrics and Finance",
+          "count": 45
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 39
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "14",
+          "field_name": "Business, Management and Accounting",
+          "count": 37,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 6.5
+        },
+        {
+          "field_id": "20",
+          "field_name": "Economics, Econometrics and Finance",
+          "count": 45,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 4.66
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 111,
+          "big_count": 1,
+          "big_penetration": 0.009,
+          "specialization_ratio": 3.08
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 31,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.08
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 45,
+          "big_count": 1,
+          "big_penetration": 0.0222,
+          "specialization_ratio": 1.03
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 78,
+          "big_count": 4,
+          "big_penetration": 0.0513,
+          "specialization_ratio": 0.99
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 36,
+          "big_count": 1,
+          "big_penetration": 0.0278,
+          "specialization_ratio": 0.98
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 24,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.87
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 32,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.59
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 39,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.44
+        }
+      ]
+    },
+    {
+      "iso": "MKD",
+      "name_cn": "北马其顿",
+      "period_135_total": 509,
+      "physics_share": 0.10019646365422397,
+      "big_science_share": 0.007858546168958742,
+      "physics_count": 51,
+      "physics_big_count": 0,
+      "non_physics_total": 458,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 118
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 60
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 55
+        },
+        {
+          "id": "17",
+          "name": "Computer Science",
+          "count": 34
+        },
+        {
+          "id": "33",
+          "name": "Social Sciences",
+          "count": 28
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "20",
+          "field_name": "Economics, Econometrics and Finance",
+          "count": 20,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.34
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 28,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.12
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 118,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.52
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 34,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.4
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 60,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.25
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 51,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.92
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 55,
+          "big_count": 1,
+          "big_penetration": 0.0182,
+          "specialization_ratio": 0.79
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 17,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.68
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 26,
+          "big_count": 2,
+          "big_penetration": 0.0769,
+          "specialization_ratio": 0.67
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 22,
+          "big_count": 1,
+          "big_penetration": 0.0455,
+          "specialization_ratio": 0.67
+        }
+      ]
+    },
+    {
+      "iso": "MNE",
+      "name_cn": "黑山",
+      "period_135_total": 765,
+      "physics_share": 0.00784313725490196,
+      "big_science_share": 0.00130718954248366,
+      "physics_count": 6,
+      "physics_big_count": 1,
+      "non_physics_total": 759,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 173
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 106
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 101
+        },
+        {
+          "id": "16",
+          "name": "Chemistry",
+          "count": 69
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 65
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "28",
+          "field_name": "Neuroscience",
+          "count": 26,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.6
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 106,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.16
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 47,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.96
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 69,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.84
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 101,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.73
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 173,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.48
+        },
+        {
+          "field_id": "26",
+          "field_name": "Mathematics",
+          "count": 20,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.12
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 45,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.94
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 48,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.67
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 65,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.62
+        }
+      ]
+    },
+    {
+      "iso": "POL",
+      "name_cn": "波兰",
+      "period_135_total": 9739,
+      "physics_share": 0.13892596775849678,
+      "big_science_share": 0.06458568641544306,
+      "physics_count": 1353,
+      "physics_big_count": 520,
+      "non_physics_total": 8386,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 1530
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 1194
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 1167
+        },
+        {
+          "id": "16",
+          "name": "Chemistry",
+          "count": 792
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 610
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 792,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.66
+        },
+        {
+          "field_id": "21",
+          "field_name": "Energy",
+          "count": 327,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.5
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 1353,
+          "big_count": 520,
+          "big_penetration": 0.3843,
+          "specialization_ratio": 1.27
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 1167,
+          "big_count": 3,
+          "big_penetration": 0.0026,
+          "specialization_ratio": 1.27
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 535,
+          "big_count": 2,
+          "big_penetration": 0.0037,
+          "specialization_ratio": 1.15
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 1530,
+          "big_count": 2,
+          "big_penetration": 0.0013,
+          "specialization_ratio": 1.03
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 1194,
+          "big_count": 43,
+          "big_penetration": 0.036,
+          "specialization_ratio": 0.89
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 610,
+          "big_count": 33,
+          "big_penetration": 0.0541,
+          "specialization_ratio": 0.82
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 426,
+          "big_count": 5,
+          "big_penetration": 0.0117,
+          "specialization_ratio": 0.68
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 364,
+          "big_count": 2,
+          "big_penetration": 0.0055,
+          "specialization_ratio": 0.6
+        }
+      ]
+    },
+    {
+      "iso": "ROU",
+      "name_cn": "罗马尼亚",
+      "period_135_total": 3368,
+      "physics_share": 0.1244061757719715,
+      "big_science_share": 0.05374109263657957,
+      "physics_count": 419,
+      "physics_big_count": 135,
+      "non_physics_total": 2949,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 573
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 552
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 288
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 239
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 230
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "26",
+          "field_name": "Mathematics",
+          "count": 180,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.3
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 132,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.25
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 552,
+          "big_count": 22,
+          "big_penetration": 0.0399,
+          "specialization_ratio": 1.19
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 419,
+          "big_count": 135,
+          "big_penetration": 0.3222,
+          "specialization_ratio": 1.14
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 573,
+          "big_count": 2,
+          "big_penetration": 0.0035,
+          "specialization_ratio": 1.11
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 239,
+          "big_count": 1,
+          "big_penetration": 0.0042,
+          "specialization_ratio": 1.11
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 288,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.91
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 230,
+          "big_count": 5,
+          "big_penetration": 0.0217,
+          "specialization_ratio": 0.89
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 112,
+          "big_count": 3,
+          "big_penetration": 0.0268,
+          "specialization_ratio": 0.7
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 93,
+          "big_count": 2,
+          "big_penetration": 0.0215,
+          "specialization_ratio": 0.44
+        }
+      ]
+    },
+    {
+      "iso": "SRB",
+      "name_cn": "塞尔维亚",
+      "period_135_total": 1396,
+      "physics_share": 0.08882521489971347,
+      "big_science_share": 0.02865329512893983,
+      "physics_count": 124,
+      "physics_big_count": 6,
+      "non_physics_total": 1272,
+      "top5_non_physics": [
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 323
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 134
+        },
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 109
+        },
+        {
+          "id": "17",
+          "name": "Computer Science",
+          "count": 108
+        },
+        {
+          "id": "26",
+          "name": "Mathematics",
+          "count": 92
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "26",
+          "field_name": "Mathematics",
+          "count": 92,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.83
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 323,
+          "big_count": 13,
+          "big_penetration": 0.0402,
+          "specialization_ratio": 1.69
+        },
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 108,
+          "big_count": 1,
+          "big_penetration": 0.0093,
+          "specialization_ratio": 1.62
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 46,
+          "big_count": 2,
+          "big_penetration": 0.0435,
+          "specialization_ratio": 1.27
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 109,
+          "big_count": 4,
+          "big_penetration": 0.0367,
+          "specialization_ratio": 1.25
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 124,
+          "big_count": 6,
+          "big_penetration": 0.0484,
+          "specialization_ratio": 0.81
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 69,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.77
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 75,
+          "big_count": 3,
+          "big_penetration": 0.04,
+          "specialization_ratio": 0.7
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 134,
+          "big_count": 1,
+          "big_penetration": 0.0075,
+          "specialization_ratio": 0.63
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 74,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.56
+        }
+      ]
+    },
+    {
+      "iso": "SVK",
+      "name_cn": "斯洛伐克",
+      "period_135_total": 2363,
+      "physics_share": 0.05713076597545493,
+      "big_science_share": 0.013542107490478206,
+      "physics_count": 135,
+      "physics_big_count": 6,
+      "non_physics_total": 2228,
+      "top5_non_physics": [
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 466
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 346
+        },
+        {
+          "id": "11",
+          "name": "Agricultural and Biological Sciences",
+          "count": 204
+        },
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 183
+        },
+        {
+          "id": "23",
+          "name": "Environmental Science",
+          "count": 182
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "18",
+          "field_name": "Decision Sciences",
+          "count": 77,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 2.98
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 346,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.56
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 204,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.38
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 466,
+          "big_count": 2,
+          "big_penetration": 0.0043,
+          "specialization_ratio": 1.29
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 182,
+          "big_count": 3,
+          "big_penetration": 0.0165,
+          "specialization_ratio": 1.2
+        },
+        {
+          "field_id": "19",
+          "field_name": "Earth and Planetary Sciences",
+          "count": 77,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.04
+        },
+        {
+          "field_id": "16",
+          "field_name": "Chemistry",
+          "count": 110,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.95
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 166,
+          "big_count": 3,
+          "big_penetration": 0.0181,
+          "specialization_ratio": 0.92
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 183,
+          "big_count": 10,
+          "big_penetration": 0.0546,
+          "specialization_ratio": 0.56
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 135,
+          "big_count": 6,
+          "big_penetration": 0.0444,
+          "specialization_ratio": 0.52
+        }
+      ]
+    },
+    {
+      "iso": "SVN",
+      "name_cn": "斯洛文尼亚",
+      "period_135_total": 1820,
+      "physics_share": 0.12692307692307692,
+      "big_science_share": 0.08846153846153847,
+      "physics_count": 231,
+      "physics_big_count": 131,
+      "non_physics_total": 1589,
+      "top5_non_physics": [
+        {
+          "id": "27",
+          "name": "Medicine",
+          "count": 291
+        },
+        {
+          "id": "22",
+          "name": "Engineering",
+          "count": 238
+        },
+        {
+          "id": "25",
+          "name": "Materials Science",
+          "count": 176
+        },
+        {
+          "id": "17",
+          "name": "Computer Science",
+          "count": 164
+        },
+        {
+          "id": "13",
+          "name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 113
+        }
+      ],
+      "specializations": [
+        {
+          "field_id": "17",
+          "field_name": "Computer Science",
+          "count": 164,
+          "big_count": 5,
+          "big_penetration": 0.0305,
+          "specialization_ratio": 1.89
+        },
+        {
+          "field_id": "33",
+          "field_name": "Social Sciences",
+          "count": 79,
+          "big_count": 2,
+          "big_penetration": 0.0253,
+          "specialization_ratio": 1.68
+        },
+        {
+          "field_id": "26",
+          "field_name": "Mathematics",
+          "count": 65,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.53
+        },
+        {
+          "field_id": "27",
+          "field_name": "Medicine",
+          "count": 291,
+          "big_count": 7,
+          "big_penetration": 0.0241,
+          "specialization_ratio": 1.17
+        },
+        {
+          "field_id": "31",
+          "field_name": "Physics and Astronomy",
+          "count": 231,
+          "big_count": 131,
+          "big_penetration": 0.5671,
+          "specialization_ratio": 1.16
+        },
+        {
+          "field_id": "25",
+          "field_name": "Materials Science",
+          "count": 176,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 1.03
+        },
+        {
+          "field_id": "22",
+          "field_name": "Engineering",
+          "count": 238,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.85
+        },
+        {
+          "field_id": "13",
+          "field_name": "Biochemistry, Genetics and Molecular Biology",
+          "count": 113,
+          "big_count": 5,
+          "big_penetration": 0.0442,
+          "specialization_ratio": 0.81
+        },
+        {
+          "field_id": "23",
+          "field_name": "Environmental Science",
+          "count": 91,
+          "big_count": 3,
+          "big_penetration": 0.033,
+          "specialization_ratio": 0.78
+        },
+        {
+          "field_id": "11",
+          "field_name": "Agricultural and Biological Sciences",
+          "count": 58,
+          "big_count": 0,
+          "big_penetration": 0.0,
+          "specialization_ratio": 0.51
+        }
+      ]
+    }
+  ]
+}

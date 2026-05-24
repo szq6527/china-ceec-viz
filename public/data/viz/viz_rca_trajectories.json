@@ -1,0 +1,1442 @@
+{
+  "source": "OpenAlex group_by queries",
+  "description": "Yearly RCA (Revealed Comparative Advantage) for China-CEEC cooperation",
+  "ceec_avg_internal_rca": {
+    "2011": 1.1961933333333334,
+    "2012": 1.1652,
+    "2013": 1.1212625,
+    "2014": 1.0946875,
+    "2015": 1.1107,
+    "2016": 1.2170625,
+    "2017": 1.25940625,
+    "2018": 1.2615625,
+    "2019": 1.19999375,
+    "2020": 1.15351875
+  },
+  "countries": [
+    {
+      "iso": "ALB",
+      "name_cn": "阿尔巴尼亚",
+      "geopolitical_group": "eu_candidate",
+      "is_small_country": true,
+      "rca_2011": 0.0,
+      "rca_2020": 0.6779,
+      "internal_rca_2011": 0.0,
+      "internal_rca_2020": 0.5156,
+      "rca_trend": "increasing",
+      "china_portfolio_rank_2011": 81,
+      "china_portfolio_rank_2020": 113,
+      "eu6_intensity": 0.3641,
+      "eu6_china_ratio": 21.23,
+      "big_science_share_125": 0.0,
+      "big_science_share_135": 0.028169014084507043,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 0.0,
+          "global_rca": 0.0,
+          "cn_ceec_papers": 0,
+          "country_total_papers": 496
+        },
+        {
+          "year": 2012,
+          "internal_rca": 0.1199,
+          "global_rca": 0.206,
+          "cn_ceec_papers": 1,
+          "country_total_papers": 600
+        },
+        {
+          "year": 2013,
+          "internal_rca": 0.1064,
+          "global_rca": 0.1697,
+          "cn_ceec_papers": 2,
+          "country_total_papers": 1222
+        },
+        {
+          "year": 2014,
+          "internal_rca": 0.078,
+          "global_rca": 0.1273,
+          "cn_ceec_papers": 2,
+          "country_total_papers": 1373
+        },
+        {
+          "year": 2015,
+          "internal_rca": 0.0332,
+          "global_rca": 0.0496,
+          "cn_ceec_papers": 1,
+          "country_total_papers": 1522
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.3038,
+          "global_rca": 0.4057,
+          "cn_ceec_papers": 8,
+          "country_total_papers": 1288
+        },
+        {
+          "year": 2017,
+          "internal_rca": 0.4219,
+          "global_rca": 0.5114,
+          "cn_ceec_papers": 10,
+          "country_total_papers": 1128
+        },
+        {
+          "year": 2018,
+          "internal_rca": 0.4079,
+          "global_rca": 0.4965,
+          "cn_ceec_papers": 13,
+          "country_total_papers": 1311
+        },
+        {
+          "year": 2019,
+          "internal_rca": 0.4116,
+          "global_rca": 0.4954,
+          "cn_ceec_papers": 14,
+          "country_total_papers": 1195
+        },
+        {
+          "year": 2020,
+          "internal_rca": 0.5156,
+          "global_rca": 0.6779,
+          "cn_ceec_papers": 26,
+          "country_total_papers": 1516
+        }
+      ]
+    },
+    {
+      "iso": "BGR",
+      "name_cn": "保加利亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 2.1722,
+      "rca_2020": 1.4626,
+      "internal_rca_2011": 1.2054,
+      "internal_rca_2020": 1.1124,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 40,
+      "china_portfolio_rank_2020": 59,
+      "eu6_intensity": 0.3073,
+      "eu6_china_ratio": 8.31,
+      "big_science_share_125": 0.01443001443001443,
+      "big_science_share_135": 0.03578038247995065,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.2054,
+          "global_rca": 2.1722,
+          "cn_ceec_papers": 92,
+          "country_total_papers": 5981
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.3303,
+          "global_rca": 2.2851,
+          "cn_ceec_papers": 102,
+          "country_total_papers": 5518
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.7313,
+          "global_rca": 2.7595,
+          "cn_ceec_papers": 157,
+          "country_total_papers": 5898
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.3677,
+          "global_rca": 2.2312,
+          "cn_ceec_papers": 173,
+          "country_total_papers": 6777
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.2241,
+          "global_rca": 1.8288,
+          "cn_ceec_papers": 169,
+          "country_total_papers": 6983
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.6661,
+          "global_rca": 2.2249,
+          "cn_ceec_papers": 250,
+          "country_total_papers": 7339
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.5945,
+          "global_rca": 1.9328,
+          "cn_ceec_papers": 281,
+          "country_total_papers": 8386
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.4022,
+          "global_rca": 1.7069,
+          "cn_ceec_papers": 310,
+          "country_total_papers": 9094
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.2092,
+          "global_rca": 1.4555,
+          "cn_ceec_papers": 362,
+          "country_total_papers": 10517
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.1124,
+          "global_rca": 1.4626,
+          "cn_ceec_papers": 418,
+          "country_total_papers": 11297
+        }
+      ]
+    },
+    {
+      "iso": "CZE",
+      "name_cn": "捷克",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 2.042,
+      "rca_2020": 1.41,
+      "internal_rca_2011": 1.1331,
+      "internal_rca_2020": 1.0724,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 22,
+      "china_portfolio_rank_2020": 28,
+      "eu6_intensity": 0.436,
+      "eu6_china_ratio": 12.22,
+      "big_science_share_125": 0.044489795918367346,
+      "big_science_share_135": 0.052538020936203834,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.1331,
+          "global_rca": 2.042,
+          "cn_ceec_papers": 302,
+          "country_total_papers": 20886
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.0077,
+          "global_rca": 1.731,
+          "cn_ceec_papers": 319,
+          "country_total_papers": 22782
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.1844,
+          "global_rca": 1.8877,
+          "cn_ceec_papers": 470,
+          "country_total_papers": 25810
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.2003,
+          "global_rca": 1.9581,
+          "cn_ceec_papers": 667,
+          "country_total_papers": 29773
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.115,
+          "global_rca": 1.6659,
+          "cn_ceec_papers": 692,
+          "country_total_papers": 31390
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.2805,
+          "global_rca": 1.7101,
+          "cn_ceec_papers": 858,
+          "country_total_papers": 32771
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.1414,
+          "global_rca": 1.3835,
+          "cn_ceec_papers": 779,
+          "country_total_papers": 32478
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.094,
+          "global_rca": 1.3317,
+          "cn_ceec_papers": 886,
+          "country_total_papers": 33315
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.0484,
+          "global_rca": 1.262,
+          "cn_ceec_papers": 1108,
+          "country_total_papers": 37125
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.0724,
+          "global_rca": 1.41,
+          "cn_ceec_papers": 1432,
+          "country_total_papers": 40146
+        }
+      ]
+    },
+    {
+      "iso": "EST",
+      "name_cn": "爱沙尼亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 3.7852,
+      "rca_2020": 3.533,
+      "internal_rca_2011": 2.1005,
+      "internal_rca_2020": 2.687,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 74,
+      "china_portfolio_rank_2020": 63,
+      "eu6_intensity": 0.6025,
+      "eu6_china_ratio": 6.74,
+      "big_science_share_125": 0.036414565826330535,
+      "big_science_share_135": 0.04384816753926701,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 2.1005,
+          "global_rca": 3.7852,
+          "cn_ceec_papers": 81,
+          "country_total_papers": 3022
+        },
+        {
+          "year": 2012,
+          "internal_rca": 2.4369,
+          "global_rca": 4.1859,
+          "cn_ceec_papers": 109,
+          "country_total_papers": 3219
+        },
+        {
+          "year": 2013,
+          "internal_rca": 2.3046,
+          "global_rca": 3.6733,
+          "cn_ceec_papers": 131,
+          "country_total_papers": 3697
+        },
+        {
+          "year": 2014,
+          "internal_rca": 2.4838,
+          "global_rca": 4.052,
+          "cn_ceec_papers": 184,
+          "country_total_papers": 3969
+        },
+        {
+          "year": 2015,
+          "internal_rca": 2.6782,
+          "global_rca": 4.0013,
+          "cn_ceec_papers": 209,
+          "country_total_papers": 3947
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.777,
+          "global_rca": 2.3731,
+          "cn_ceec_papers": 149,
+          "country_total_papers": 4101
+        },
+        {
+          "year": 2017,
+          "internal_rca": 2.1154,
+          "global_rca": 2.5642,
+          "cn_ceec_papers": 190,
+          "country_total_papers": 4274
+        },
+        {
+          "year": 2018,
+          "internal_rca": 2.6371,
+          "global_rca": 3.2101,
+          "cn_ceec_papers": 289,
+          "country_total_papers": 4508
+        },
+        {
+          "year": 2019,
+          "internal_rca": 2.4116,
+          "global_rca": 2.9029,
+          "cn_ceec_papers": 381,
+          "country_total_papers": 5550
+        },
+        {
+          "year": 2020,
+          "internal_rca": 2.687,
+          "global_rca": 3.533,
+          "cn_ceec_papers": 519,
+          "country_total_papers": 5807
+        }
+      ]
+    },
+    {
+      "iso": "GRC",
+      "name_cn": "希腊",
+      "geopolitical_group": "eurozone_special",
+      "is_small_country": false,
+      "rca_2011": 1.7649,
+      "rca_2020": 1.3373,
+      "internal_rca_2011": 0.9794,
+      "internal_rca_2020": 1.0171,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 46,
+      "china_portfolio_rank_2020": 44,
+      "eu6_intensity": 0.4481,
+      "eu6_china_ratio": 13.25,
+      "big_science_share_125": 0.027804410354745925,
+      "big_science_share_135": 0.04316718340090627,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 0.9794,
+          "global_rca": 1.7649,
+          "cn_ceec_papers": 282,
+          "country_total_papers": 22564
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.1804,
+          "global_rca": 2.0276,
+          "cn_ceec_papers": 365,
+          "country_total_papers": 22253
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.0662,
+          "global_rca": 1.6993,
+          "cn_ceec_papers": 380,
+          "country_total_papers": 23181
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.1164,
+          "global_rca": 1.8214,
+          "cn_ceec_papers": 515,
+          "country_total_papers": 24714
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.0983,
+          "global_rca": 1.6409,
+          "cn_ceec_papers": 544,
+          "country_total_papers": 25052
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.8824,
+          "global_rca": 1.1783,
+          "cn_ceec_papers": 481,
+          "country_total_papers": 26662
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.0332,
+          "global_rca": 1.2524,
+          "cn_ceec_papers": 623,
+          "country_total_papers": 28694
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.0771,
+          "global_rca": 1.3112,
+          "cn_ceec_papers": 795,
+          "country_total_papers": 30361
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.0686,
+          "global_rca": 1.2863,
+          "cn_ceec_papers": 997,
+          "country_total_papers": 32775
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.0171,
+          "global_rca": 1.3373,
+          "cn_ceec_papers": 1297,
+          "country_total_papers": 38338
+        }
+      ]
+    },
+    {
+      "iso": "HRV",
+      "name_cn": "克罗地亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 2.0585,
+      "rca_2020": 1.4687,
+      "internal_rca_2011": 1.1423,
+      "internal_rca_2020": 1.117,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 61,
+      "china_portfolio_rank_2020": 68,
+      "eu6_intensity": 0.3589,
+      "eu6_china_ratio": 9.66,
+      "big_science_share_125": 0.05622932745314223,
+      "big_science_share_135": 0.1502958579881657,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.1423,
+          "global_rca": 2.0585,
+          "cn_ceec_papers": 136,
+          "country_total_papers": 9330
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.1264,
+          "global_rca": 1.9349,
+          "cn_ceec_papers": 155,
+          "country_total_papers": 9903
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.1082,
+          "global_rca": 1.7664,
+          "cn_ceec_papers": 170,
+          "country_total_papers": 9977
+        },
+        {
+          "year": 2014,
+          "internal_rca": 0.9885,
+          "global_rca": 1.6126,
+          "cn_ceec_papers": 194,
+          "country_total_papers": 10515
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.1877,
+          "global_rca": 1.7745,
+          "cn_ceec_papers": 252,
+          "country_total_papers": 10731
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.9096,
+          "global_rca": 1.2147,
+          "cn_ceec_papers": 215,
+          "country_total_papers": 11561
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.2635,
+          "global_rca": 1.5316,
+          "cn_ceec_papers": 304,
+          "country_total_papers": 11449
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.0213,
+          "global_rca": 1.2432,
+          "cn_ceec_papers": 311,
+          "country_total_papers": 12526
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.048,
+          "global_rca": 1.2616,
+          "cn_ceec_papers": 368,
+          "country_total_papers": 12335
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.117,
+          "global_rca": 1.4687,
+          "cn_ceec_papers": 492,
+          "country_total_papers": 13242
+        }
+      ]
+    },
+    {
+      "iso": "HUN",
+      "name_cn": "匈牙利",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 2.8411,
+      "rca_2020": 1.784,
+      "internal_rca_2011": 1.5766,
+      "internal_rca_2020": 1.3568,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 47,
+      "china_portfolio_rank_2020": 46,
+      "eu6_intensity": 0.3744,
+      "eu6_china_ratio": 8.3,
+      "big_science_share_125": 0.02472382956338769,
+      "big_science_share_135": 0.069697794718214,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.5766,
+          "global_rca": 2.8411,
+          "cn_ceec_papers": 255,
+          "country_total_papers": 12675
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.6741,
+          "global_rca": 2.8757,
+          "cn_ceec_papers": 310,
+          "country_total_papers": 13326
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.642,
+          "global_rca": 2.6172,
+          "cn_ceec_papers": 351,
+          "country_total_papers": 13903
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.4977,
+          "global_rca": 2.4433,
+          "cn_ceec_papers": 436,
+          "country_total_papers": 15597
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.6618,
+          "global_rca": 2.4828,
+          "cn_ceec_papers": 549,
+          "country_total_papers": 16709
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.835,
+          "global_rca": 2.4505,
+          "cn_ceec_papers": 629,
+          "country_total_papers": 16765
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.4849,
+          "global_rca": 1.7999,
+          "cn_ceec_papers": 535,
+          "country_total_papers": 17145
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.449,
+          "global_rca": 1.7639,
+          "cn_ceec_papers": 657,
+          "country_total_papers": 18651
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.3039,
+          "global_rca": 1.5696,
+          "cn_ceec_papers": 807,
+          "country_total_papers": 21741
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.3568,
+          "global_rca": 1.784,
+          "cn_ceec_papers": 1045,
+          "country_total_papers": 23155
+        }
+      ]
+    },
+    {
+      "iso": "LTU",
+      "name_cn": "立陶宛",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": true,
+      "rca_2011": 1.6406,
+      "rca_2020": 1.3238,
+      "internal_rca_2011": 0.9104,
+      "internal_rca_2020": 1.0068,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 77,
+      "china_portfolio_rank_2020": 75,
+      "eu6_intensity": 0.3725,
+      "eu6_china_ratio": 11.12,
+      "big_science_share_125": 0.04247104247104247,
+      "big_science_share_135": 0.04234972677595628,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 0.9104,
+          "global_rca": 1.6406,
+          "cn_ceec_papers": 38,
+          "country_total_papers": 3271
+        },
+        {
+          "year": 2012,
+          "internal_rca": 0.9586,
+          "global_rca": 1.6467,
+          "cn_ceec_papers": 55,
+          "country_total_papers": 4129
+        },
+        {
+          "year": 2013,
+          "internal_rca": 0.788,
+          "global_rca": 1.256,
+          "cn_ceec_papers": 52,
+          "country_total_papers": 4292
+        },
+        {
+          "year": 2014,
+          "internal_rca": 0.4955,
+          "global_rca": 0.8083,
+          "cn_ceec_papers": 52,
+          "country_total_papers": 5623
+        },
+        {
+          "year": 2015,
+          "internal_rca": 0.5751,
+          "global_rca": 0.8592,
+          "cn_ceec_papers": 62,
+          "country_total_papers": 5453
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.7662,
+          "global_rca": 1.0232,
+          "cn_ceec_papers": 80,
+          "country_total_papers": 5107
+        },
+        {
+          "year": 2017,
+          "internal_rca": 0.8151,
+          "global_rca": 0.988,
+          "cn_ceec_papers": 97,
+          "country_total_papers": 5663
+        },
+        {
+          "year": 2018,
+          "internal_rca": 0.7891,
+          "global_rca": 0.9605,
+          "cn_ceec_papers": 121,
+          "country_total_papers": 6308
+        },
+        {
+          "year": 2019,
+          "internal_rca": 0.9626,
+          "global_rca": 1.1587,
+          "cn_ceec_papers": 182,
+          "country_total_papers": 6642
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.0068,
+          "global_rca": 1.3238,
+          "cn_ceec_papers": 252,
+          "country_total_papers": 7525
+        }
+      ]
+    },
+    {
+      "iso": "LVA",
+      "name_cn": "拉脱维亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": true,
+      "rca_2011": 0.6267,
+      "rca_2020": 2.1661,
+      "internal_rca_2011": 0.3478,
+      "internal_rca_2020": 1.6475,
+      "rca_trend": "increasing",
+      "china_portfolio_rank_2011": 60,
+      "china_portfolio_rank_2020": 92,
+      "eu6_intensity": 0.2728,
+      "eu6_china_ratio": 4.98,
+      "big_science_share_125": 0.0,
+      "big_science_share_135": 0.016536964980544747,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 0.3478,
+          "global_rca": 0.6267,
+          "cn_ceec_papers": 12,
+          "country_total_papers": 2704
+        },
+        {
+          "year": 2012,
+          "internal_rca": 0.2815,
+          "global_rca": 0.4835,
+          "cn_ceec_papers": 12,
+          "country_total_papers": 3068
+        },
+        {
+          "year": 2013,
+          "internal_rca": 0.4279,
+          "global_rca": 0.682,
+          "cn_ceec_papers": 20,
+          "country_total_papers": 3040
+        },
+        {
+          "year": 2014,
+          "internal_rca": 0.474,
+          "global_rca": 0.7733,
+          "cn_ceec_papers": 31,
+          "country_total_papers": 3504
+        },
+        {
+          "year": 2015,
+          "internal_rca": 0.271,
+          "global_rca": 0.4049,
+          "cn_ceec_papers": 22,
+          "country_total_papers": 4106
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.879,
+          "global_rca": 2.5093,
+          "cn_ceec_papers": 137,
+          "country_total_papers": 3566
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.9656,
+          "global_rca": 2.3826,
+          "cn_ceec_papers": 167,
+          "country_total_papers": 4043
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.9137,
+          "global_rca": 2.3295,
+          "cn_ceec_papers": 194,
+          "country_total_papers": 4170
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.6884,
+          "global_rca": 2.0324,
+          "cn_ceec_papers": 253,
+          "country_total_papers": 5264
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.6475,
+          "global_rca": 2.1661,
+          "cn_ceec_papers": 277,
+          "country_total_papers": 5055
+        }
+      ]
+    },
+    {
+      "iso": "MKD",
+      "name_cn": "北马其顿",
+      "geopolitical_group": "eu_candidate",
+      "is_small_country": true,
+      "rca_2011": 4.3419,
+      "rca_2020": 1.74,
+      "internal_rca_2011": 2.4094,
+      "internal_rca_2020": 1.3234,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 74,
+      "china_portfolio_rank_2020": 96,
+      "eu6_intensity": 0.2452,
+      "eu6_china_ratio": 5.57,
+      "big_science_share_125": 0.00749063670411985,
+      "big_science_share_135": 0.007797270955165692,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 2.4094,
+          "global_rca": 4.3419,
+          "cn_ceec_papers": 40,
+          "country_total_papers": 1301
+        },
+        {
+          "year": 2012,
+          "internal_rca": 2.2044,
+          "global_rca": 3.7867,
+          "cn_ceec_papers": 48,
+          "country_total_papers": 1567
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.1291,
+          "global_rca": 1.7995,
+          "cn_ceec_papers": 33,
+          "country_total_papers": 1901
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.5249,
+          "global_rca": 2.4878,
+          "cn_ceec_papers": 60,
+          "country_total_papers": 2108
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.8353,
+          "global_rca": 2.7421,
+          "cn_ceec_papers": 86,
+          "country_total_papers": 2370
+        },
+        {
+          "year": 2016,
+          "internal_rca": 2.0862,
+          "global_rca": 2.786,
+          "cn_ceec_papers": 99,
+          "country_total_papers": 2321
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.6207,
+          "global_rca": 1.9646,
+          "cn_ceec_papers": 86,
+          "country_total_papers": 2525
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.3045,
+          "global_rca": 1.588,
+          "cn_ceec_papers": 77,
+          "country_total_papers": 2428
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.4693,
+          "global_rca": 1.7687,
+          "cn_ceec_papers": 109,
+          "country_total_papers": 2606
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.3234,
+          "global_rca": 1.74,
+          "cn_ceec_papers": 142,
+          "country_total_papers": 3226
+        }
+      ]
+    },
+    {
+      "iso": "MNE",
+      "name_cn": "黑山",
+      "geopolitical_group": "eu_candidate",
+      "is_small_country": true,
+      "rca_2011": 0.3967,
+      "rca_2020": 0.7781,
+      "internal_rca_2011": 0.2201,
+      "internal_rca_2020": 0.5918,
+      "rca_trend": "increasing",
+      "china_portfolio_rank_2011": 99,
+      "china_portfolio_rank_2020": 84,
+      "eu6_intensity": 0.1873,
+      "eu6_china_ratio": 9.51,
+      "big_science_share_125": 0.0,
+      "big_science_share_135": 0.0,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 0.2201,
+          "global_rca": 0.3967,
+          "cn_ceec_papers": 1,
+          "country_total_papers": 356
+        },
+        {
+          "year": 2012,
+          "internal_rca": 0.2931,
+          "global_rca": 0.5035,
+          "cn_ceec_papers": 2,
+          "country_total_papers": 491
+        },
+        {
+          "year": 2013,
+          "internal_rca": 0.2556,
+          "global_rca": 0.4073,
+          "cn_ceec_papers": 2,
+          "country_total_papers": 509
+        },
+        {
+          "year": 2014,
+          "internal_rca": 0.2601,
+          "global_rca": 0.4243,
+          "cn_ceec_papers": 3,
+          "country_total_papers": 618
+        },
+        {
+          "year": 2015,
+          "internal_rca": 0.2282,
+          "global_rca": 0.3409,
+          "cn_ceec_papers": 3,
+          "country_total_papers": 665
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.6226,
+          "global_rca": 0.8315,
+          "cn_ceec_papers": 9,
+          "country_total_papers": 707
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.1742,
+          "global_rca": 1.4233,
+          "cn_ceec_papers": 19,
+          "country_total_papers": 770
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.3119,
+          "global_rca": 1.597,
+          "cn_ceec_papers": 31,
+          "country_total_papers": 972
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.2508,
+          "global_rca": 1.5056,
+          "cn_ceec_papers": 35,
+          "country_total_papers": 983
+        },
+        {
+          "year": 2020,
+          "internal_rca": 0.5918,
+          "global_rca": 0.7781,
+          "cn_ceec_papers": 35,
+          "country_total_papers": 1778
+        }
+      ]
+    },
+    {
+      "iso": "POL",
+      "name_cn": "波兰",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 0.9543,
+      "rca_2020": 0.8569,
+      "internal_rca_2011": 0.5295,
+      "internal_rca_2020": 0.6517,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 28,
+      "china_portfolio_rank_2020": 27,
+      "eu6_intensity": 0.2552,
+      "eu6_china_ratio": 11.77,
+      "big_science_share_125": 0.06918819188191883,
+      "big_science_share_135": 0.06466647247305564,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 0.5295,
+          "global_rca": 0.9543,
+          "cn_ceec_papers": 375,
+          "country_total_papers": 55495
+        },
+        {
+          "year": 2012,
+          "internal_rca": 0.469,
+          "global_rca": 0.8056,
+          "cn_ceec_papers": 410,
+          "country_total_papers": 62915
+        },
+        {
+          "year": 2013,
+          "internal_rca": 0.4766,
+          "global_rca": 0.7596,
+          "cn_ceec_papers": 548,
+          "country_total_papers": 74786
+        },
+        {
+          "year": 2014,
+          "internal_rca": 0.5748,
+          "global_rca": 0.9377,
+          "cn_ceec_papers": 876,
+          "country_total_papers": 81651
+        },
+        {
+          "year": 2015,
+          "internal_rca": 0.5973,
+          "global_rca": 0.8924,
+          "cn_ceec_papers": 1043,
+          "country_total_papers": 88320
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.5654,
+          "global_rca": 0.755,
+          "cn_ceec_papers": 1068,
+          "country_total_papers": 92394
+        },
+        {
+          "year": 2017,
+          "internal_rca": 0.5443,
+          "global_rca": 0.6598,
+          "cn_ceec_papers": 1067,
+          "country_total_papers": 93278
+        },
+        {
+          "year": 2018,
+          "internal_rca": 0.5394,
+          "global_rca": 0.6566,
+          "cn_ceec_papers": 1220,
+          "country_total_papers": 93034
+        },
+        {
+          "year": 2019,
+          "internal_rca": 0.6187,
+          "global_rca": 0.7447,
+          "cn_ceec_papers": 1555,
+          "country_total_papers": 88296
+        },
+        {
+          "year": 2020,
+          "internal_rca": 0.6517,
+          "global_rca": 0.8569,
+          "cn_ceec_papers": 1956,
+          "country_total_papers": 90231
+        }
+      ]
+    },
+    {
+      "iso": "ROU",
+      "name_cn": "罗马尼亚",
+      "geopolitical_group": "eu_non_eurozone",
+      "is_small_country": false,
+      "rca_2011": 2.2105,
+      "rca_2020": 1.2988,
+      "internal_rca_2011": 1.2266,
+      "internal_rca_2020": 0.9878,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 52,
+      "china_portfolio_rank_2020": 47,
+      "eu6_intensity": 0.2777,
+      "eu6_china_ratio": 8.45,
+      "big_science_share_125": 0.020676691729323307,
+      "big_science_share_135": 0.05761843790012804,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.2266,
+          "global_rca": 2.2105,
+          "cn_ceec_papers": 201,
+          "country_total_papers": 12841
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.119,
+          "global_rca": 1.9221,
+          "cn_ceec_papers": 223,
+          "country_total_papers": 14342
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.3023,
+          "global_rca": 2.0757,
+          "cn_ceec_papers": 332,
+          "country_total_papers": 16581
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.0963,
+          "global_rca": 1.7886,
+          "cn_ceec_papers": 397,
+          "country_total_papers": 19401
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.0345,
+          "global_rca": 1.5456,
+          "cn_ceec_papers": 443,
+          "country_total_papers": 21658
+        },
+        {
+          "year": 2016,
+          "internal_rca": 0.9965,
+          "global_rca": 1.3307,
+          "cn_ceec_papers": 401,
+          "country_total_papers": 19682
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.1359,
+          "global_rca": 1.3769,
+          "cn_ceec_papers": 512,
+          "country_total_papers": 21449
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.124,
+          "global_rca": 1.3682,
+          "cn_ceec_papers": 603,
+          "country_total_papers": 22068
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.0097,
+          "global_rca": 1.2154,
+          "cn_ceec_papers": 727,
+          "country_total_papers": 25294
+        },
+        {
+          "year": 2020,
+          "internal_rca": 0.9878,
+          "global_rca": 1.2988,
+          "cn_ceec_papers": 881,
+          "country_total_papers": 26814
+        }
+      ]
+    },
+    {
+      "iso": "SRB",
+      "name_cn": "塞尔维亚",
+      "geopolitical_group": "eu_candidate",
+      "is_small_country": false,
+      "rca_2011": 2.4127,
+      "rca_2020": 1.2955,
+      "internal_rca_2011": 1.3388,
+      "internal_rca_2020": 0.9853,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 57,
+      "china_portfolio_rank_2020": 71,
+      "eu6_intensity": 0.2793,
+      "eu6_china_ratio": 8.52,
+      "big_science_share_125": 0.016216216216216217,
+      "big_science_share_135": 0.0315200813421454,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.3388,
+          "global_rca": 2.4127,
+          "cn_ceec_papers": 139,
+          "country_total_papers": 8136
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.6079,
+          "global_rca": 2.762,
+          "cn_ceec_papers": 214,
+          "country_total_papers": 9578
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.7352,
+          "global_rca": 2.7657,
+          "cn_ceec_papers": 257,
+          "country_total_papers": 9633
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.6928,
+          "global_rca": 2.7617,
+          "cn_ceec_papers": 342,
+          "country_total_papers": 10824
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.5045,
+          "global_rca": 2.2478,
+          "cn_ceec_papers": 343,
+          "country_total_papers": 11531
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.3746,
+          "global_rca": 1.8358,
+          "cn_ceec_papers": 340,
+          "country_total_papers": 12097
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.3336,
+          "global_rca": 1.6165,
+          "cn_ceec_papers": 339,
+          "country_total_papers": 12096
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.2602,
+          "global_rca": 1.5341,
+          "cn_ceec_papers": 390,
+          "country_total_papers": 12730
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.1198,
+          "global_rca": 1.348,
+          "cn_ceec_papers": 443,
+          "country_total_papers": 13897
+        },
+        {
+          "year": 2020,
+          "internal_rca": 0.9853,
+          "global_rca": 1.2955,
+          "cn_ceec_papers": 455,
+          "country_total_papers": 13883
+        }
+      ]
+    },
+    {
+      "iso": "SVK",
+      "name_cn": "斯洛伐克",
+      "geopolitical_group": "eurozone_core",
+      "is_small_country": false,
+      "rca_2011": 2.2949,
+      "rca_2020": 1.3291,
+      "internal_rca_2011": 1.2735,
+      "internal_rca_2020": 1.0109,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 53,
+      "china_portfolio_rank_2020": 56,
+      "eu6_intensity": 0.3135,
+      "eu6_china_ratio": 9.32,
+      "big_science_share_125": 0.008928571428571428,
+      "big_science_share_135": 0.013266998341625208,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.2735,
+          "global_rca": 2.2949,
+          "cn_ceec_papers": 123,
+          "country_total_papers": 7569
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.1203,
+          "global_rca": 1.9244,
+          "cn_ceec_papers": 134,
+          "country_total_papers": 8608
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.0382,
+          "global_rca": 1.6547,
+          "cn_ceec_papers": 153,
+          "country_total_papers": 9585
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.0684,
+          "global_rca": 1.7429,
+          "cn_ceec_papers": 223,
+          "country_total_papers": 11183
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.1854,
+          "global_rca": 1.7711,
+          "cn_ceec_papers": 263,
+          "country_total_papers": 11221
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.1512,
+          "global_rca": 1.5374,
+          "cn_ceec_papers": 279,
+          "country_total_papers": 11853
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.1416,
+          "global_rca": 1.3838,
+          "cn_ceec_papers": 280,
+          "country_total_papers": 11671
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.1795,
+          "global_rca": 1.4357,
+          "cn_ceec_papers": 348,
+          "country_total_papers": 12137
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.0944,
+          "global_rca": 1.3174,
+          "cn_ceec_papers": 422,
+          "country_total_papers": 13546
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.0109,
+          "global_rca": 1.3291,
+          "cn_ceec_papers": 480,
+          "country_total_papers": 14276
+        }
+      ]
+    },
+    {
+      "iso": "SVN",
+      "name_cn": "斯洛文尼亚",
+      "geopolitical_group": "eurozone_core",
+      "is_small_country": false,
+      "rca_2011": 2.7923,
+      "rca_2020": 1.8049,
+      "internal_rca_2011": 1.5495,
+      "internal_rca_2020": 1.3728,
+      "rca_trend": "decreasing",
+      "china_portfolio_rank_2011": 56,
+      "china_portfolio_rank_2020": 60,
+      "eu6_intensity": 0.4538,
+      "eu6_china_ratio": 9.94,
+      "big_science_share_125": 0.13492822966507176,
+      "big_science_share_135": 0.08958333333333333,
+      "yearly": [
+        {
+          "year": 2011,
+          "internal_rca": 1.5495,
+          "global_rca": 2.7923,
+          "cn_ceec_papers": 139,
+          "country_total_papers": 7030
+        },
+        {
+          "year": 2012,
+          "internal_rca": 1.7137,
+          "global_rca": 2.9437,
+          "cn_ceec_papers": 178,
+          "country_total_papers": 7475
+        },
+        {
+          "year": 2013,
+          "internal_rca": 1.6442,
+          "global_rca": 2.6206,
+          "cn_ceec_papers": 201,
+          "country_total_papers": 7951
+        },
+        {
+          "year": 2014,
+          "internal_rca": 1.5958,
+          "global_rca": 2.6034,
+          "cn_ceec_papers": 251,
+          "country_total_papers": 8427
+        },
+        {
+          "year": 2015,
+          "internal_rca": 1.5416,
+          "global_rca": 2.3033,
+          "cn_ceec_papers": 276,
+          "country_total_papers": 9055
+        },
+        {
+          "year": 2016,
+          "internal_rca": 1.3769,
+          "global_rca": 1.8388,
+          "cn_ceec_papers": 263,
+          "country_total_papers": 9342
+        },
+        {
+          "year": 2017,
+          "internal_rca": 1.3647,
+          "global_rca": 1.6543,
+          "cn_ceec_papers": 265,
+          "country_total_papers": 9240
+        },
+        {
+          "year": 2018,
+          "internal_rca": 1.6741,
+          "global_rca": 2.0379,
+          "cn_ceec_papers": 406,
+          "country_total_papers": 9976
+        },
+        {
+          "year": 2019,
+          "internal_rca": 1.4849,
+          "global_rca": 1.7874,
+          "cn_ceec_papers": 441,
+          "country_total_papers": 10433
+        },
+        {
+          "year": 2020,
+          "internal_rca": 1.3728,
+          "global_rca": 1.8049,
+          "cn_ceec_papers": 545,
+          "country_total_papers": 11936
+        }
+      ]
+    }
+  ]
+}

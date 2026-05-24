@@ -1,0 +1,1567 @@
+{
+  "source": "OpenAlex group_by=publication_year with authors_count:>99 filter",
+  "description": "Big-science (>=100 authors) vs small-bilateral decomposition, 2011-2020",
+  "ceec_aggregate": {
+    "period_125": {
+      "total": 17475,
+      "big": 742,
+      "small": 16733,
+      "share_big": 0.04246065808297568
+    },
+    "period_135": {
+      "total": 35927,
+      "big": 2018,
+      "small": 33909,
+      "share_big": 0.05616945472764216
+    },
+    "growth_total": 1.0559,
+    "growth_big": 1.7197,
+    "growth_small": 1.0265,
+    "big_contribution_to_growth": 0.0692
+  },
+  "key_findings": {
+    "growth_big": "172.0%",
+    "growth_small": "102.6%",
+    "share_increase": "4.2% -> 5.6% (p=0.027)",
+    "concentration": "83%增长集中在6国(波兰/匈牙利/克罗地亚/捷克/罗马尼亚/希腊)",
+    "acceleration_2019_2020": "全部有数据的14国在十三五后期(2019-2020)的大科学产出均远超前期(2016-2017)"
+  },
+  "statistical_tests": {
+    "test1_growth_rate_difference": {
+      "description": "Paired two-tailed t-test: growth_big vs growth_small",
+      "h0": "growth_big == growth_small",
+      "t_statistic": -0.5936,
+      "df": 15,
+      "p_value": 0.561607,
+      "significant_at_0_05": false,
+      "cohens_d": -0.1484,
+      "mean_growth_big": 2.049,
+      "mean_growth_small": 2.7376
+    },
+    "test2_share_acceleration": {
+      "description": "Paired one-tailed t-test: share_big_135 > share_big_125",
+      "h0": "share_big_125 >= share_big_135",
+      "h1": "share_big_135 > share_big_125",
+      "t_statistic": 2.0973,
+      "df": 14,
+      "p_value": 0.027301,
+      "significant_at_0_05": true,
+      "cohens_d": 0.5415,
+      "mean_share_125": 0.0336,
+      "mean_share_135": 0.0498
+    },
+    "test3_growth_decomposition": {
+      "description": "Fraction of absolute growth from big-science papers",
+      "ceec_weighted_big_contribution": 0.0692,
+      "countries_big_science_driven": [],
+      "countries_bilateral_driven": [
+        "MNE",
+        "MKD",
+        "SVK",
+        "LVA",
+        "ALB",
+        "SVN",
+        "LTU",
+        "EST",
+        "BGR",
+        "GRC",
+        "CZE",
+        "POL",
+        "SRB",
+        "ROU",
+        "HUN",
+        "HRV"
+      ]
+    }
+  },
+  "countries": [
+    {
+      "iso": "ALB",
+      "name_cn": "阿尔巴尼亚",
+      "period_125": {
+        "total": 6,
+        "big": 0,
+        "small": 6,
+        "share_big": 0.0
+      },
+      "period_135": {
+        "total": 71,
+        "big": 2,
+        "small": 69,
+        "share_big": 0.028169014084507043
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 0,
+          "big": 0,
+          "small": 0,
+          "share_big": 0
+        },
+        {
+          "year": 2012,
+          "total": 1,
+          "big": 0,
+          "small": 1,
+          "share_big": 0.0
+        },
+        {
+          "year": 2013,
+          "total": 2,
+          "big": 0,
+          "small": 2,
+          "share_big": 0.0
+        },
+        {
+          "year": 2014,
+          "total": 2,
+          "big": 0,
+          "small": 2,
+          "share_big": 0.0
+        },
+        {
+          "year": 2015,
+          "total": 1,
+          "big": 0,
+          "small": 1,
+          "share_big": 0.0
+        },
+        {
+          "year": 2016,
+          "total": 8,
+          "big": 0,
+          "small": 8,
+          "share_big": 0.0
+        },
+        {
+          "year": 2017,
+          "total": 10,
+          "big": 0,
+          "small": 10,
+          "share_big": 0.0
+        },
+        {
+          "year": 2018,
+          "total": 13,
+          "big": 0,
+          "small": 13,
+          "share_big": 0.0
+        },
+        {
+          "year": 2019,
+          "total": 14,
+          "big": 1,
+          "small": 13,
+          "share_big": 0.07142857142857142
+        },
+        {
+          "year": 2020,
+          "total": 26,
+          "big": 1,
+          "small": 25,
+          "share_big": 0.038461538461538464
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 0,
+        "late_2019_2020": 2,
+        "ratio": null
+      }
+    },
+    {
+      "iso": "BGR",
+      "name_cn": "保加利亚",
+      "period_125": {
+        "total": 693,
+        "big": 10,
+        "small": 683,
+        "share_big": 0.01443001443001443
+      },
+      "period_135": {
+        "total": 1621,
+        "big": 58,
+        "small": 1563,
+        "share_big": 0.03578038247995065
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 92,
+          "big": 1,
+          "small": 91,
+          "share_big": 0.010869565217391304
+        },
+        {
+          "year": 2012,
+          "total": 102,
+          "big": 2,
+          "small": 100,
+          "share_big": 0.0196078431372549
+        },
+        {
+          "year": 2013,
+          "total": 157,
+          "big": 1,
+          "small": 156,
+          "share_big": 0.006369426751592357
+        },
+        {
+          "year": 2014,
+          "total": 173,
+          "big": 4,
+          "small": 169,
+          "share_big": 0.023121387283236993
+        },
+        {
+          "year": 2015,
+          "total": 169,
+          "big": 2,
+          "small": 167,
+          "share_big": 0.011834319526627219
+        },
+        {
+          "year": 2016,
+          "total": 250,
+          "big": 9,
+          "small": 241,
+          "share_big": 0.036
+        },
+        {
+          "year": 2017,
+          "total": 281,
+          "big": 7,
+          "small": 274,
+          "share_big": 0.02491103202846975
+        },
+        {
+          "year": 2018,
+          "total": 310,
+          "big": 9,
+          "small": 301,
+          "share_big": 0.02903225806451613
+        },
+        {
+          "year": 2019,
+          "total": 362,
+          "big": 14,
+          "small": 348,
+          "share_big": 0.03867403314917127
+        },
+        {
+          "year": 2020,
+          "total": 418,
+          "big": 19,
+          "small": 399,
+          "share_big": 0.045454545454545456
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 16,
+        "late_2019_2020": 33,
+        "ratio": 2.06
+      }
+    },
+    {
+      "iso": "CZE",
+      "name_cn": "捷克",
+      "period_125": {
+        "total": 2450,
+        "big": 109,
+        "small": 2341,
+        "share_big": 0.044489795918367346
+      },
+      "period_135": {
+        "total": 5063,
+        "big": 266,
+        "small": 4797,
+        "share_big": 0.052538020936203834
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 302,
+          "big": 17,
+          "small": 285,
+          "share_big": 0.056291390728476824
+        },
+        {
+          "year": 2012,
+          "total": 319,
+          "big": 21,
+          "small": 298,
+          "share_big": 0.06583072100313479
+        },
+        {
+          "year": 2013,
+          "total": 470,
+          "big": 20,
+          "small": 450,
+          "share_big": 0.0425531914893617
+        },
+        {
+          "year": 2014,
+          "total": 667,
+          "big": 22,
+          "small": 645,
+          "share_big": 0.03298350824587706
+        },
+        {
+          "year": 2015,
+          "total": 692,
+          "big": 29,
+          "small": 663,
+          "share_big": 0.04190751445086705
+        },
+        {
+          "year": 2016,
+          "total": 858,
+          "big": 41,
+          "small": 817,
+          "share_big": 0.047785547785547784
+        },
+        {
+          "year": 2017,
+          "total": 779,
+          "big": 42,
+          "small": 737,
+          "share_big": 0.05391527599486521
+        },
+        {
+          "year": 2018,
+          "total": 886,
+          "big": 50,
+          "small": 836,
+          "share_big": 0.056433408577878104
+        },
+        {
+          "year": 2019,
+          "total": 1108,
+          "big": 58,
+          "small": 1050,
+          "share_big": 0.052346570397111915
+        },
+        {
+          "year": 2020,
+          "total": 1432,
+          "big": 75,
+          "small": 1357,
+          "share_big": 0.052374301675977654
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 83,
+        "late_2019_2020": 133,
+        "ratio": 1.6
+      }
+    },
+    {
+      "iso": "EST",
+      "name_cn": "爱沙尼亚",
+      "period_125": {
+        "total": 714,
+        "big": 26,
+        "small": 688,
+        "share_big": 0.036414565826330535
+      },
+      "period_135": {
+        "total": 1528,
+        "big": 67,
+        "small": 1461,
+        "share_big": 0.04384816753926701
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 81,
+          "big": 2,
+          "small": 79,
+          "share_big": 0.024691358024691357
+        },
+        {
+          "year": 2012,
+          "total": 109,
+          "big": 4,
+          "small": 105,
+          "share_big": 0.03669724770642202
+        },
+        {
+          "year": 2013,
+          "total": 131,
+          "big": 4,
+          "small": 127,
+          "share_big": 0.030534351145038167
+        },
+        {
+          "year": 2014,
+          "total": 184,
+          "big": 10,
+          "small": 174,
+          "share_big": 0.05434782608695652
+        },
+        {
+          "year": 2015,
+          "total": 209,
+          "big": 6,
+          "small": 203,
+          "share_big": 0.028708133971291867
+        },
+        {
+          "year": 2016,
+          "total": 149,
+          "big": 5,
+          "small": 144,
+          "share_big": 0.03355704697986577
+        },
+        {
+          "year": 2017,
+          "total": 190,
+          "big": 6,
+          "small": 184,
+          "share_big": 0.031578947368421054
+        },
+        {
+          "year": 2018,
+          "total": 289,
+          "big": 14,
+          "small": 275,
+          "share_big": 0.04844290657439446
+        },
+        {
+          "year": 2019,
+          "total": 381,
+          "big": 20,
+          "small": 361,
+          "share_big": 0.05249343832020997
+        },
+        {
+          "year": 2020,
+          "total": 519,
+          "big": 22,
+          "small": 497,
+          "share_big": 0.04238921001926782
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 11,
+        "late_2019_2020": 42,
+        "ratio": 3.82
+      }
+    },
+    {
+      "iso": "GRC",
+      "name_cn": "希腊",
+      "period_125": {
+        "total": 2086,
+        "big": 58,
+        "small": 2028,
+        "share_big": 0.027804410354745925
+      },
+      "period_135": {
+        "total": 4193,
+        "big": 181,
+        "small": 4012,
+        "share_big": 0.04316718340090627
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 282,
+          "big": 8,
+          "small": 274,
+          "share_big": 0.028368794326241134
+        },
+        {
+          "year": 2012,
+          "total": 365,
+          "big": 5,
+          "small": 360,
+          "share_big": 0.0136986301369863
+        },
+        {
+          "year": 2013,
+          "total": 380,
+          "big": 9,
+          "small": 371,
+          "share_big": 0.02368421052631579
+        },
+        {
+          "year": 2014,
+          "total": 515,
+          "big": 20,
+          "small": 495,
+          "share_big": 0.038834951456310676
+        },
+        {
+          "year": 2015,
+          "total": 544,
+          "big": 16,
+          "small": 528,
+          "share_big": 0.029411764705882353
+        },
+        {
+          "year": 2016,
+          "total": 481,
+          "big": 11,
+          "small": 470,
+          "share_big": 0.02286902286902287
+        },
+        {
+          "year": 2017,
+          "total": 623,
+          "big": 18,
+          "small": 605,
+          "share_big": 0.028892455858747994
+        },
+        {
+          "year": 2018,
+          "total": 795,
+          "big": 17,
+          "small": 778,
+          "share_big": 0.021383647798742137
+        },
+        {
+          "year": 2019,
+          "total": 997,
+          "big": 49,
+          "small": 948,
+          "share_big": 0.04914744232698094
+        },
+        {
+          "year": 2020,
+          "total": 1297,
+          "big": 86,
+          "small": 1211,
+          "share_big": 0.06630686198920586
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 29,
+        "late_2019_2020": 135,
+        "ratio": 4.66
+      }
+    },
+    {
+      "iso": "HRV",
+      "name_cn": "克罗地亚",
+      "period_125": {
+        "total": 907,
+        "big": 51,
+        "small": 856,
+        "share_big": 0.05622932745314223
+      },
+      "period_135": {
+        "total": 1690,
+        "big": 254,
+        "small": 1436,
+        "share_big": 0.1502958579881657
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 136,
+          "big": 2,
+          "small": 134,
+          "share_big": 0.014705882352941176
+        },
+        {
+          "year": 2012,
+          "total": 155,
+          "big": 2,
+          "small": 153,
+          "share_big": 0.012903225806451613
+        },
+        {
+          "year": 2013,
+          "total": 170,
+          "big": 9,
+          "small": 161,
+          "share_big": 0.052941176470588235
+        },
+        {
+          "year": 2014,
+          "total": 194,
+          "big": 9,
+          "small": 185,
+          "share_big": 0.04639175257731959
+        },
+        {
+          "year": 2015,
+          "total": 252,
+          "big": 29,
+          "small": 223,
+          "share_big": 0.11507936507936507
+        },
+        {
+          "year": 2016,
+          "total": 215,
+          "big": 40,
+          "small": 175,
+          "share_big": 0.18604651162790697
+        },
+        {
+          "year": 2017,
+          "total": 304,
+          "big": 51,
+          "small": 253,
+          "share_big": 0.16776315789473684
+        },
+        {
+          "year": 2018,
+          "total": 311,
+          "big": 40,
+          "small": 271,
+          "share_big": 0.12861736334405144
+        },
+        {
+          "year": 2019,
+          "total": 368,
+          "big": 61,
+          "small": 307,
+          "share_big": 0.16576086956521738
+        },
+        {
+          "year": 2020,
+          "total": 492,
+          "big": 62,
+          "small": 430,
+          "share_big": 0.12601626016260162
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 91,
+        "late_2019_2020": 123,
+        "ratio": 1.35
+      }
+    },
+    {
+      "iso": "HUN",
+      "name_cn": "匈牙利",
+      "period_125": {
+        "total": 1901,
+        "big": 47,
+        "small": 1854,
+        "share_big": 0.02472382956338769
+      },
+      "period_135": {
+        "total": 3673,
+        "big": 256,
+        "small": 3417,
+        "share_big": 0.069697794718214
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 255,
+          "big": 6,
+          "small": 249,
+          "share_big": 0.023529411764705882
+        },
+        {
+          "year": 2012,
+          "total": 310,
+          "big": 5,
+          "small": 305,
+          "share_big": 0.016129032258064516
+        },
+        {
+          "year": 2013,
+          "total": 351,
+          "big": 4,
+          "small": 347,
+          "share_big": 0.011396011396011397
+        },
+        {
+          "year": 2014,
+          "total": 436,
+          "big": 8,
+          "small": 428,
+          "share_big": 0.01834862385321101
+        },
+        {
+          "year": 2015,
+          "total": 549,
+          "big": 24,
+          "small": 525,
+          "share_big": 0.04371584699453552
+        },
+        {
+          "year": 2016,
+          "total": 629,
+          "big": 39,
+          "small": 590,
+          "share_big": 0.06200317965023847
+        },
+        {
+          "year": 2017,
+          "total": 535,
+          "big": 45,
+          "small": 490,
+          "share_big": 0.08411214953271028
+        },
+        {
+          "year": 2018,
+          "total": 657,
+          "big": 44,
+          "small": 613,
+          "share_big": 0.0669710806697108
+        },
+        {
+          "year": 2019,
+          "total": 807,
+          "big": 62,
+          "small": 745,
+          "share_big": 0.0768277571251549
+        },
+        {
+          "year": 2020,
+          "total": 1045,
+          "big": 66,
+          "small": 979,
+          "share_big": 0.06315789473684211
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 84,
+        "late_2019_2020": 128,
+        "ratio": 1.52
+      }
+    },
+    {
+      "iso": "LTU",
+      "name_cn": "立陶宛",
+      "period_125": {
+        "total": 259,
+        "big": 11,
+        "small": 248,
+        "share_big": 0.04247104247104247
+      },
+      "period_135": {
+        "total": 732,
+        "big": 31,
+        "small": 701,
+        "share_big": 0.04234972677595628
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 38,
+          "big": 1,
+          "small": 37,
+          "share_big": 0.02631578947368421
+        },
+        {
+          "year": 2012,
+          "total": 55,
+          "big": 1,
+          "small": 54,
+          "share_big": 0.01818181818181818
+        },
+        {
+          "year": 2013,
+          "total": 52,
+          "big": 1,
+          "small": 51,
+          "share_big": 0.019230769230769232
+        },
+        {
+          "year": 2014,
+          "total": 52,
+          "big": 5,
+          "small": 47,
+          "share_big": 0.09615384615384616
+        },
+        {
+          "year": 2015,
+          "total": 62,
+          "big": 3,
+          "small": 59,
+          "share_big": 0.04838709677419355
+        },
+        {
+          "year": 2016,
+          "total": 80,
+          "big": 2,
+          "small": 78,
+          "share_big": 0.025
+        },
+        {
+          "year": 2017,
+          "total": 97,
+          "big": 1,
+          "small": 96,
+          "share_big": 0.010309278350515464
+        },
+        {
+          "year": 2018,
+          "total": 121,
+          "big": 6,
+          "small": 115,
+          "share_big": 0.049586776859504134
+        },
+        {
+          "year": 2019,
+          "total": 182,
+          "big": 8,
+          "small": 174,
+          "share_big": 0.04395604395604396
+        },
+        {
+          "year": 2020,
+          "total": 252,
+          "big": 14,
+          "small": 238,
+          "share_big": 0.05555555555555555
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 3,
+        "late_2019_2020": 22,
+        "ratio": 7.33
+      }
+    },
+    {
+      "iso": "LVA",
+      "name_cn": "拉脱维亚",
+      "period_125": {
+        "total": 97,
+        "big": 0,
+        "small": 97,
+        "share_big": 0.0
+      },
+      "period_135": {
+        "total": 1028,
+        "big": 17,
+        "small": 1011,
+        "share_big": 0.016536964980544747
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 12,
+          "big": 0,
+          "small": 12,
+          "share_big": 0.0
+        },
+        {
+          "year": 2012,
+          "total": 12,
+          "big": 0,
+          "small": 12,
+          "share_big": 0.0
+        },
+        {
+          "year": 2013,
+          "total": 20,
+          "big": 0,
+          "small": 20,
+          "share_big": 0.0
+        },
+        {
+          "year": 2014,
+          "total": 31,
+          "big": 0,
+          "small": 31,
+          "share_big": 0.0
+        },
+        {
+          "year": 2015,
+          "total": 22,
+          "big": 0,
+          "small": 22,
+          "share_big": 0.0
+        },
+        {
+          "year": 2016,
+          "total": 137,
+          "big": 2,
+          "small": 135,
+          "share_big": 0.014598540145985401
+        },
+        {
+          "year": 2017,
+          "total": 167,
+          "big": 2,
+          "small": 165,
+          "share_big": 0.011976047904191617
+        },
+        {
+          "year": 2018,
+          "total": 194,
+          "big": 4,
+          "small": 190,
+          "share_big": 0.020618556701030927
+        },
+        {
+          "year": 2019,
+          "total": 253,
+          "big": 5,
+          "small": 248,
+          "share_big": 0.019762845849802372
+        },
+        {
+          "year": 2020,
+          "total": 277,
+          "big": 4,
+          "small": 273,
+          "share_big": 0.01444043321299639
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 4,
+        "late_2019_2020": 9,
+        "ratio": 2.25
+      }
+    },
+    {
+      "iso": "MKD",
+      "name_cn": "北马其顿",
+      "period_125": {
+        "total": 267,
+        "big": 2,
+        "small": 265,
+        "share_big": 0.00749063670411985
+      },
+      "period_135": {
+        "total": 513,
+        "big": 4,
+        "small": 509,
+        "share_big": 0.007797270955165692
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 40,
+          "big": 0,
+          "small": 40,
+          "share_big": 0.0
+        },
+        {
+          "year": 2012,
+          "total": 48,
+          "big": 0,
+          "small": 48,
+          "share_big": 0.0
+        },
+        {
+          "year": 2013,
+          "total": 33,
+          "big": 0,
+          "small": 33,
+          "share_big": 0.0
+        },
+        {
+          "year": 2014,
+          "total": 60,
+          "big": 1,
+          "small": 59,
+          "share_big": 0.016666666666666666
+        },
+        {
+          "year": 2015,
+          "total": 86,
+          "big": 1,
+          "small": 85,
+          "share_big": 0.011627906976744186
+        },
+        {
+          "year": 2016,
+          "total": 99,
+          "big": 0,
+          "small": 99,
+          "share_big": 0.0
+        },
+        {
+          "year": 2017,
+          "total": 86,
+          "big": 0,
+          "small": 86,
+          "share_big": 0.0
+        },
+        {
+          "year": 2018,
+          "total": 77,
+          "big": 0,
+          "small": 77,
+          "share_big": 0.0
+        },
+        {
+          "year": 2019,
+          "total": 109,
+          "big": 2,
+          "small": 107,
+          "share_big": 0.01834862385321101
+        },
+        {
+          "year": 2020,
+          "total": 142,
+          "big": 2,
+          "small": 140,
+          "share_big": 0.014084507042253521
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 0,
+        "late_2019_2020": 4,
+        "ratio": null
+      }
+    },
+    {
+      "iso": "MNE",
+      "name_cn": "黑山",
+      "period_125": {
+        "total": 11,
+        "big": 0,
+        "small": 11,
+        "share_big": 0.0
+      },
+      "period_135": {
+        "total": 129,
+        "big": 0,
+        "small": 129,
+        "share_big": 0.0
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 1,
+          "big": 0,
+          "small": 1,
+          "share_big": 0.0
+        },
+        {
+          "year": 2012,
+          "total": 2,
+          "big": 0,
+          "small": 2,
+          "share_big": 0.0
+        },
+        {
+          "year": 2013,
+          "total": 2,
+          "big": 0,
+          "small": 2,
+          "share_big": 0.0
+        },
+        {
+          "year": 2014,
+          "total": 3,
+          "big": 0,
+          "small": 3,
+          "share_big": 0.0
+        },
+        {
+          "year": 2015,
+          "total": 3,
+          "big": 0,
+          "small": 3,
+          "share_big": 0.0
+        },
+        {
+          "year": 2016,
+          "total": 9,
+          "big": 0,
+          "small": 9,
+          "share_big": 0.0
+        },
+        {
+          "year": 2017,
+          "total": 19,
+          "big": 0,
+          "small": 19,
+          "share_big": 0.0
+        },
+        {
+          "year": 2018,
+          "total": 31,
+          "big": 0,
+          "small": 31,
+          "share_big": 0.0
+        },
+        {
+          "year": 2019,
+          "total": 35,
+          "big": 0,
+          "small": 35,
+          "share_big": 0.0
+        },
+        {
+          "year": 2020,
+          "total": 35,
+          "big": 0,
+          "small": 35,
+          "share_big": 0.0
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 0,
+        "late_2019_2020": 0,
+        "ratio": null
+      }
+    },
+    {
+      "iso": "POL",
+      "name_cn": "波兰",
+      "period_125": {
+        "total": 3252,
+        "big": 225,
+        "small": 3027,
+        "share_big": 0.06918819188191883
+      },
+      "period_135": {
+        "total": 6866,
+        "big": 444,
+        "small": 6422,
+        "share_big": 0.06466647247305564
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 375,
+          "big": 22,
+          "small": 353,
+          "share_big": 0.058666666666666666
+        },
+        {
+          "year": 2012,
+          "total": 410,
+          "big": 34,
+          "small": 376,
+          "share_big": 0.08292682926829269
+        },
+        {
+          "year": 2013,
+          "total": 548,
+          "big": 42,
+          "small": 506,
+          "share_big": 0.07664233576642336
+        },
+        {
+          "year": 2014,
+          "total": 876,
+          "big": 52,
+          "small": 824,
+          "share_big": 0.0593607305936073
+        },
+        {
+          "year": 2015,
+          "total": 1043,
+          "big": 75,
+          "small": 968,
+          "share_big": 0.07190795781399809
+        },
+        {
+          "year": 2016,
+          "total": 1068,
+          "big": 71,
+          "small": 997,
+          "share_big": 0.06647940074906367
+        },
+        {
+          "year": 2017,
+          "total": 1067,
+          "big": 72,
+          "small": 995,
+          "share_big": 0.06747891283973759
+        },
+        {
+          "year": 2018,
+          "total": 1220,
+          "big": 97,
+          "small": 1123,
+          "share_big": 0.07950819672131147
+        },
+        {
+          "year": 2019,
+          "total": 1555,
+          "big": 102,
+          "small": 1453,
+          "share_big": 0.06559485530546624
+        },
+        {
+          "year": 2020,
+          "total": 1956,
+          "big": 102,
+          "small": 1854,
+          "share_big": 0.05214723926380368
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 143,
+        "late_2019_2020": 204,
+        "ratio": 1.43
+      }
+    },
+    {
+      "iso": "ROU",
+      "name_cn": "罗马尼亚",
+      "period_125": {
+        "total": 1596,
+        "big": 33,
+        "small": 1563,
+        "share_big": 0.020676691729323307
+      },
+      "period_135": {
+        "total": 3124,
+        "big": 180,
+        "small": 2944,
+        "share_big": 0.05761843790012804
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 201,
+          "big": 1,
+          "small": 200,
+          "share_big": 0.004975124378109453
+        },
+        {
+          "year": 2012,
+          "total": 223,
+          "big": 10,
+          "small": 213,
+          "share_big": 0.04484304932735426
+        },
+        {
+          "year": 2013,
+          "total": 332,
+          "big": 7,
+          "small": 325,
+          "share_big": 0.02108433734939759
+        },
+        {
+          "year": 2014,
+          "total": 397,
+          "big": 7,
+          "small": 390,
+          "share_big": 0.017632241813602016
+        },
+        {
+          "year": 2015,
+          "total": 443,
+          "big": 8,
+          "small": 435,
+          "share_big": 0.01805869074492099
+        },
+        {
+          "year": 2016,
+          "total": 401,
+          "big": 7,
+          "small": 394,
+          "share_big": 0.017456359102244388
+        },
+        {
+          "year": 2017,
+          "total": 512,
+          "big": 15,
+          "small": 497,
+          "share_big": 0.029296875
+        },
+        {
+          "year": 2018,
+          "total": 603,
+          "big": 21,
+          "small": 582,
+          "share_big": 0.03482587064676617
+        },
+        {
+          "year": 2019,
+          "total": 727,
+          "big": 56,
+          "small": 671,
+          "share_big": 0.07702888583218707
+        },
+        {
+          "year": 2020,
+          "total": 881,
+          "big": 81,
+          "small": 800,
+          "share_big": 0.09194097616345062
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 22,
+        "late_2019_2020": 137,
+        "ratio": 6.23
+      }
+    },
+    {
+      "iso": "SRB",
+      "name_cn": "塞尔维亚",
+      "period_125": {
+        "total": 1295,
+        "big": 21,
+        "small": 1274,
+        "share_big": 0.016216216216216217
+      },
+      "period_135": {
+        "total": 1967,
+        "big": 62,
+        "small": 1905,
+        "share_big": 0.0315200813421454
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 139,
+          "big": 0,
+          "small": 139,
+          "share_big": 0.0
+        },
+        {
+          "year": 2012,
+          "total": 214,
+          "big": 3,
+          "small": 211,
+          "share_big": 0.014018691588785047
+        },
+        {
+          "year": 2013,
+          "total": 257,
+          "big": 1,
+          "small": 256,
+          "share_big": 0.0038910505836575876
+        },
+        {
+          "year": 2014,
+          "total": 342,
+          "big": 6,
+          "small": 336,
+          "share_big": 0.017543859649122806
+        },
+        {
+          "year": 2015,
+          "total": 343,
+          "big": 11,
+          "small": 332,
+          "share_big": 0.03206997084548105
+        },
+        {
+          "year": 2016,
+          "total": 340,
+          "big": 7,
+          "small": 333,
+          "share_big": 0.020588235294117647
+        },
+        {
+          "year": 2017,
+          "total": 339,
+          "big": 10,
+          "small": 329,
+          "share_big": 0.029498525073746312
+        },
+        {
+          "year": 2018,
+          "total": 390,
+          "big": 11,
+          "small": 379,
+          "share_big": 0.028205128205128206
+        },
+        {
+          "year": 2019,
+          "total": 443,
+          "big": 21,
+          "small": 422,
+          "share_big": 0.04740406320541761
+        },
+        {
+          "year": 2020,
+          "total": 455,
+          "big": 13,
+          "small": 442,
+          "share_big": 0.02857142857142857
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 17,
+        "late_2019_2020": 34,
+        "ratio": 2.0
+      }
+    },
+    {
+      "iso": "SVK",
+      "name_cn": "斯洛伐克",
+      "period_125": {
+        "total": 896,
+        "big": 8,
+        "small": 888,
+        "share_big": 0.008928571428571428
+      },
+      "period_135": {
+        "total": 1809,
+        "big": 24,
+        "small": 1785,
+        "share_big": 0.013266998341625208
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 123,
+          "big": 1,
+          "small": 122,
+          "share_big": 0.008130081300813009
+        },
+        {
+          "year": 2012,
+          "total": 134,
+          "big": 0,
+          "small": 134,
+          "share_big": 0.0
+        },
+        {
+          "year": 2013,
+          "total": 153,
+          "big": 1,
+          "small": 152,
+          "share_big": 0.006535947712418301
+        },
+        {
+          "year": 2014,
+          "total": 223,
+          "big": 3,
+          "small": 220,
+          "share_big": 0.013452914798206279
+        },
+        {
+          "year": 2015,
+          "total": 263,
+          "big": 3,
+          "small": 260,
+          "share_big": 0.011406844106463879
+        },
+        {
+          "year": 2016,
+          "total": 279,
+          "big": 2,
+          "small": 277,
+          "share_big": 0.007168458781362007
+        },
+        {
+          "year": 2017,
+          "total": 280,
+          "big": 3,
+          "small": 277,
+          "share_big": 0.010714285714285714
+        },
+        {
+          "year": 2018,
+          "total": 348,
+          "big": 3,
+          "small": 345,
+          "share_big": 0.008620689655172414
+        },
+        {
+          "year": 2019,
+          "total": 422,
+          "big": 5,
+          "small": 417,
+          "share_big": 0.011848341232227487
+        },
+        {
+          "year": 2020,
+          "total": 480,
+          "big": 11,
+          "small": 469,
+          "share_big": 0.022916666666666665
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 5,
+        "late_2019_2020": 16,
+        "ratio": 3.2
+      }
+    },
+    {
+      "iso": "SVN",
+      "name_cn": "斯洛文尼亚",
+      "period_125": {
+        "total": 1045,
+        "big": 141,
+        "small": 904,
+        "share_big": 0.13492822966507176
+      },
+      "period_135": {
+        "total": 1920,
+        "big": 172,
+        "small": 1748,
+        "share_big": 0.08958333333333333
+      },
+      "yearly": [
+        {
+          "year": 2011,
+          "total": 139,
+          "big": 23,
+          "small": 116,
+          "share_big": 0.16546762589928057
+        },
+        {
+          "year": 2012,
+          "total": 178,
+          "big": 31,
+          "small": 147,
+          "share_big": 0.17415730337078653
+        },
+        {
+          "year": 2013,
+          "total": 201,
+          "big": 31,
+          "small": 170,
+          "share_big": 0.15422885572139303
+        },
+        {
+          "year": 2014,
+          "total": 251,
+          "big": 27,
+          "small": 224,
+          "share_big": 0.10756972111553785
+        },
+        {
+          "year": 2015,
+          "total": 276,
+          "big": 29,
+          "small": 247,
+          "share_big": 0.10507246376811594
+        },
+        {
+          "year": 2016,
+          "total": 263,
+          "big": 27,
+          "small": 236,
+          "share_big": 0.10266159695817491
+        },
+        {
+          "year": 2017,
+          "total": 265,
+          "big": 24,
+          "small": 241,
+          "share_big": 0.09056603773584905
+        },
+        {
+          "year": 2018,
+          "total": 406,
+          "big": 38,
+          "small": 368,
+          "share_big": 0.09359605911330049
+        },
+        {
+          "year": 2019,
+          "total": 441,
+          "big": 42,
+          "small": 399,
+          "share_big": 0.09523809523809523
+        },
+        {
+          "year": 2020,
+          "total": 545,
+          "big": 41,
+          "small": 504,
+          "share_big": 0.07522935779816514
+        }
+      ],
+      "intra_135_accel": {
+        "early_2016_2017": 51,
+        "late_2019_2020": 83,
+        "ratio": 1.63
+      }
+    }
+  ]
+}

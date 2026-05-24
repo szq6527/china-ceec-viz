@@ -478,8 +478,9 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
             maxWidth: 720,
           }}
         >
-          量都涨了 —— 可在中国全球合作伙伴的名单里,他们的{" "}
-          <span style={{ color: "var(--accent-cn-glow)" }}>排位</span> 呢?
+          数字背后,是哪些{" "}
+          <span style={{ color: "var(--accent-cn-glow)" }}>机构</span>{" "}
+          在推动这些合作? 让我们拉近看看。
         </div>
       </div>
 

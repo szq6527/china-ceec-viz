@@ -7,7 +7,7 @@ interface Props {
 }
 
 /**
- * Scene 5 ── 「剥离 CERN,真实双边长这样」
+ * Scene 6 ── 「剥离 CERN,真实双边长这样」
  *
  * Each country is a horizontal stacked bar. Two states:
  *   A "完整数据" — full bar, segments by major subject (Physics + Astronomy = purple,
@@ -63,7 +63,7 @@ interface CountryBuckets {
   realBilateral: number; // total - physics
 }
 
-export function Scene5RealBilateral({ data, active }: Props) {
+export function Scene6RealBilateral({ data, active }: Props) {
   const [stripped, setStripped] = useState(false);
 
   // Auto-loop A → B → A while active
@@ -143,7 +143,7 @@ export function Scene5RealBilateral({ data, active }: Props) {
           pointerEvents: "none",
         }}
       >
-        <div className="kicker">SCENE 05 · 剥离</div>
+        <div className="kicker">SCENE 06 · 真正的双边</div>
         <h1
           className="headline"
           style={{ marginTop: 4, fontSize: "clamp(26px, 3.2vw, 44px)" }}
