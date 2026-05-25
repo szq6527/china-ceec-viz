@@ -102,12 +102,12 @@ export function Scene8SubjectHeatmap({ active }: Props) {
 
   const W = 1440; const H = 780;
   const COLS = 4; const ROWS = 4;
-  const marginX = 60; const marginTop = 195; const marginBot = 20;
+  const marginX = 60; const marginTop = 195; const marginBot = 110;
   const cellW = (W - marginX * 2) / COLS;
   const cellH = (H - marginTop - marginBot) / ROWS;
 
-  const radarR = Math.min(cellW, cellH) * 0.26;
-  const radarCY = cellH * 0.48;
+  const radarR = Math.min(cellW, cellH) * 0.28;
+  const radarCY = cellH * 0.44;
 
   // 3 axes at 120° apart: top=physics, bottom-right=STEM, bottom-left=SH
   const axisAngles = [
@@ -132,7 +132,7 @@ export function Scene8SubjectHeatmap({ active }: Props) {
         </h1>
         <p className="subhead" style={{ marginTop: 10, fontSize: 13, lineHeight: 1.55 }}>
           三轴雷达图:物理(上)、理工医农(右下)、社科人文(左下),
-          距离为 log₁₀(论文数+1)。物理主导 vs 多元化,一眼可见。
+          距离按 log(论文数) 缩放。物理主导 vs 多元化,一眼可见。
         </p>
       </div>
 
