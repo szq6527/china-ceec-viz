@@ -125,14 +125,14 @@ export function Scene8SubjectHeatmap({ active }: Props) {
     <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", overflow: "hidden" }}>
       {/* Header */}
       <div style={{ position: "absolute", top: 42, left: 48, maxWidth: 380, zIndex: 5, pointerEvents: "none" }}>
-        <div className="kicker">SCENE 08 · 学科雷达图</div>
+        <div className="kicker">SCENE 08 · 学科指纹</div>
         <h1 className="headline" style={{ marginTop: 4, fontSize: "clamp(26px, 3.2vw, 42px)" }}>
-          每国的合作<br />
-          <span style={{ color: "var(--accent-eu-glow)" }}>学科轮廓</span>长什么样?
+          每个国家有自己的<br />
+          <span style={{ color: "var(--accent-eu-glow)" }}>合作学科指纹</span>
         </h1>
         <p className="subhead" style={{ marginTop: 10, fontSize: 13, lineHeight: 1.55 }}>
-          三维雷达图显示各国在物理(上)、理工医农(右下)、社科人文(左下)
-          三个方向的论文数,到中心距离为 log₁₀(论文数+1)。
+          三轴雷达图:物理(上)、理工医农(右下)、社科人文(左下),
+          距离为 log₁₀(论文数+1)。物理主导 vs 多元化,一眼可见。
         </p>
       </div>
 
@@ -238,16 +238,26 @@ export function Scene8SubjectHeatmap({ active }: Props) {
         </svg>
       </div>
 
-      {/* Bottom insight */}
+      {/* Bottom insight + bridge → Scene 9 */}
       <div style={{
-        position: "absolute", left: 48, right: 48, bottom: 4, zIndex: 4, pointerEvents: "none",
-        display: "flex", gap: 40, alignItems: "flex-end",
+        position: "absolute", left: 48, right: 48, bottom: 14, zIndex: 4, pointerEvents: "none",
+        display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24,
         opacity: progress > 0.7 ? 1 : 0,
         transition: "opacity 600ms ease",
       }}>
-        <div style={{ fontSize: 16, color: "var(--ink-1)", lineHeight: 1.5, fontFamily: "var(--serif)" }}>
-          捷克(物理4,639篇)和波兰(物理3,215篇)的物理轴极长,爱沙尼亚和拉脱维亚的
-          雷达图形状则更偏生命科学与社科。每个国家的学科轮廓截然不同。
+        <div style={{ fontSize: 14, color: "var(--ink-1)", lineHeight: 1.5, fontFamily: "var(--serif)", maxWidth: 520 }}>
+          捷克(物理4,639篇)和波兰(物理3,215篇)的物理轴极长;
+          爱沙尼亚和拉脱维亚的轮廓则偏向生命科学与社科。
+          <strong style={{ color: "var(--ink-0)" }}>每个国家有自己独特的合作节奏。</strong>
+        </div>
+        <div style={{ textAlign: "right", flexShrink: 0, maxWidth: 300 }}>
+          <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 6 }}>
+            最后一问 →
+          </div>
+          <div style={{ fontSize: 17, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.3 }}>
+            这些差异背后,有没有一条<br />
+            <span style={{ color: "var(--accent-eu-glow)" }}>共同的规律</span>?
+          </div>
         </div>
       </div>
     </div>

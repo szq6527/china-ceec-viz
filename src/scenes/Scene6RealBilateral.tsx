@@ -143,7 +143,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
           pointerEvents: "none",
         }}
       >
-        <div className="kicker">SCENE 06 · 真正的双边</div>
+        <div className="kicker">SCENE 07 · 真正的双边</div>
         <h1
           className="headline"
           style={{ marginTop: 4, fontSize: "clamp(26px, 3.2vw, 44px)" }}
@@ -373,6 +373,28 @@ export function Scene6RealBilateral({ data, active }: Props) {
               {BUCKET_LABEL[b]}
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Bridge → Scene 8 */}
+      <div
+        style={{
+          position: "absolute",
+          right: 48,
+          bottom: 56,
+          maxWidth: 360,
+          zIndex: 5,
+          pointerEvents: "none",
+          textAlign: "right",
+        }}
+      >
+        <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>
+          继续深挖 →
+        </div>
+        <div style={{ fontSize: 18, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.3 }}>
+          剥离物理后,每个国家的合作重心各不相同——
+          这正是各国独特的{" "}
+          <span style={{ color: "var(--accent-eu-glow)" }}>学科指纹</span>。
         </div>
       </div>
     </div>

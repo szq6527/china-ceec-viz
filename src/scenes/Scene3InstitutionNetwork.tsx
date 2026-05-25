@@ -1326,6 +1326,20 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       <div style={{ position: "absolute", left: 36, bottom: 14, zIndex: 2, fontFamily: "var(--mono)", fontSize: 8, color: "var(--ink-2)", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.6, pointerEvents: "none" }}>
         数据来源: OpenAlex /works API · 2016–2020 机构级共现网络 · 节点大小=论文数 连线粗细=合作强度
       </div>
+
+      {/* Bridge → Scene 4 */}
+      <div style={{
+        position: "absolute", right: 36, bottom: 56, zIndex: 2, maxWidth: 340,
+        pointerEvents: "none", textAlign: "right",
+      }}>
+        <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>
+          下一个问题 →
+        </div>
+        <div style={{ fontSize: 18, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.3 }}>
+          合作在增长——但这些国家在中国全球合作版图里的{" "}
+          <span style={{ color: "var(--accent-cn-glow)" }}>排位</span>，在往哪个方向走？
+        </div>
+      </div>
     </div>
   );
 }

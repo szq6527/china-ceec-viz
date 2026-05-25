@@ -446,12 +446,13 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
       <div
         style={{
           position: "absolute",
-          left: 48,
-          right: 400,
+          right: 56,
           bottom: 56,
+          maxWidth: 380,
           zIndex: 4,
           pointerEvents: "none",
           fontFamily: "var(--serif)",
+          textAlign: "right",
           opacity: currentYear >= 2020 ? 1 : 0,
           transform: currentYear >= 2020 ? "translateY(0)" : "translateY(8px)",
           transition: "opacity 800ms ease, transform 800ms ease",
@@ -471,16 +472,15 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
         </div>
         <div
           style={{
-            fontSize: 22,
+            fontSize: 18,
             color: "var(--ink-0)",
             fontWeight: 700,
-            lineHeight: 1.3,
-            maxWidth: 720,
+            lineHeight: 1.35,
           }}
         >
           数字背后,是哪些{" "}
           <span style={{ color: "var(--accent-cn-glow)" }}>机构</span>{" "}
-          在推动这些合作? 让我们拉近看看。
+          在推动这些合作?
         </div>
       </div>
 

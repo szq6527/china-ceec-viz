@@ -90,6 +90,7 @@ export function Scene1Opening({ data, active }: Props) {
         <p className="subhead" style={{ marginTop: 14, fontSize: 15 }}>
           2011–2020 年,中国与中东欧 16 国的合作论文从 <strong>1,046</strong> 篇增长到{" "}
           <strong>4,791</strong> 篇 —— 看起来,这是一场科技外交的盛宴。
+          但这 16 国真的在同一条轨道上吗?
         </p>
       </div>
 

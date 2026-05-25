@@ -355,8 +355,8 @@ export function Scene4RankFall({ data, active }: Props) {
           {data.perCountry.length} 国 · 排位变化分布
         </div>
         <div style={{ display: "flex", gap: 28 }}>
-          <Stat label="排位下降" value={fallers} hint="重量级国家" color="#ff8366" />
-          <Stat label="排位上升" value={risers} hint="小国从底部猛冲" color="#8ae3ff" />
+          <Stat label="排位下降" value={fallers} hint="头部国家普遍下滑" color="#ff8366" />
+          <Stat label="排位上升" value={risers} hint="小国从底部追赶" color="#8ae3ff" />
           <Stat label="持平" value={holders} hint="" color="#f5b14a" />
         </div>
         <div
@@ -374,32 +374,43 @@ export function Scene4RankFall({ data, active }: Props) {
         </div>
       </div>
 
-      {/* Bottom-right: tiny legend */}
+      {/* Bottom-right: legend + bridge → Scene 5 */}
       <div
         style={{
           position: "absolute",
           right: 48,
-          bottom: 60,
-          fontFamily: "var(--mono)",
-          fontSize: 11,
-          color: "var(--ink-2)",
-          letterSpacing: "0.16em",
-          lineHeight: 1.9,
+          bottom: 56,
           zIndex: 5,
           pointerEvents: "none",
+          textAlign: "right",
         }}
       >
-        <div>
-          <span style={{ color: "#ff4d3d" }}>●</span> 排位下降
+        {/* Tiny legend */}
+        <div style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--ink-2)", letterSpacing: "0.16em", lineHeight: 1.9, marginBottom: 16 }}>
+          <div><span style={{ color: "#ff4d3d" }}>●</span> 排位下降</div>
+          <div><span style={{ color: "#4cc9f0" }}>●</span> 排位上升</div>
+          <div><span style={{ color: "#f5b14a" }}>●</span> 持平</div>
+          <div style={{ marginTop: 4 }}>球大小 = 当期合作论文量</div>
         </div>
-        <div>
-          <span style={{ color: "#4cc9f0" }}>●</span> 排位上升
-        </div>
-        <div>
-          <span style={{ color: "#f5b14a" }}>●</span> 持平
-        </div>
-        <div style={{ marginTop: 8, color: "var(--ink-2)" }}>
-          球大小 = 当期合作论文量
+        {/* Bridge */}
+        <div
+          style={{
+            opacity: progress > 0.85 ? 1 : 0,
+            transition: "opacity 800ms ease",
+            borderTop: "1px solid rgba(201,194,173,0.1)",
+            paddingTop: 14,
+            maxWidth: 340,
+          }}
+        >
+          <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 6 }}>
+            但为什么 →
+          </div>
+          <div style={{ fontSize: 17, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.3 }}>
+            论文数量明明在翻倍——
+            答案藏在{" "}
+            <span style={{ color: "var(--accent-physics)" }}>一种特殊的合作方式</span>
+            {" "}里。
+          </div>
         </div>
       </div>
     </div>

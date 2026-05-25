@@ -256,13 +256,15 @@ export function Scene9DualOutward({ active }: Props) {
                 style={{ transition: "opacity 400ms ease", transitionDelay: `${points.indexOf(p) * 30}ms`, cursor: "pointer" }}
                 onMouseEnter={() => setHovered({ point: p, cx, cy, color })}
                 onMouseLeave={() => setHovered(null)}>
-                <circle cx={cx} cy={cy} r={radius} fill={color} opacity={hovered?.point.iso === p.iso ? 0.28 : 0.14}
+                <circle cx={cx} cy={cy} r={radius} fill={color} opacity={hovered?.point.iso === p.iso ? 0.42 : 0.28}
                   filter={isHL ? "url(#glow-est2)" : undefined}
                   style={{ transition: "opacity 200ms ease" }} />
-                <circle cx={cx} cy={cy} r={radius * 0.48} fill={color} opacity={hovered?.point.iso === p.iso ? 1 : 0.9}
+                <circle cx={cx} cy={cy} r={radius * 0.55} fill={color} opacity={1}
+                  stroke="rgba(255,255,255,0.85)" strokeWidth={isHL ? 1.5 : 0.8}
                   style={{ transition: "opacity 200ms ease" }} />
                 <text x={cx + radius + 6} y={cy - radius * 0.3} textAnchor="start"
-                  fill="var(--ink-1)" fontFamily="var(--serif)" fontSize="11" fontWeight={isHL ? 700 : 400}>
+                  fill="var(--ink-0)" fontFamily="var(--serif)" fontSize="12" fontWeight={isHL ? 700 : 500}
+                  style={{ paintOrder: "stroke", stroke: "var(--bg-0)", strokeWidth: 3 }}>
                   {p.name_cn}
                 </text>
               </g>
