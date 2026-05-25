@@ -239,7 +239,7 @@ const W = 1200;
 const H = 750;
 const CN_TOP = 100;
 const CEEC_TOP = 80;
-const DEFAULT_LABELS = 10;
+const DEFAULT_LABELS = 6;
 const H_SPREAD = 320;
 const MIN_EDGE_WEIGHT = 3;
 
@@ -771,12 +771,16 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("y", (d) => d.y)
       .attr("text-anchor", (d) => (d.side === "cn" ? "end" : "start"))
       .attr("dy", "0.32em")
-      .attr("fill", "var(--ink-1)")
+      .attr("fill", "var(--ink-0)")
       .attr("font-family", "var(--mono)")
-      .attr("font-size", (d) => Math.max(7, Math.min(10, d.radius * 0.7)))
+      .attr("font-size", (d) => Math.max(8, Math.min(11, d.radius * 0.8)))
       .attr("letter-spacing", "0.04em")
-      .attr("opacity", (d) => (d.showLabel ? 0.9 : 0))
-      .text((d) => (d.name.length > 42 ? d.name.slice(0, 40) + "…" : d.name));
+      .attr("opacity", (d) => (d.showLabel ? 0.95 : 0))
+      .attr("paint-order", "stroke")
+      .attr("stroke", "#0a0d18")
+      .attr("stroke-width", 3)
+      .attr("stroke-linejoin", "round")
+      .text((d) => (d.name.length > 32 ? d.name.slice(0, 30) + "…" : d.name));
     labelSelRef.current = labelTexts;
 
     // ---- Static decor: divider + side labels ----

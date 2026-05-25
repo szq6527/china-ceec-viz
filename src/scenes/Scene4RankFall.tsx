@@ -96,13 +96,13 @@ export function Scene4RankFall({ data, active }: Props) {
         overflow: "hidden",
       }}
     >
-      {/* Header */}
+      {/* Header — narrowed and lifted so it doesn't crowd the left-side labels */}
       <div
         style={{
           position: "absolute",
-          top: 56,
+          top: 36,
           left: 48,
-          maxWidth: 360,
+          maxWidth: 300,
           zIndex: 5,
           pointerEvents: "none",
         }}
@@ -112,15 +112,16 @@ export function Scene4RankFall({ data, active }: Props) {
           className="headline"
           style={{
             marginTop: 4,
-            fontSize: "clamp(26px, 3.2vw, 44px)",
+            fontSize: "clamp(22px, 2.6vw, 36px)",
+            lineHeight: 1.2,
           }}
         >
           答案:量在涨,<br />
           <span style={{ color: "var(--accent-cn-glow)" }}>排位却在掉</span>
         </h1>
-        <p className="subhead" style={{ marginTop: 14, fontSize: 15 }}>
-          论文数翻倍,但同期中国与全世界的合作更猛 —— 在中国的全球合作伙伴名单里,大多数中东欧国家
-          的相对位次反而下降。
+        <p className="subhead" style={{ marginTop: 10, fontSize: 13, lineHeight: 1.5 }}>
+          论文数翻倍,但中国与全世界的合作更猛——
+          多数中东欧国家在中国的全球合作伙伴名单里反而下滑。
         </p>
       </div>
 

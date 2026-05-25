@@ -454,8 +454,9 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
           className="headline"
           style={{
             marginTop: 4,
-            fontSize: "clamp(28px, 3.4vw, 48px)",
-            lineHeight: 1.08,
+            fontSize: "clamp(26px, 3.2vw, 44px)",
+            lineHeight: 1.15,
+            wordBreak: "keep-all",
           }}
         >
           <span style={{ color: "#ffe6a8" }}>
@@ -465,7 +466,8 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
           制造了{" "}
           <span style={{ color: "var(--accent-physics)" }}>
             {stats ? `${(stats.aggregate.share_big_authorships * 100).toFixed(1)}%` : "—"}
-          </span>{" "}
+          </span>
+          <br />
           的"合作量"
         </h1>
         <p className="subhead" style={{ marginTop: 14, fontSize: 15 }}>

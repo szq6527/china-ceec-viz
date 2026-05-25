@@ -175,19 +175,19 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
           const visible = progress > 0.1 + i * 0.025;
           const isZero = f.big_penetration < 0.001;
           const color = isZero ? "#80ed99" :
-            f.big_penetration < 0.02 ? "var(--ink-2)" :
+            f.big_penetration < 0.02 ? "#c9c2ad" :
             f.big_penetration < 0.05 ? "#f5b14a" : "#ff8366";
           return (
             <g key={f.field} opacity={visible ? 1 : 0}
               style={{ transition: "opacity 200ms ease" }}>
               <text x={padL - 10} y={y + rowH / 2 + 3} textAnchor="end"
-                fill="var(--ink-1)" fontFamily="var(--serif)" fontSize="10">
+                fill="var(--ink-0)" fontFamily="var(--serif)" fontSize="11">
                 {FIELD_SHORT[f.field] || f.field}
               </text>
               <rect x={padL} y={y + 1} width={isZero ? 4 : bw} height={Math.max(2, rowH - 2)} rx="2"
-                fill={color} opacity={isZero ? 0.5 : 0.8} />
+                fill={color} opacity={isZero ? 0.65 : 0.92} />
               <text x={padL + Math.max(isZero ? 8 : bw + 6, 10)} y={y + rowH / 2 + 3}
-                fill={color} fontFamily="var(--mono)" fontSize="9">
+                fill={color} fontFamily="var(--mono)" fontSize="10" fontWeight="600">
                 {isZero ? "0%" : `${(f.big_penetration * 100).toFixed(1)}%`}
               </text>
             </g>
