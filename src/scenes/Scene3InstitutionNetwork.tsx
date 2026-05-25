@@ -122,6 +122,8 @@ interface MapEdge {
 
 /** Tooltip data when hovering a map node */
 interface MapTooltip {
+  kind: "cn" | "ceec";       // discriminator for click-toggle
+  key: string;               // city for cn, iso for ceec
   label: string;             // "北京" or "波兰"
   subtitle: string;          // "7 所机构" or "首都 · 32 所机构"
   topInstitutions: string[]; // top institution names (CN cities) or empty (CEEC)
@@ -262,10 +264,18 @@ export function Scene3InstitutionNetwork({ active }: Props) {
   const [data, setData] = useState<NetworkData | null>(null);
   const [period, setPeriod] = useState<"125" | "135">("135");
   const [filterPhysics, setFilterPhysics] = useState(false);
-  const [hoveredNode, setHoveredNode] = useState<SimNode | null>(null);
+  const [hoveredNode, _setHoveredNode] = useState<SimNode | null>(null);
+  const setHoveredNode = useCallback((n: SimNode | null) => {
+    hoveredNodeRef.current = n;
+    _setHoveredNode(n);
+  }, []);
   const [viewMode, setViewMode] = useState<"network" | "map">("network");
   const [topoFeatures, setTopoFeatures] = useState<any[] | null>(null);
-  const [mapTooltip, setMapTooltip] = useState<MapTooltip | null>(null);
+  const [mapTooltip, _setMapTooltip] = useState<MapTooltip | null>(null);
+  const setMapTooltip = useCallback((t: MapTooltip | null) => {
+    mapTooltipRef.current = t;
+    _setMapTooltip(t);
+  }, []);
 
   // Refs to D3 selections so the view-update effect can change opacity
   const edgeSelRef = useRef<d3.Selection<SVGLineElement, SimEdge, SVGGElement, unknown> | null>(null);
@@ -279,6 +289,9 @@ export function Scene3InstitutionNetwork({ active }: Props) {
   periodRef.current = period;
   const filterRef = useRef(filterPhysics);
   filterRef.current = filterPhysics;
+  // Track currently-selected node for click-toggle behavior
+  const hoveredNodeRef = useRef<SimNode | null>(null);
+  const mapTooltipRef = useRef<MapTooltip | null>(null);
 
   // ---- map-specific refs ------------------------------------------------
   const mapSvgRef = useRef<SVGSVGElement>(null);
@@ -651,6 +664,14 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     svg.call(zoom);
     zoomRef.current = zoom;
 
+    // Click on empty background to deselect
+    svg.on("click", () => {
+      if (hoveredNodeRef.current) {
+        setHoveredNode(null);
+        applyVisibilityRef.current();
+      }
+    });
+
     const { nodes, edges, nodeMap } = combinedGraph;
     graphRef.current = combinedGraph;
 
@@ -706,7 +727,14 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke", (d) => d.side === "cn" ? "var(--accent-cn-glow)" : "var(--accent-eu-glow)")
       .attr("stroke-width", 0.5)
       .style("cursor", "pointer")
-      .on("mouseenter", function (_, d) {
+      .on("click", function (event, d) {
+        event.stopPropagation();
+        // Toggle: click selected node again → deselect
+        if (hoveredNodeRef.current?.id === d.id) {
+          setHoveredNode(null);
+          applyVisibilityRef.current();
+          return;
+        }
         setHoveredNode(d);
         const p = periodRef.current;
         const f = filterRef.current;
@@ -743,7 +771,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
             if (neighborIds.has(nd.id)) return baseR * 1.15;
             return baseR;
           });
-        // Show only hovered node + top-8 connected labels
+        // Show only selected node + top-8 connected labels
         const topNeighborIds = new Set(
           edges
             .filter((e) => e.source === d.id || e.target === d.id)
@@ -754,10 +782,6 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         labelSelRef.current?.attr("opacity", (nd) =>
           nd.id === d.id || topNeighborIds.has(nd.id) ? 0.9 : 0,
         );
-      })
-      .on("mouseleave", () => {
-        setHoveredNode(null);
-        applyVisibilityRef.current();
       });
     nodeSelRef.current = nodeCircles;
 
@@ -783,18 +807,12 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .text((d) => (d.name.length > 32 ? d.name.slice(0, 30) + "…" : d.name));
     labelSelRef.current = labelTexts;
 
-    // ---- Static decor: divider + side labels ----
+    // ---- Static decor: center divider only ----
+    // (Side labels removed — they're inside the zoom group and could collide with the headline.
+    //  The HTML headline already says "国家与国家,是机构与机构" with colored side hints.)
     g.append("line")
       .attr("x1", 0).attr("y1", -H * 0.42).attr("x2", 0).attr("y2", H * 0.42)
       .attr("stroke", "rgba(201,194,173,0.08)").attr("stroke-width", 1).attr("stroke-dasharray", "4 8");
-    g.append("text")
-      .attr("x", -W * 0.28).attr("y", -H * 0.44).attr("text-anchor", "middle")
-      .attr("fill", "var(--accent-cn)").attr("font-family", "var(--serif)")
-      .attr("font-size", 14).attr("font-weight", 700).text("中国大陆机构");
-    g.append("text")
-      .attr("x", W * 0.28).attr("y", -H * 0.44).attr("text-anchor", "middle")
-      .attr("fill", "var(--accent-eu)").attr("font-family", "var(--serif)")
-      .attr("font-size", 14).attr("font-weight", 700).text("中东欧机构");
 
     // Initial zoom to fit
     const bounds = g.node()?.getBBox();
@@ -844,14 +862,16 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       if (count > 0) visibleNodeIds.add(n.id);
     }
 
-    // Edges: opacity + dynamic width
+    // Edges: opacity + dynamic width + reset stroke color (clears any prior highlight)
     edgeSelRef.current
+      .attr("stroke", "rgba(201,194,173,0.12)")
       .attr("opacity", (e) => isEdgeVisible(e) ? 1 : 0)
       .attr("stroke-width", (e) => isEdgeVisible(e) ? edgeW(e) : 0.15)
       .style("pointer-events", (e) => isEdgeVisible(e) ? "auto" : "none");
 
-    // Nodes: opacity + dynamic radius
+    // Nodes: opacity + dynamic radius + reset fill-opacity (clears any prior highlight)
     nodeSelRef.current
+      .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visibleNodeIds.has(n.id) ? 1 : 0.08)
       .attr("r", (n) => visibleNodeIds.has(n.id) ? nodeR(n) : 1.5)
       .style("pointer-events", (n) => visibleNodeIds.has(n.id) ? "auto" : "none");
@@ -892,14 +912,16 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       }
     }
 
-    // Edges: dramatic thickness variation
+    // Edges: reset stroke color + thickness variation
     mapEdgeSelRef.current
+      .attr("stroke", "rgba(201,194,173,0.16)")
       .attr("opacity", (e) => isMapEdgeVisible(e) ? 0.5 : 0)
       .attr("stroke-width", (e) => isMapEdgeVisible(e) ? edgeW(period === "125" ? e.weight_125 : e.weight_135) : 0.08)
       .style("pointer-events", (e) => isMapEdgeVisible(e) ? "auto" : "none");
 
-    // CN city nodes: smaller, compact
+    // CN city nodes: reset fill-opacity + smaller, compact
     mapCnSelRef.current
+      .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visCn.has(n.city) ? 0.88 : 0.10)
       .attr("r", (n) => {
         const w = period === "125"
@@ -909,8 +931,9 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       })
       .style("pointer-events", (n) => visCn.has(n.city) ? "auto" : "none");
 
-    // CEEC nodes
+    // CEEC nodes: reset fill-opacity
     mapCeecSelRef.current
+      .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visCeec.has(n.iso) ? 0.88 : 0.10)
       .attr("r", (n) => {
         const w = period === "125"
@@ -946,6 +969,14 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .scaleExtent([0.6, 5])
       .on("zoom", (event) => { g.attr("transform", event.transform.toString()); });
     svg.call(zoom);
+
+    // Click on empty background to deselect
+    svg.on("click", () => {
+      if (mapTooltipRef.current) {
+        setMapTooltip(null);
+        applyMapVisibilityRef.current();
+      }
+    });
 
     const { cnNodes, ceecNodes, edges } = mapData;
     mapDataRef.current = mapData;
@@ -1010,6 +1041,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         .sort((a, b) => b.weight - a.weight)
         .slice(0, 3);
       return {
+        kind: "cn",
+        key: cn.city,
         label: cn.city,
         subtitle: `${cn.institutionCount} 所机构`,
         topInstitutions: cn.institutions.slice(0, 5),
@@ -1031,6 +1064,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         .sort((a, b) => b.weight - a.weight)
         .slice(0, 3);
       return {
+        kind: "ceec",
+        key: ceec.iso,
         label: ceec.name_cn,
         subtitle: `首都 · ${ceec.institutionCount} 所机构`,
         topInstitutions: [],
@@ -1053,7 +1088,14 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke", "var(--accent-cn-glow)")
       .attr("stroke-width", 0.6)
       .style("cursor", "pointer")
-      .on("mouseenter", function (_, d) {
+      .on("click", function (event, d) {
+        event.stopPropagation();
+        // Toggle: same CN node clicked again → deselect
+        if (mapTooltipRef.current?.kind === "cn" && mapTooltipRef.current?.key === d.city) {
+          setMapTooltip(null);
+          applyMapVisibilityRef.current();
+          return;
+        }
         setMapTooltip(buildCnTooltip(d));
         const neighborCeec = new Set<string>();
         edgeLines
@@ -1074,8 +1116,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           .attr("r", (nd) => neighborCeec.has(nd.iso) ? getHoverR(nd) * 1.4 : getHoverR(nd) * 0.5);
         mapLabelSelRef.current
           ?.attr("opacity", (nd: any) => nd.city === d.city || neighborCeec.has(nd.iso) ? 0.9 : 0);
-      })
-      .on("mouseleave", () => applyMapVisibilityRef.current());
+      });
     mapCnSelRef.current = cnCircles;
 
     // Layer 4: CEEC country nodes
@@ -1091,7 +1132,13 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke", "var(--accent-eu-glow)")
       .attr("stroke-width", 0.6)
       .style("cursor", "pointer")
-      .on("mouseenter", function (_, d) {
+      .on("click", function (event, d) {
+        event.stopPropagation();
+        if (mapTooltipRef.current?.kind === "ceec" && mapTooltipRef.current?.key === d.iso) {
+          setMapTooltip(null);
+          applyMapVisibilityRef.current();
+          return;
+        }
         setMapTooltip(buildCeecTooltip(d));
         const neighborCn = new Set<string>();
         edgeLines
@@ -1112,8 +1159,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           .attr("r", (nd) => neighborCn.has(nd.city) ? getHoverR(nd) * 1.4 : getHoverR(nd) * 0.5);
         mapLabelSelRef.current
           ?.attr("opacity", (nd: any) => nd.iso === d.iso || neighborCn.has(nd.city) ? 0.9 : 0);
-      })
-      .on("mouseleave", () => applyMapVisibilityRef.current());
+      });
     mapCeecSelRef.current = ceecCircles;
 
     // Layer 5: labels (hidden by default)
@@ -1211,6 +1257,26 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           {period === "135" ? "2016–2020" : "2011–2015"} · {viewMode === "map" ? mapStatsText : networkStatsText}
         </div>
       </div>
+
+      {/* Side labels — HTML overlay so they don't collide with the headline (network view only) */}
+      {viewMode === "network" && (
+        <>
+          <div style={{
+            position: "absolute", top: 200, left: "30%", zIndex: 2, pointerEvents: "none",
+            fontFamily: "var(--serif)", fontSize: 14, fontWeight: 700,
+            color: "var(--accent-cn)", letterSpacing: "0.04em",
+          }}>
+            中国大陆机构
+          </div>
+          <div style={{
+            position: "absolute", top: 200, right: "26%", zIndex: 2, pointerEvents: "none",
+            fontFamily: "var(--serif)", fontSize: 14, fontWeight: 700,
+            color: "var(--accent-eu)", letterSpacing: "0.04em",
+          }}>
+            中东欧机构
+          </div>
+        </>
+      )}
 
       {/* Hover tooltip (network view) */}
       {/* Network hover tooltip */}
@@ -1322,7 +1388,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
               : "北京集中了超过半数的顶级中方机构,形成以首都为枢纽的合作放射结构。中东欧各国的科研资源高度集中于首都,一条条连线勾勒出机构级的协作版图。")
             : (filterPhysics
               ? "剥离物理合作后,网络显著缩小。剩余的合作更多集中在材料科学、医学和化学领域,由大学主导的双边关系构成。"
-              : "左侧为中国大陆机构,右侧为中东欧机构。节点大小反映合作论文数量,连线粗细反映合作强度。悬停节点查看详情。右侧控件可切换时期与物理过滤。")}
+              : "左侧为中国大陆机构,右侧为中东欧机构。节点大小反映合作论文数量,连线粗细反映合作强度。点击节点查看详情,再次点击或点击空白处取消。右侧控件可切换时期与物理过滤。")}
         </div>
       </div>
 
