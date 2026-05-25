@@ -1399,7 +1399,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
 
       {/* Bridge → Scene 4 */}
       <div style={{
-        position: "absolute", right: 36, bottom: 56, zIndex: 2, maxWidth: 340,
+        position: "absolute", right: 36, bottom: 180, zIndex: 2, maxWidth: 340,
         pointerEvents: "none", textAlign: "right",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>

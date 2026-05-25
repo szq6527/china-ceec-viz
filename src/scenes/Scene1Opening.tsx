@@ -124,7 +124,7 @@ export function Scene1Opening({ data, active }: Props) {
           top: 70,
           textAlign: "right",
           fontFamily: "var(--mono)",
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: "0.16em",
           color: "var(--ink-2)",
           textTransform: "uppercase",
@@ -172,7 +172,7 @@ function Leaderboard({ data }: { data: AppData }) {
       <div
         style={{
           fontFamily: "var(--mono)",
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: "0.22em",
           textTransform: "uppercase",
           color: "var(--ink-2)",
@@ -191,14 +191,14 @@ function Leaderboard({ data }: { data: AppData }) {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "baseline",
-                  fontSize: 13,
+                  fontSize: 15,
                   marginBottom: 4,
                 }}
               >
                 <span>
                   <span
                     className="mono"
-                    style={{ color: "var(--ink-2)", fontSize: 11, marginRight: 8 }}
+                    style={{ color: "var(--ink-2)", fontSize: 13, marginRight: 8 }}
                   >
                     0{i + 1}
                   </span>
@@ -206,7 +206,7 @@ function Leaderboard({ data }: { data: AppData }) {
                 </span>
                 <span
                   className="mono tabular"
-                  style={{ color: "var(--ink-1)", fontSize: 13 }}
+                  style={{ color: "var(--ink-1)", fontSize: 15 }}
                 >
                   {d.count_135.toLocaleString()}
                 </span>

@@ -4,35 +4,41 @@ import { Scene1Opening } from "./scenes/Scene1Opening";
 import { Scene2BarRace } from "./scenes/Scene2BarRace";
 import { Scene3InstitutionNetwork } from "./scenes/Scene3InstitutionNetwork";
 import { Scene4RankFall } from "./scenes/Scene4RankFall";
+import { SceneRcaTrajectory } from "./scenes/SceneRcaTrajectory";
 import { Scene5Collider } from "./scenes/Scene5Collider";
 import { Scene6BigScienceDecomposition } from "./scenes/Scene6BigScienceDecomposition";
 import { Scene6RealBilateral } from "./scenes/Scene6RealBilateral";
+import { SceneCountryTypology } from "./scenes/SceneCountryTypology";
 import { Scene8SubjectHeatmap } from "./scenes/Scene8SubjectHeatmap";
 import { Scene9DualOutward } from "./scenes/Scene9DualOutward";
 
 const SCENES = [
-  { id: 1, label: "01 · 最热的友谊" },
-  { id: 2, label: "02 · 但有人被甩开了" },
-  { id: 3, label: "03 · 谁在和谁对话" },
-  { id: 4, label: "04 · 排位在掉" },
-  { id: 5, label: "05 · 大科学幻象" },
-  { id: 6, label: "06 · 大科学的真实面目" },
-  { id: 7, label: "07 · 真正的双边" },
-  { id: 8, label: "08 · 学科指纹" },
-  { id: 9, label: "09 · 双外向型" },
+  { id: 1,  label: "01 · 最热的友谊" },
+  { id: 2,  label: "02 · 但有人被甩开了" },
+  { id: 3,  label: "03 · 谁在和谁对话" },
+  { id: 4,  label: "04 · 排位在掉" },
+  { id: 5,  label: "05 · 聚焦在衰退" },
+  { id: 6,  label: "06 · 大科学幻象" },
+  { id: 7,  label: "07 · 大科学的真实面目" },
+  { id: 8,  label: "08 · 真正的双边" },
+  { id: 9,  label: "09 · 四种合作命运" },
+  { id: 10, label: "10 · 学科指纹" },
+  { id: 11, label: "11 · 双外向型" },
 ];
 
 // Autoplay dwell time (ms) per scene
 const SCENE_DWELL: Record<number, number> = {
-  1: 7000,
-  2: 11000,
-  3: 10000,
-  4: 7000,
-  5: 10000,
-  6: 10000,
-  7: 9000,
-  8: 10000,
-  9: 12000,
+  1:  7000,
+  2:  11000,
+  3:  10000,
+  4:  7000,
+  5:  10000,
+  6:  10000,
+  7:  10000,
+  8:  9000,
+  9:  11000,
+  10: 10000,
+  11: 12000,
 };
 
 export default function App() {
@@ -152,19 +158,25 @@ export default function App() {
               <Scene4RankFall data={data} active={scene === 4} />
             </Scene>
             <Scene className={`scene${scene === 5 ? " active" : ""}`}>
-              <Scene5Collider data={data} active={scene === 5} />
+              <SceneRcaTrajectory active={scene === 5} />
             </Scene>
             <Scene className={`scene${scene === 6 ? " active" : ""}`}>
-              <Scene6BigScienceDecomposition active={scene === 6} />
+              <Scene5Collider data={data} active={scene === 6} />
             </Scene>
             <Scene className={`scene${scene === 7 ? " active" : ""}`}>
-              <Scene6RealBilateral data={data} active={scene === 7} />
+              <Scene6BigScienceDecomposition active={scene === 7} />
             </Scene>
             <Scene className={`scene${scene === 8 ? " active" : ""}`}>
-              <Scene8SubjectHeatmap active={scene === 8} />
+              <Scene6RealBilateral data={data} active={scene === 8} />
             </Scene>
             <Scene className={`scene${scene === 9 ? " active" : ""}`}>
-              <Scene9DualOutward active={scene === 9} />
+              <SceneCountryTypology active={scene === 9} />
+            </Scene>
+            <Scene className={`scene${scene === 10 ? " active" : ""}`}>
+              <Scene8SubjectHeatmap active={scene === 10} />
+            </Scene>
+            <Scene className={`scene${scene === 11 ? " active" : ""}`}>
+              <Scene9DualOutward active={scene === 11} />
             </Scene>
           </>
         )}

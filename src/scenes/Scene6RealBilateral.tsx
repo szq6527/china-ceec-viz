@@ -175,7 +175,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
       >
         <div
           style={{
-            fontSize: 11,
+            fontSize: 13,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "var(--ink-2)",
@@ -194,7 +194,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
         >
           {stripped ? "剥离物理 + 天文" : "完整数据"}
         </div>
-        <div style={{ fontSize: 11, color: "var(--ink-2)", marginTop: 6, letterSpacing: "0.16em" }}>
+        <div style={{ fontSize: 13, color: "var(--ink-2)", marginTop: 6, letterSpacing: "0.16em" }}>
           每 4 秒自动切换
         </div>
       </div>
@@ -232,7 +232,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
               <div
                 style={{
                   width: 90,
-                  fontSize: "clamp(10px, 1.15vh, 14px)",
+                  fontSize: "clamp(12px, 1.35vh, 16px)",
                   color: "var(--ink-1)",
                   textAlign: "right",
                 }}
@@ -287,7 +287,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
                 style={{
                   width: 70,
                   textAlign: "right",
-                  fontSize: "clamp(10px, 1.1vh, 13px)",
+                  fontSize: "clamp(12px, 1.3vh, 15px)",
                   color: "var(--ink-1)",
                 }}
               >
@@ -296,7 +296,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
               <div
                 style={{
                   width: 56,
-                  fontSize: "clamp(9px, 0.95vh, 11px)",
+                  fontSize: "clamp(11px, 1.15vh, 13px)",
                   textAlign: "right",
                   color: stripped ? "var(--ink-2)" : "var(--accent-physics)",
                   fontFamily: "var(--mono)",
@@ -353,7 +353,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
             flexWrap: "wrap",
             gap: 16,
             fontFamily: "var(--mono)",
-            fontSize: 10,
+            fontSize: 12,
             color: "var(--ink-2)",
             letterSpacing: "0.14em",
             textTransform: "uppercase",
@@ -388,7 +388,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
           textAlign: "right",
         }}
       >
-        <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>
+        <div style={{ fontFamily: "var(--mono)", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>
           继续深挖 →
         </div>
         <div style={{ fontSize: 18, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.3 }}>
@@ -417,7 +417,7 @@ function Insight({
       <div
         style={{
           fontFamily: "var(--mono)",
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: "0.22em",
           textTransform: "uppercase",
           color: "var(--ink-2)",

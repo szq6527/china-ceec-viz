@@ -29,10 +29,13 @@ body,
 #root {
   width: 100%;
   height: 100%;
+  height: 100dvh;
   background: #000;
   color: var(--ink-0);
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: none;
   text-rendering: optimizeLegibility;
   overflow: hidden;
 }
@@ -41,8 +44,7 @@ body,
    while preserving aspect ratio (letterbox style). On viewports ≥ 1440 it
    simply renders at native size, centered. */
 #root {
-  display: grid;
-  place-items: center;
+  position: relative;
   background: #000;
 }
 
@@ -74,13 +76,15 @@ body::before {
 
 /* App-level layout — fixed design size, scaled to viewport via --app-scale */
 .app-shell {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 1440px;
   height: 900px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   background: var(--bg-0);
-  transform: scale(var(--app-scale, 1));
+  transform: translate(-50%, -50%) scale(var(--app-scale, 1));
   transform-origin: center center;
   overflow: hidden;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
@@ -92,7 +96,7 @@ body::before {
   justify-content: space-between;
   padding: 18px 28px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-2);
@@ -115,9 +119,10 @@ body::before {
 
 .scene-nav {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 18px;
-  padding: 16px 0 22px;
+  padding: 16px 20px 22px;
   z-index: 5;
 }
 
@@ -126,7 +131,7 @@ body::before {
   border: none;
   color: var(--ink-2);
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
@@ -234,7 +239,7 @@ body::before {
 /* Story overlay text */
 .kicker {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent-warn);
@@ -269,7 +274,7 @@ body::before {
 
 .stat-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-2);

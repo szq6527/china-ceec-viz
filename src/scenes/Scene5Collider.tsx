@@ -498,7 +498,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
           <div
             style={{
               fontFamily: "var(--mono)",
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               color: "var(--ink-2)",
@@ -521,7 +521,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
             style={{
               marginTop: 14,
               fontFamily: "var(--mono)",
-              fontSize: 10,
+              fontSize: 12,
               color: "var(--ink-2)",
               letterSpacing: "0.16em",
               lineHeight: 1.8,
@@ -552,7 +552,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
         <div
           style={{
             fontFamily: "var(--mono)",
-            fontSize: 10,
+            fontSize: 12,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "var(--accent-warn)",
@@ -567,7 +567,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
         </div>
         <div
           style={{
-            fontSize: 11,
+            fontSize: 13,
             color: "var(--ink-2)",
             marginTop: 10,
             fontFamily: "var(--mono)",
@@ -597,32 +597,32 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
         }}
       >
         <Counter
-          label="抽样论文"
+          label="中–中东欧合作论文总量"
           value={stats?.aggregate.papers_sampled.toLocaleString() ?? "—"}
-          sub="OpenAlex · 2016-2020"
+          sub="数据来源：OpenAlex · 2016–2020"
         />
         <Counter
-          label="≥100 作者的论文比例"
+          label="属于大科学论文（≥100 位作者）"
           value={
             stats ? `${(stats.aggregate.share_big_papers * 100).toFixed(1)}%` : "—"
           }
-          sub="少数派"
+          sub="论文数量极少，却影响极大"
         />
         <Counter
-          label="↑ 它们吃下的合作量"
+          label="的「合作量」由这少数论文贡献"
           value={
             stats ? `${(stats.aggregate.share_big_authorships * 100).toFixed(1)}%` : "—"
           }
-          sub="多数派 · 5× 不成比例"
+          sub="不足 8% 的论文制造了近 40% 的合作记录"
         />
         <Counter
-          label={worstCountry ? `最严重 · ${worstCountry.name_cn}` : "代表样本作者数"}
+          label={worstCountry ? `受影响最严重 · ${worstCountry.name_cn}` : "代表样本作者数"}
           value={
             worstCountry
               ? `${(worstCountry.share_big_authorships * 100).toFixed(0)}%`
               : authorCount.toLocaleString()
           }
-          sub={worstCountry ? "合作量被 megapaper 占" : ""}
+          sub={worstCountry ? "合作量由大科学论文贡献，数据严重失真" : ""}
         />
       </div>
     </>
@@ -666,7 +666,7 @@ function DisproportionRow({
         <span
           style={{
             fontFamily: "var(--mono)",
-            fontSize: 11,
+            fontSize: 13,
             letterSpacing: "0.14em",
             textTransform: "uppercase",
             color: "var(--ink-1)",
@@ -683,7 +683,7 @@ function DisproportionRow({
           }}
         >
           {last ? `${(last.share * 100).toFixed(1)}%` : "—"}
-          <span style={{ fontSize: 10, color: "var(--ink-2)", marginLeft: 6 }}>
+          <span style={{ fontSize: 12, color: "var(--ink-2)", marginLeft: 6 }}>
             100+
           </span>
         </span>
@@ -722,7 +722,7 @@ function Counter({ label, value, sub }: { label: string; value: string; sub?: st
         <div
           style={{
             fontFamily: "var(--mono)",
-            fontSize: 10,
+            fontSize: 12,
             color: "var(--ink-2)",
             letterSpacing: "0.16em",
             marginTop: 2,
