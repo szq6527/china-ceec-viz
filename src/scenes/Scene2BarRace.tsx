@@ -25,32 +25,85 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
     return series[0].yearly.map((d) => d.year);
   }, [series]);
 
-  const [t, setT] = useState(0); // continuous year cursor 2011..2020
+  const [t, setT] = useState(0); // continuous year cursor 0..years.length-1
   const startedAt = useRef<number | null>(null);
+  const pausedT = useRef<number>(0); // t value when paused
+  const [paused, setPaused] = useState(false);
+  const rafRef = useRef(0);
+
+  // Snap t to the nearest whole year index
+  const snapToYear = (raw: number) => Math.round(Math.min(raw, years.length - 1));
 
   useEffect(() => {
     if (!active) {
       setT(0);
+      setPaused(false);
       startedAt.current = null;
+      pausedT.current = 0;
       return;
     }
     // Reset timer when viewMode or active changes
     startedAt.current = null;
+    pausedT.current = 0;
     setT(0);
-    let raf = 0;
-    const total = viewMode === "heatmap" ? 12000 : 24000; // 12 s heatmap, 24 s bars; +1.5s hold at end
+    setPaused(false);
+
+    const total = viewMode === "heatmap" ? 12000 : 24000;
     const tick = (now: number) => {
       if (startedAt.current === null) startedAt.current = now;
       const elapsed = now - (startedAt.current ?? now);
       const p = Math.min(1, elapsed / total);
-      // ease so the last few years dwell longer
       const eased = p < 0.85 ? p / 0.85 : 0.999;
-      setT(eased * (years.length - 1));
-      if (elapsed < total + 1500) raf = requestAnimationFrame(tick);
+      const newT = eased * (years.length - 1);
+      pausedT.current = newT;
+      setT(newT);
+      if (elapsed < total + 1500) rafRef.current = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
   }, [active, years.length, viewMode]);
+
+  // Handle pause/resume
+  const togglePause = () => {
+    if (!active) return;
+    if (!paused) {
+      // Pause: cancel animation, snap to nearest year
+      cancelAnimationFrame(rafRef.current);
+      const snapped = snapToYear(pausedT.current);
+      setT(snapped);
+      pausedT.current = snapped;
+      setPaused(true);
+    } else {
+      // Resume: restart animation from current snapped position
+      const total = viewMode === "heatmap" ? 12000 : 24000;
+      const currentFrac = pausedT.current / (years.length - 1);
+      // Convert eased fraction back to linear time offset
+      const linearP = Math.min(currentFrac * 0.85, 0.85);
+      const resumeOffset = linearP * total;
+
+      startedAt.current = performance.now() - resumeOffset;
+      setPaused(false);
+
+      const tick = (now: number) => {
+        const elapsed = now - (startedAt.current ?? now);
+        const p = Math.min(1, elapsed / total);
+        const eased = p < 0.85 ? p / 0.85 : 0.999;
+        const newT = eased * (years.length - 1);
+        pausedT.current = newT;
+        setT(newT);
+        if (elapsed < total + 1500) rafRef.current = requestAnimationFrame(tick);
+      };
+      rafRef.current = requestAnimationFrame(tick);
+    }
+  };
+
+  // Jump to a specific year (while paused)
+  const jumpToYear = (yearIdx: number) => {
+    cancelAnimationFrame(rafRef.current);
+    setT(yearIdx);
+    pausedT.current = yearIdx;
+    setPaused(true);
+  };
 
   // Interpolate counts at fractional year cursor t (0..n-1)
   const cursorCounts = useMemo(() => {
@@ -171,17 +224,28 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
         </h1>
       </div>
 
-      {/* Big year ticker, top right */}
+      {/* Big year ticker, top right — click to pause/resume */}
       <div
+        onClick={togglePause}
         style={{
           position: "absolute",
           top: 60,
           right: 64,
           textAlign: "right",
           zIndex: 5,
-          pointerEvents: "none",
           fontFamily: "var(--mono)",
           color: "var(--ink-0)",
+          cursor: "pointer",
+          userSelect: "none",
+          padding: "10px 16px",
+          borderRadius: 8,
+          border: paused
+            ? "1px solid rgba(255,77,61,0.35)"
+            : "1px solid transparent",
+          background: paused
+            ? "rgba(255,77,61,0.04)"
+            : "transparent",
+          transition: "all 400ms ease",
         }}
       >
         <div
@@ -190,8 +254,9 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
             lineHeight: 1,
             fontWeight: 700,
             letterSpacing: "-0.02em",
-            color: "var(--ink-0)",
+            color: paused ? "var(--accent-cn-glow)" : "var(--ink-0)",
             fontVariantNumeric: "tabular-nums",
+            transition: "color 300ms ease",
           }}
         >
           {currentYear}
@@ -206,6 +271,77 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
           }}
         >
           当年合作论文 · {yearlyAgg.ceec.toLocaleString()}
+        </div>
+        <div
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            color: paused ? "var(--accent-cn-glow)" : "var(--ink-2)",
+            marginTop: 8,
+            transition: "color 300ms ease",
+          }}
+        >
+          {paused ? "▸ 点击继续播放" : "▸ 点击暂停"}
+        </div>
+
+        {/* Year timeline scrubber */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 4,
+            marginTop: 14,
+          }}
+        >
+          {years.map((yr, idx) => {
+            const isActive = idx === Math.round(t);
+            const isPast = idx <= Math.round(t);
+            return (
+              <div
+                key={yr}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  jumpToYear(idx);
+                }}
+                title={String(yr)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 4,
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    width: isActive ? 12 : 8,
+                    height: isActive ? 12 : 8,
+                    borderRadius: "50%",
+                    background: isActive
+                      ? "var(--accent-cn-glow)"
+                      : isPast
+                        ? "rgba(255,77,61,0.45)"
+                        : "rgba(201,194,173,0.15)",
+                    border: isActive ? "2px solid var(--accent-cn-glow)" : "none",
+                    boxShadow: isActive ? "0 0 8px rgba(255,77,61,0.5)" : "none",
+                    transition: "all 300ms ease",
+                  }}
+                />
+                <div
+                  style={{
+                    fontSize: 8,
+                    color: isActive ? "var(--ink-0)" : "var(--ink-2)",
+                    fontVariantNumeric: "tabular-nums",
+                    opacity: isActive || idx === 0 || idx === years.length - 1 ? 1 : 0.5,
+                    transition: "all 300ms ease",
+                  }}
+                >
+                  {yr}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -315,7 +451,7 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
         style={{
           position: "absolute",
           right: 64,
-          top: 240,
+          top: 330,
           width: 320,
           zIndex: 4,
           pointerEvents: "none",

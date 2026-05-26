@@ -66,15 +66,11 @@ interface CountryBuckets {
 export function Scene6RealBilateral({ data, active }: Props) {
   const [stripped, setStripped] = useState(false);
 
-  // Auto-loop A → B → A while active
+  // Reset when scene becomes inactive
   useEffect(() => {
     if (!active) {
       setStripped(false);
-      return;
     }
-    setStripped(false);
-    const id = setInterval(() => setStripped((s) => !s), 4000);
-    return () => clearInterval(id);
   }, [active]);
 
   const rows: CountryBuckets[] = useMemo(() => {
@@ -160,28 +156,48 @@ export function Scene6RealBilateral({ data, active }: Props) {
         </p>
       </div>
 
-      {/* Mode indicator */}
+      {/* Mode toggle button */}
       <div
+        onClick={() => setStripped((s) => !s)}
         style={{
           position: "absolute",
           top: 60,
           right: 64,
           textAlign: "right",
           fontFamily: "var(--mono)",
-          color: stripped ? "var(--accent-warn)" : "var(--ink-1)",
           zIndex: 5,
-          pointerEvents: "none",
+          cursor: "pointer",
+          userSelect: "none",
+          padding: "14px 20px",
+          borderRadius: 8,
+          border: stripped
+            ? "1px solid rgba(245,177,74,0.35)"
+            : "1px solid rgba(201,194,173,0.12)",
+          background: stripped
+            ? "rgba(245,177,74,0.06)"
+            : "rgba(255,255,255,0.03)",
+          transition: "all 400ms ease",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLDivElement).style.background = stripped
+            ? "rgba(245,177,74,0.12)"
+            : "rgba(255,255,255,0.07)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLDivElement).style.background = stripped
+            ? "rgba(245,177,74,0.06)"
+            : "rgba(255,255,255,0.03)";
         }}
       >
         <div
           style={{
-            fontSize: 13,
+            fontSize: 11,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "var(--ink-2)",
           }}
         >
-          模式 · MODE
+          模式 · 点击切换
         </div>
         <div
           style={{
@@ -194,8 +210,16 @@ export function Scene6RealBilateral({ data, active }: Props) {
         >
           {stripped ? "剥离物理 + 天文" : "完整数据"}
         </div>
-        <div style={{ fontSize: 13, color: "var(--ink-2)", marginTop: 6, letterSpacing: "0.16em" }}>
-          每 4 秒自动切换
+        <div
+          style={{
+            fontSize: 12,
+            color: stripped ? "var(--accent-warn)" : "var(--ink-2)",
+            marginTop: 8,
+            letterSpacing: "0.12em",
+            transition: "color 400ms ease",
+          }}
+        >
+          {stripped ? "▸ 点击恢复完整数据" : "▸ 点击剥离物理 + 天文"}
         </div>
       </div>
 
