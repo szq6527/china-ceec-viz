@@ -77,7 +77,7 @@ const FIELD_EN: Record<string, string> = {
 
 function getOrbitInfo(pen: number): { label: string; desc: string; color: string } {
   if (pen >= 0.25)
-    return { label: "CERN 轨道", desc: "大型对撞机实验署名驱动，一篇可覆盖数千作者", color: "#c77dff" };
+    return { label: "CERN 轨道", desc: "大型对撞机实验署名驱动，一篇可覆盖数千作者", color: "#2dcb8c" };
   if (pen >= 0.05)
     return { label: "高渗透", desc: "存在相当比例的大科学论文，注意数据失真", color: "#f5b14a" };
   if (pen >= 0.01)
@@ -86,7 +86,7 @@ function getOrbitInfo(pen: number): { label: string; desc: string; color: string
 }
 
 function getBarColor(pen: number): string {
-  if (pen >= 0.25) return "#c77dff";
+  if (pen >= 0.25) return "#2dcb8c";
   if (pen >= 0.05) return "#f5b14a";
   if (pen >= 0.01) return "#4cc9f0";
   return "#80ed99";
@@ -337,7 +337,7 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 30, lineHeight: 1.2, margin: 0 }}>
           物理学<br />
-          <span style={{ color: "#c77dff" }}>35%</span> 被大科学<br />
+          <span style={{ color: "#2dcb8c" }}>35%</span> 被大科学<br />
           渗透，其余<br />
           近乎 <span style={{ color: "#80ed99" }}>零</span>
         </h1>
@@ -350,7 +350,7 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
 
         {/* Three key stats */}
         {[
-          { v: `${((physicsField?.big_penetration ?? 0.35) * 100).toFixed(0)}%`, l: "物理学渗透率", c: "#c77dff" },
+          { v: `${((physicsField?.big_penetration ?? 0.35) * 100).toFixed(0)}%`, l: "物理学渗透率", c: "#2dcb8c" },
           { v: `${(data.ceec_avg_penetration * 100).toFixed(1)}%`, l: "各学科均值", c: "var(--accent-warn)" },
           { v: "4.5×", l: "物理 vs 第二名（心理学）", c: "#4cc9f0" },
         ].map(({ v, l, c }) => (
@@ -521,7 +521,7 @@ function BarRow({
           position: "absolute", left: 0, top: 0, bottom: 0,
           width: `${barW * (progress)}%`,
           background: isPhysics
-            ? "linear-gradient(90deg, #7b2cbf 0%, #c77dff 65%, #e0b0ff 100%)"
+            ? "linear-gradient(90deg, #1a9068 0%, #2dcb8c 65%, #7af0c5 100%)"
             : isZero
             ? `${color}30`
             : color,

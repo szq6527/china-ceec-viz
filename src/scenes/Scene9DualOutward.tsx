@@ -27,7 +27,7 @@ interface ScatterData {
 const GROUP_COLORS: Record<string, string> = {
   eurozone_core: "#4cc9f0",
   eurozone_special: "#f5b14a",
-  eu_non_eurozone: "#c77dff",
+  eu_non_eurozone: "#2dcb8c",
   eu_candidate: "#80ed99",
 };
 
@@ -145,7 +145,7 @@ export function Scene9DualOutward({ active }: Props) {
     <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", overflow: "hidden" }}>
       {/* Header */}
       <div style={{ position: "absolute", top: 40, left: 48, maxWidth: 560, zIndex: 5, pointerEvents: "none" }}>
-        <div className="kicker">SCENE 09 · 双外向型</div>
+        <div className="kicker">SCENE 09 · 相关视角</div>
         <h1 className="headline" style={{ marginTop: 4, fontSize: "clamp(24px, 3vw, 40px)" }}>
           不是"选边站",<br />
           <span style={{ color: "var(--accent-eu-glow)" }}>越是EU导向的国家</span>
@@ -159,32 +159,49 @@ export function Scene9DualOutward({ active }: Props) {
         </p>
       </div>
 
-      {/* View toggle button */}
-      <div style={{ position: "absolute", right: 48, top: 48, zIndex: 10 }}>
-        <button
-          onClick={() => setViewMode((v) => v === "scatter" ? "bars" : "scatter")}
-          style={{
-            background: "rgba(255,255,255,0.08)",
-            border: "1px solid rgba(255,255,255,0.18)",
-            borderRadius: 6,
-            color: "var(--ink-1)",
-            fontFamily: "var(--mono)",
-            fontSize: 11,
-            letterSpacing: "0.12em",
-            padding: "8px 16px",
-            cursor: "pointer",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.15)";
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--ink-0)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)";
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--ink-1)";
-          }}
-        >
-          {viewMode === "scatter" ? "▸ EU6/中国 比值图" : "▸ 散点相关图"}
-        </button>
+      {/* Inner view segmented control – right side */}
+      <div style={{
+        position: "absolute", right: 48, top: 48, zIndex: 10,
+        display: "inline-flex", alignItems: "center",
+        background: "rgba(6,5,18,0.72)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
+        borderRadius: 9,
+        padding: 4,
+        border: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)",
+      }}>
+        {(["scatter", "bars"] as const).map((mode) => {
+          const active = viewMode === mode;
+          const label  = mode === "scatter" ? "散点相关图" : "EU6/中国 比值图";
+          return (
+            <button
+              key={mode}
+              onClick={() => setViewMode(mode)}
+              style={{
+                padding: "7px 18px",
+                background: active
+                  ? "linear-gradient(135deg, rgba(245,177,74,0.22) 0%, rgba(245,177,74,0.07) 100%)"
+                  : "transparent",
+                border: active
+                  ? "1px solid rgba(245,177,74,0.38)"
+                  : "1px solid transparent",
+                borderRadius: 7,
+                color: active ? "rgba(255,255,255,0.95)" : "rgba(201,194,173,0.42)",
+                fontFamily: "var(--mono)",
+                fontSize: 11,
+                fontWeight: active ? 700 : 400,
+                letterSpacing: "0.11em",
+                cursor: "pointer",
+                textShadow: active ? "0 0 12px rgba(245,177,74,0.55)" : "none",
+                transition: "all 200ms ease",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
 
       {/* === SCATTER VIEW === */}

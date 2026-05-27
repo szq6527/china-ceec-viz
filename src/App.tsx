@@ -11,6 +11,7 @@ import { Scene6RealBilateral } from "./scenes/Scene6RealBilateral";
 import { SceneCountryTypology } from "./scenes/SceneCountryTypology";
 import { Scene8SubjectHeatmap } from "./scenes/Scene8SubjectHeatmap";
 import { Scene9DualOutward } from "./scenes/Scene9DualOutward";
+import { UnifiedScene09 } from "./scenes/UnifiedScene09";
 
 const SCENES = [
   { id: 1,  label: "01 · 最热的友谊" },
@@ -21,9 +22,8 @@ const SCENES = [
   { id: 6,  label: "06 · 大科学幻象" },
   { id: 7,  label: "07 · 大科学的真实面目" },
   { id: 8,  label: "08 · 真正的双边" },
-  { id: 9,  label: "09 · 四种合作命运" },
+  { id: 9,  label: "09 · 十六国合作图谱" },
   { id: 10, label: "10 · 学科指纹" },
-  { id: 11, label: "11 · 双外向型" },
 ];
 
 // Autoplay dwell time (ms) per scene
@@ -38,7 +38,6 @@ const SCENE_DWELL: Record<number, number> = {
   8:  9000,
   9:  11000,
   10: 10000,
-  11: 12000,
 };
 
 export default function App() {
@@ -170,13 +169,10 @@ export default function App() {
               <Scene6RealBilateral data={data} active={scene === 8} />
             </Scene>
             <Scene className={`scene${scene === 9 ? " active" : ""}`}>
-              <SceneCountryTypology active={scene === 9} />
+              <UnifiedScene09 active={scene === 9} />
             </Scene>
             <Scene className={`scene${scene === 10 ? " active" : ""}`}>
               <Scene8SubjectHeatmap active={scene === 10} />
-            </Scene>
-            <Scene className={`scene${scene === 11 ? " active" : ""}`}>
-              <Scene9DualOutward active={scene === 11} />
             </Scene>
           </>
         )}

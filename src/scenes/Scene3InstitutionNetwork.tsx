@@ -143,10 +143,10 @@ const PHYSICS_CONCEPTS = new Set([
 ]);
 
 const CEEC_COLORS: Record<string, string> = {
-  PL: "#f5b14a", CZ: "#80ed99", GR: "#4cc9f0", HU: "#c77dff",
+  PL: "#f5b14a", CZ: "#80ed99", GR: "#4cc9f0", HU: "#38bfa1",
   RO: "#ff8366", RS: "#ff4d3d", BG: "#8ae3ff", SK: "#f5b14a",
-  HR: "#80ed99", SI: "#4cc9f0", EE: "#c77dff", LV: "#ff8366",
-  LT: "#f5b14a", AL: "#80ed99", ME: "#4cc9f0", MK: "#c77dff",
+  HR: "#80ed99", SI: "#4cc9f0", EE: "#38bfa1", LV: "#ff8366",
+  LT: "#f5b14a", AL: "#80ed99", ME: "#4cc9f0", MK: "#38bfa1",
 };
 
 const INST_TYPE_SHORT: Record<string, string> = {
@@ -807,12 +807,35 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .text((d) => (d.name.length > 32 ? d.name.slice(0, 30) + "…" : d.name));
     labelSelRef.current = labelTexts;
 
-    // ---- Static decor: center divider only ----
-    // (Side labels removed — they're inside the zoom group and could collide with the headline.
-    //  The HTML headline already says "国家与国家,是机构与机构" with colored side hints.)
+    // ---- Static decor: center divider + side labels ----
     g.append("line")
       .attr("x1", 0).attr("y1", -H * 0.42).attr("x2", 0).attr("y2", H * 0.42)
       .attr("stroke", "rgba(201,194,173,0.08)").attr("stroke-width", 1).attr("stroke-dasharray", "4 8");
+
+    // Side labels — inside the zoom group so they move with the network
+    g.append("text")
+      .attr("x", -W * 0.28)
+      .attr("y", -H * 0.38)
+      .attr("text-anchor", "middle")
+      .attr("fill", "var(--accent-cn)")
+      .attr("font-family", "var(--serif)")
+      .attr("font-size", 13)
+      .attr("font-weight", 700)
+      .attr("letter-spacing", "0.06em")
+      .attr("opacity", 0.65)
+      .text("中国大陆机构");
+
+    g.append("text")
+      .attr("x", W * 0.28)
+      .attr("y", -H * 0.38)
+      .attr("text-anchor", "middle")
+      .attr("fill", "var(--accent-eu)")
+      .attr("font-family", "var(--serif)")
+      .attr("font-size", 13)
+      .attr("font-weight", 700)
+      .attr("letter-spacing", "0.06em")
+      .attr("opacity", 0.65)
+      .text("中东欧机构");
 
     // Initial zoom to fit
     const bounds = g.node()?.getBBox();
@@ -1231,20 +1254,20 @@ export function Scene3InstitutionNetwork({ active }: Props) {
 
   // ---- Render ---------------------------------------------------------
   return (
-    <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", display: "flex", flexDirection: "column" }}>
+    <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", overflow: "hidden" }}>
       {/* Network SVG */}
       <svg
         ref={svgRef}
         viewBox="0 0 1200 750"
         preserveAspectRatio="xMidYMid meet"
-        style={{ flex: 1, width: "100%", height: "100%", cursor: "grab", display: viewMode === "network" ? "block" : "none" }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", cursor: "grab", display: viewMode === "network" ? "block" : "none" }}
       />
       {/* Map SVG */}
       <svg
         ref={mapSvgRef}
         viewBox="0 0 1200 750"
         preserveAspectRatio="xMidYMid meet"
-        style={{ flex: 1, width: "100%", height: "100%", cursor: "grab", display: viewMode === "map" ? "block" : "none", background: "#080d18" }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", cursor: "grab", display: viewMode === "map" ? "block" : "none", background: "#080d18" }}
       />
 
       {/* Top‑left: header */}
@@ -1258,25 +1281,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         </div>
       </div>
 
-      {/* Side labels — HTML overlay so they don't collide with the headline (network view only) */}
-      {viewMode === "network" && (
-        <>
-          <div style={{
-            position: "absolute", top: 200, left: "30%", zIndex: 2, pointerEvents: "none",
-            fontFamily: "var(--serif)", fontSize: 14, fontWeight: 700,
-            color: "var(--accent-cn)", letterSpacing: "0.04em",
-          }}>
-            中国大陆机构
-          </div>
-          <div style={{
-            position: "absolute", top: 200, right: "26%", zIndex: 2, pointerEvents: "none",
-            fontFamily: "var(--serif)", fontSize: 14, fontWeight: 700,
-            color: "var(--accent-eu)", letterSpacing: "0.04em",
-          }}>
-            中东欧机构
-          </div>
-        </>
-      )}
+      {/* Side labels removed — integrated into SVG via D3 render so they zoom/pan with the network */}
 
       {/* Hover tooltip (network view) */}
       {/* Network hover tooltip */}
@@ -1334,78 +1339,127 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         </div>
       )}
 
-      {/* Bottom‑right controls */}
-      <div style={{ position: "absolute", right: 36, bottom: 36, zIndex: 3, display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
-        {/* View mode toggle */}
-        <button onClick={() => setViewMode((v) => v === "network" ? "map" : "network")}
-          style={{
-            background: viewMode === "map" ? "rgba(76,201,240,0.15)" : "transparent",
-            border: `1px solid ${viewMode === "map" ? "rgba(76,201,240,0.35)" : "rgba(255,255,255,0.08)"}`,
-            borderRadius: 4, color: viewMode === "map" ? "var(--accent-eu)" : "var(--ink-2)",
-            fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em", padding: "7px 14px", cursor: "pointer",
-            marginBottom: 2,
-          }}
-        >
-          {viewMode === "map" ? "✓ 地理视图" : "▸ 地理视图"}
-        </button>
-        <div style={{ display: "flex", gap: 4 }}>
-          {(["125", "135"] as const).map((p) => (
-            <button key={p} onClick={() => setPeriod(p)}
-              style={{
-                background: period === p ? "rgba(255,255,255,0.12)" : "transparent",
-                border: `1px solid ${period === p ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.08)"}`,
-                borderRadius: 4, color: period === p ? "var(--ink-0)" : "var(--ink-2)",
-                fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em", padding: "7px 14px", cursor: "pointer",
-              }}
-            >
-              {p === "125" ? "2011–2015" : "2016–2020"}
-            </button>
-          ))}
+      {/* Bottom‑right controls — three clearly labelled groups */}
+      <div style={{
+        position: "absolute", right: 36, bottom: 36, zIndex: 3,
+        display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-end",
+      }}>
+
+        {/* ── 1. 视图模式 ── */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+          <div style={{
+            fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
+            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.6,
+          }}>
+            视图模式
+          </div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {(["network", "map"] as const).map((v) => {
+              const isActive = viewMode === v;
+              return (
+                <button key={v} onClick={() => setViewMode(v)}
+                  style={{
+                    background: isActive
+                      ? (v === "map" ? "rgba(76,201,240,0.18)" : "rgba(255,77,61,0.14)")
+                      : "transparent",
+                    border: `1px solid ${isActive
+                      ? (v === "map" ? "rgba(76,201,240,0.40)" : "rgba(255,77,61,0.35)")
+                      : "rgba(255,255,255,0.08)"}`,
+                    borderRadius: 5,
+                    color: isActive
+                      ? (v === "map" ? "var(--accent-eu)" : "var(--accent-cn-glow)")
+                      : "var(--ink-2)",
+                    fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em",
+                    padding: "7px 16px", cursor: "pointer", transition: "all 250ms ease",
+                    fontWeight: isActive ? 700 : 400,
+                  }}
+                >
+                  {isActive ? "● " : "○ "}{v === "map" ? "地理视图" : "网络视图"}
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <button onClick={() => setFilterPhysics((f) => !f)}
-          style={{
-            background: filterPhysics ? "rgba(199,125,255,0.18)" : "transparent",
-            border: `1px solid ${filterPhysics ? "rgba(199,125,255,0.35)" : "rgba(255,255,255,0.08)"}`,
-            borderRadius: 4, color: filterPhysics ? "var(--accent-physics)" : "var(--ink-2)",
-            fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em", padding: "7px 14px", cursor: "pointer",
-          }}
-        >
-          {filterPhysics ? "✓ 已剥离物理合作" : "剥离物理领域合作"}
-        </button>
+
+        {/* ── 2. 数据时段 ── */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+          <div style={{
+            fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
+            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.6,
+          }}>
+            数据时段
+          </div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {(["125", "135"] as const).map((p) => {
+              const isActive = period === p;
+              return (
+                <button key={p} onClick={() => setPeriod(p)}
+                  style={{
+                    background: isActive ? "rgba(246,241,224,0.10)" : "transparent",
+                    border: `1px solid ${isActive ? "rgba(246,241,224,0.30)" : "rgba(255,255,255,0.08)"}`,
+                    borderRadius: 5,
+                    color: isActive ? "var(--ink-0)" : "var(--ink-2)",
+                    fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em",
+                    padding: "7px 16px", cursor: "pointer", transition: "all 250ms ease",
+                    fontWeight: isActive ? 700 : 400,
+                  }}
+                >
+                  {isActive ? "● " : "○ "}{p === "125" ? "2011–2015" : "2016–2020"}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── 3. 物理合作过滤 ── */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+          <div style={{
+            fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
+            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.6,
+          }}>
+            物理领域
+          </div>
+          <button onClick={() => setFilterPhysics((f) => !f)}
+            style={{
+              background: filterPhysics ? "rgba(45,203,140,0.18)" : "transparent",
+              border: `1px solid ${filterPhysics ? "rgba(45,203,140,0.45)" : "rgba(255,255,255,0.08)"}`,
+              borderRadius: 5,
+              color: filterPhysics ? "var(--accent-physics)" : "var(--ink-2)",
+              fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em",
+              padding: "7px 16px", cursor: "pointer", transition: "all 250ms ease",
+              fontWeight: filterPhysics ? 700 : 400,
+            }}
+          >
+            {filterPhysics ? "● 已剥离物理合作" : "○ 剥离物理合作"}
+          </button>
+        </div>
+
       </div>
 
-      {/* Bottom‑left narrative */}
-      <div style={{ position: "absolute", left: 36, bottom: 48, zIndex: 2, maxWidth: 460, pointerEvents: "none" }}>
-        <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 6 }}>
+      {/* Bottom‑left narrative — positioned above the footnote */}
+      <div style={{ position: "absolute", left: 36, bottom: 28, zIndex: 2, maxWidth: 420, pointerEvents: "none" }}>
+        <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 4 }}>
           {viewMode === "map"
             ? (filterPhysics ? "地理视角 · 剥离物理后" : "地理视角")
-            : (filterPhysics ? "剥离物理后" : "全景网络 · 两侧机构间的合作连线")}
+            : (filterPhysics ? "剥离物理后" : "全景网络")}
         </div>
-        <div style={{ fontSize: 14, color: "var(--ink-1)", lineHeight: 1.55, fontWeight: 400 }}>
-          {viewMode === "map"
-            ? (filterPhysics
-              ? "剥离物理合作后,地理格局更加多元。材料、医学、化学等领域的合作分布更广,地方大学与学科特色院校崭露头角。"
-              : "北京集中了超过半数的顶级中方机构,形成以首都为枢纽的合作放射结构。中东欧各国的科研资源高度集中于首都,一条条连线勾勒出机构级的协作版图。")
-            : (filterPhysics
-              ? "剥离物理合作后,网络显著缩小。剩余的合作更多集中在材料科学、医学和化学领域,由大学主导的双边关系构成。"
-              : "左侧为中国大陆机构,右侧为中东欧机构。节点大小反映合作论文数量,连线粗细反映合作强度。点击节点查看详情,再次点击或点击空白处取消。右侧控件可切换时期与物理过滤。")}
+        <div style={{ fontSize: 12, color: "var(--ink-2)", lineHeight: 1.5, fontWeight: 400 }}>
+          {viewMode === "network" && !filterPhysics && "点击节点查看详情 · 再次点击取消 · 滚轮缩放"}
+          {viewMode === "network" && filterPhysics && "已剥离物理合作 · 剩余连线以材料/医学/化学为主"}
+          {viewMode === "map" && !filterPhysics && "点击城市或国家查看合作详情 · 滚轮缩放"}
+          {viewMode === "map" && filterPhysics && "已剥离物理合作 · 地理格局更加多元"}
         </div>
       </div>
 
-      {/* Footnote */}
-      <div style={{ position: "absolute", left: 36, bottom: 14, zIndex: 2, fontFamily: "var(--mono)", fontSize: 8, color: "var(--ink-2)", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.6, pointerEvents: "none" }}>
-        数据来源: OpenAlex /works API · 2016–2020 机构级共现网络 · 节点大小=论文数 连线粗细=合作强度
-      </div>
-
-      {/* Bridge → Scene 4 */}
+      {/* Bridge → Scene 4 — raised above the controls panel */}
       <div style={{
-        position: "absolute", right: 36, bottom: 180, zIndex: 2, maxWidth: 340,
+        position: "absolute", right: 36, bottom: 280, zIndex: 2, maxWidth: 300,
         pointerEvents: "none", textAlign: "right",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>
           下一个问题 →
         </div>
-        <div style={{ fontSize: 18, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.3 }}>
+        <div style={{ fontSize: 16, color: "var(--ink-0)", fontWeight: 700, lineHeight: 1.35 }}>
           合作在增长——但这些国家在中国全球合作版图里的{" "}
           <span style={{ color: "var(--accent-cn-glow)" }}>排位</span>，在往哪个方向走？
         </div>

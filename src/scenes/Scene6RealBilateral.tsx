@@ -28,7 +28,7 @@ const NUC_CODES = new Set(["0827"]);          // Nuclear Science (treat as physi
 type Bucket = "physics" | "medicine" | "materials" | "biology" | "chemistry" | "other";
 
 const BUCKET_COLOR: Record<Bucket, string> = {
-  physics: "#c77dff",
+  physics: "#2dcb8c",
   medicine: "#ff8366",
   materials: "#f5b14a",
   biology: "#4cc9f0",

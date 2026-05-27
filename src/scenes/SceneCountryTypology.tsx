@@ -164,7 +164,7 @@ export function SceneCountryTypology({ active }: Props) {
         background: "rgba(5,8,16,0.85)",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 14 }}>
-          SCENE 09 · 四种合作命运
+          SCENE 09 · 类型视角
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 28, lineHeight: 1.2, margin: 0 }}>
           同一时代，<br />走向<span style={{ color: "#4cc9f0" }}>四种</span><br />不同命运

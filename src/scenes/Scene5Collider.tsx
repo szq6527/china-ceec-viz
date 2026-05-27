@@ -34,7 +34,7 @@ export function Scene5Collider({ data, active }: Props) {
         <color attach="background" args={["#040713"]} />
         <fog attach="fog" args={["#040713", 8, 22]} />
         <ambientLight intensity={0.18} />
-        <pointLight position={[0, 0, 0]} intensity={4.2} color="#c77dff" distance={14} />
+        <pointLight position={[0, 0, 0]} intensity={4.2} color="#2dcb8c" distance={14} />
         <pointLight position={[5, 4, 6]} intensity={0.7} color="#4cc9f0" />
         <pointLight position={[-5, -4, 6]} intensity={0.7} color="#ff4d3d" />
         {active && (
@@ -101,9 +101,9 @@ function CameraDolly() {
 function ColliderGeometry() {
   const rings = useMemo(
     () => [
-      { r: 1.3,  tube: 0.06,  color: "#c77dff", op: 0.65, emis: 2.2 },
+      { r: 1.3,  tube: 0.06,  color: "#2dcb8c", op: 0.65, emis: 2.2 },
       { r: 1.7,  tube: 0.08,  color: "#9d4edd", op: 0.55, emis: 1.8 },
-      { r: 2.15, tube: 0.10,  color: "#7b2cbf", op: 0.45, emis: 1.4 },
+      { r: 2.15, tube: 0.10,  color: "#1a9068", op: 0.45, emis: 1.4 },
       { r: 2.6,  tube: 0.04,  color: "#4cc9f0", op: 0.65, emis: 2.4 },
     ],
     []
@@ -137,7 +137,7 @@ function ColliderGeometry() {
         <cylinderGeometry args={[1.05, 1.05, 1.8, 64, 1, true]} />
         <meshStandardMaterial
           color="#5a189a"
-          emissive="#7b2cbf"
+          emissive="#1a9068"
           emissiveIntensity={0.6}
           metalness={0.6}
           roughness={0.4}
@@ -152,8 +152,8 @@ function ColliderGeometry() {
         <mesh key={i} position={[0, 0, z]}>
           <ringGeometry args={[0.15, 1.0, 64]} />
           <meshStandardMaterial
-            color="#c77dff"
-            emissive="#c77dff"
+            color="#2dcb8c"
+            emissive="#2dcb8c"
             emissiveIntensity={2.6}
             transparent
             opacity={0.65}
@@ -207,7 +207,7 @@ function EnergyCore() {
       {/* outer halo */}
       <mesh scale={1.4}>
         <sphereGeometry args={[0.85, 24, 24]} />
-        <meshBasicMaterial color="#c77dff" transparent opacity={0.22} toneMapped={false} />
+        <meshBasicMaterial color="#2dcb8c" transparent opacity={0.22} toneMapped={false} />
       </mesh>
     </>
   );
@@ -233,7 +233,7 @@ function ParticleBurst({ count }: { count: number }) {
     const cChina = new THREE.Color("#ff4d3d");
     const cPoland = new THREE.Color("#4cc9f0");
     const cWarm = new THREE.Color("#ffe6a8");
-    const cFaint = new THREE.Color("#c77dff");
+    const cFaint = new THREE.Color("#2dcb8c");
 
     for (let i = 0; i < count; i++) {
       // random direction on a sphere
@@ -530,7 +530,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
             <span style={{ color: "#88e3a0" }}>■</span> 1-9 作者&nbsp;&nbsp;
             <span style={{ color: "#4cc9f0" }}>■</span> 10-49&nbsp;&nbsp;
             <span style={{ color: "#f5b14a" }}>■</span> 50-99&nbsp;&nbsp;
-            <span style={{ color: "#c77dff" }}>■</span> 100+ (大科学)
+            <span style={{ color: "#2dcb8c" }}>■</span> 100+ (大科学)
           </div>
         </div>
       )}
@@ -634,7 +634,7 @@ const BAND_COLORS: Record<string, string> = {
   "1-9": "#88e3a0",
   "10-49": "#4cc9f0",
   "50-99": "#f5b14a",
-  "100-499": "#c77dff",
+  "100-499": "#2dcb8c",
 };
 
 function bandShares(record: Record<string, number>): Array<{ key: string; share: number }> {

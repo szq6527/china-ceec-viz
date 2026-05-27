@@ -111,7 +111,7 @@ export function Scene8SubjectHeatmap({ active }: Props) {
 
   // 3 axes at 120° apart: top=physics, bottom-right=STEM, bottom-left=SH
   const axisAngles = [
-    { label: "物理", angle: -Math.PI / 2, color: "#c77dff" },
+    { label: "物理", angle: -Math.PI / 2, color: "#2dcb8c" },
     { label: "理工医农", angle: Math.PI / 6, color: "#4cc9f0" },
     { label: "社科人文", angle: Math.PI * 5 / 6, color: "#f5b14a" },
   ];
@@ -143,7 +143,7 @@ export function Scene8SubjectHeatmap({ active }: Props) {
         display: "flex", flexDirection: "column", gap: 6, letterSpacing: "0.12em",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#c77dff" }} />
+          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#2dcb8c" }} />
           物理 (上轴)
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -200,13 +200,13 @@ export function Scene8SubjectHeatmap({ active }: Props) {
 
                 {/* Filled polygon */}
                 <polygon points={polyPoints}
-                  fill={physDominant ? "rgba(199,125,255,0.18)" : "rgba(76,201,240,0.14)"}
-                  stroke={physDominant ? "rgba(199,125,255,0.45)" : "rgba(76,201,240,0.4)"}
+                  fill={physDominant ? "rgba(45,203,140,0.18)" : "rgba(76,201,240,0.14)"}
+                  stroke={physDominant ? "rgba(45,203,140,0.45)" : "rgba(76,201,240,0.4)"}
                   strokeWidth="1.2" />
 
                 {/* Data points on each axis */}
                 {[
-                  { end: physEnd, color: "#c77dff", val: c.phys },
+                  { end: physEnd, color: "#2dcb8c", val: c.phys },
                   { end: stemEnd, color: "#4cc9f0", val: c.stem },
                   { end: shEnd, color: "#f5b14a", val: c.sh },
                 ].map((dp, di) => (

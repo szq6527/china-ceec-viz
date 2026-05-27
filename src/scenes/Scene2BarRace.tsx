@@ -162,8 +162,8 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
     CZE: "#ff8366",
     GRC: "#f5b14a",       // 暖金
     HUN: "#f5b14a",
-    ROU: "#c77dff",
-    SRB: "#c77dff",
+    ROU: "#38bfa1",
+    SRB: "#38bfa1",
   };
 
   const ROW_H = 30;
