@@ -726,15 +726,22 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("fill-opacity", 0.82)
       .attr("stroke", (d) => d.side === "cn" ? "var(--accent-cn-glow)" : "var(--accent-eu-glow)")
       .attr("stroke-width", 0.5)
+      .style("pointer-events", "none");  // pass clicks/hovers to the invisible hit layer below
+    nodeSelRef.current = nodeCircles;
+
+    // ---- Invisible hit layer — enlarged radius so small nodes are easy to hover ----
+    const hitGroup = g.append("g").attr("class", "node-hits");
+    hitGroup
+      .selectAll<SVGCircleElement, SimNode>("circle")
+      .data(nodes)
+      .join("circle")
+      .attr("cx", (d) => d.x)
+      .attr("cy", (d) => d.y)
+      .attr("r", (d) => Math.max(d.radius + 4, 10))  // minimum 10px hit area
+      .attr("fill", "transparent")
       .style("cursor", "pointer")
-      .on("click", function (event, d) {
-        event.stopPropagation();
-        // Toggle: click selected node again → deselect
-        if (hoveredNodeRef.current?.id === d.id) {
-          setHoveredNode(null);
-          applyVisibilityRef.current();
-          return;
-        }
+      .style("pointer-events", "all")  // transparent fill needs explicit pointer-events
+      .on("mouseenter", function (_, d) {
         setHoveredNode(d);
         const p = periodRef.current;
         const f = filterRef.current;
@@ -771,7 +778,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
             if (neighborIds.has(nd.id)) return baseR * 1.15;
             return baseR;
           });
-        // Show only selected node + top-8 connected labels
+        // Show only hovered node + top-8 connected labels
         const topNeighborIds = new Set(
           edges
             .filter((e) => e.source === d.id || e.target === d.id)
@@ -782,8 +789,11 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         labelSelRef.current?.attr("opacity", (nd) =>
           nd.id === d.id || topNeighborIds.has(nd.id) ? 0.9 : 0,
         );
+      })
+      .on("mouseleave", () => {
+        setHoveredNode(null);
+        applyVisibilityRef.current();
       });
-    nodeSelRef.current = nodeCircles;
 
     // ---- Labels (all nodes, visibility via opacity) ----
     const labelGroup = g.append("g").attr("class", "labels");
@@ -893,11 +903,11 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .style("pointer-events", (e) => isEdgeVisible(e) ? "auto" : "none");
 
     // Nodes: opacity + dynamic radius + reset fill-opacity (clears any prior highlight)
+    // Note: pointer-events stay "none" — hit detection is on the invisible overlay layer
     nodeSelRef.current
       .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visibleNodeIds.has(n.id) ? 1 : 0.08)
-      .attr("r", (n) => visibleNodeIds.has(n.id) ? nodeR(n) : 1.5)
-      .style("pointer-events", (n) => visibleNodeIds.has(n.id) ? "auto" : "none");
+      .attr("r", (n) => visibleNodeIds.has(n.id) ? nodeR(n) : 1.5);
 
     // Labels: position tracks dynamic radius + font-size
     labelSelRef.current
@@ -1202,12 +1212,32 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .text((d) => "iso" in d ? (d as MapNodeCEEC).name_cn : (d as MapNodeCN).city);
     mapLabelSelRef.current = labelTexts as any;
 
-    // Initial zoom to fit
-    const bounds = g.node()?.getBBox();
-    if (bounds) {
-      const scale = 0.88 / Math.max(bounds.width / W, bounds.height / H);
-      const tx = W / 2 - scale * (bounds.x + bounds.width / 2);
-      const ty = H / 2 - scale * (bounds.y + bounds.height / 2);
+    // Initial zoom — focus on the China↔CEEC corridor (Europe + China) rather than
+    // showing the whole world. Compute center from data nodes, use a fixed-ish scale
+    // tuned to show the corridor + a thin band of context.
+    let dataMinX = Infinity, dataMinY = Infinity, dataMaxX = -Infinity, dataMaxY = -Infinity;
+    for (const n of allMapNodes) {
+      const proj = MAP_PROJECTION([n.lon, n.lat]);
+      if (!proj) continue;
+      const [x, y] = proj;
+      if (x < dataMinX) dataMinX = x;
+      if (y < dataMinY) dataMinY = y;
+      if (x > dataMaxX) dataMaxX = x;
+      if (y > dataMaxY) dataMaxY = y;
+    }
+    if (dataMinX !== Infinity) {
+      // Pad bounds so the corridor doesn't sit edge-to-edge
+      const padX = (dataMaxX - dataMinX) * 0.35 + 60;
+      const padY = (dataMaxY - dataMinY) * 1.2 + 80;
+      const bw = (dataMaxX - dataMinX) + padX * 2;
+      const bh = (dataMaxY - dataMinY) + padY * 2;
+      const cx = (dataMinX + dataMaxX) / 2;
+      const cy = (dataMinY + dataMaxY) / 2;
+      // Cap scale so we don't over-zoom; clamp between 1.3 and 2.0
+      const rawScale = 1.0 / Math.max(bw / W, bh / H);
+      const scale = Math.max(1.3, Math.min(2.0, rawScale));
+      const tx = W / 2 - scale * cx;
+      const ty = H / 2 - scale * cy;
       svg.transition().duration(800).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
     }
 
@@ -1444,9 +1474,9 @@ export function Scene3InstitutionNetwork({ active }: Props) {
             : (filterPhysics ? "剥离物理后" : "全景网络")}
         </div>
         <div style={{ fontSize: 12, color: "var(--ink-2)", lineHeight: 1.5, fontWeight: 400 }}>
-          {viewMode === "network" && !filterPhysics && "点击节点查看详情 · 再次点击取消 · 滚轮缩放"}
+          {viewMode === "network" && !filterPhysics && "悬停节点查看详情 · 滚轮缩放"}
           {viewMode === "network" && filterPhysics && "已剥离物理合作 · 剩余连线以材料/医学/化学为主"}
-          {viewMode === "map" && !filterPhysics && "点击城市或国家查看合作详情 · 滚轮缩放"}
+          {viewMode === "map" && !filterPhysics && "点击城市或国家查看合作详情 · 滚轮缩放 · 拖拽平移"}
           {viewMode === "map" && filterPhysics && "已剥离物理合作 · 地理格局更加多元"}
         </div>
       </div>
