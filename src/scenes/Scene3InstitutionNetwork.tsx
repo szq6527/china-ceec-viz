@@ -700,7 +700,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     sim.stop();
 
     // ---- Draw edges (all of them — visibility controlled by opacity) ----
-    const edgeGroup = g.append("g").attr("class", "edges");
+    // pointer-events: none — edges shouldn't block hover on nodes underneath
+    const edgeGroup = g.append("g").attr("class", "edges").style("pointer-events", "none");
     const edgeLines = edgeGroup
       .selectAll<SVGLineElement, SimEdge>("line")
       .data(edges)
@@ -713,7 +714,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke-width", (d) => Math.max(0.3, Math.pow(d.total_weight, 0.55) * 0.28));
     edgeSelRef.current = edgeLines;
 
-    // ---- Draw nodes ----
+    // ---- Draw nodes — hover target = exactly the icon size (no expanded hit area) ----
     const nodeGroup = g.append("g").attr("class", "nodes");
     const nodeCircles = nodeGroup
       .selectAll<SVGCircleElement, SimNode>("circle")
@@ -726,21 +727,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("fill-opacity", 0.82)
       .attr("stroke", (d) => d.side === "cn" ? "var(--accent-cn-glow)" : "var(--accent-eu-glow)")
       .attr("stroke-width", 0.5)
-      .style("pointer-events", "none");  // pass clicks/hovers to the invisible hit layer below
-    nodeSelRef.current = nodeCircles;
-
-    // ---- Invisible hit layer — enlarged radius so small nodes are easy to hover ----
-    const hitGroup = g.append("g").attr("class", "node-hits");
-    hitGroup
-      .selectAll<SVGCircleElement, SimNode>("circle")
-      .data(nodes)
-      .join("circle")
-      .attr("cx", (d) => d.x)
-      .attr("cy", (d) => d.y)
-      .attr("r", (d) => Math.max(d.radius + 4, 10))  // minimum 10px hit area
-      .attr("fill", "transparent")
       .style("cursor", "pointer")
-      .style("pointer-events", "all")  // transparent fill needs explicit pointer-events
       .on("mouseenter", function (_, d) {
         setHoveredNode(d);
         const p = periodRef.current;
@@ -794,9 +781,11 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         setHoveredNode(null);
         applyVisibilityRef.current();
       });
+    nodeSelRef.current = nodeCircles;
 
     // ---- Labels (all nodes, visibility via opacity) ----
-    const labelGroup = g.append("g").attr("class", "labels");
+    // pointer-events: none — labels mustn't block hover on small nodes underneath
+    const labelGroup = g.append("g").attr("class", "labels").style("pointer-events", "none");
     const labelTexts = labelGroup
       .selectAll<SVGTextElement, SimNode>("text")
       .data(nodes)
@@ -817,13 +806,14 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .text((d) => (d.name.length > 32 ? d.name.slice(0, 30) + "…" : d.name));
     labelSelRef.current = labelTexts;
 
-    // ---- Static decor: center divider + side labels ----
-    g.append("line")
+    // ---- Static decor: center divider + side labels (pointer-events: none) ----
+    const decorGroup = g.append("g").attr("class", "decor").style("pointer-events", "none");
+    decorGroup.append("line")
       .attr("x1", 0).attr("y1", -H * 0.42).attr("x2", 0).attr("y2", H * 0.42)
       .attr("stroke", "rgba(201,194,173,0.08)").attr("stroke-width", 1).attr("stroke-dasharray", "4 8");
 
-    // Side labels — inside the zoom group so they move with the network
-    g.append("text")
+    // Side labels — inside the decor group so they don't block hover
+    decorGroup.append("text")
       .attr("x", -W * 0.28)
       .attr("y", -H * 0.38)
       .attr("text-anchor", "middle")
@@ -835,7 +825,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("opacity", 0.65)
       .text("中国大陆机构");
 
-    g.append("text")
+    decorGroup.append("text")
       .attr("x", W * 0.28)
       .attr("y", -H * 0.38)
       .attr("text-anchor", "middle")
@@ -896,18 +886,19 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     }
 
     // Edges: opacity + dynamic width + reset stroke color (clears any prior highlight)
+    // pointer-events stay "none" on the group — edges shouldn't block hover
     edgeSelRef.current
       .attr("stroke", "rgba(201,194,173,0.12)")
       .attr("opacity", (e) => isEdgeVisible(e) ? 1 : 0)
-      .attr("stroke-width", (e) => isEdgeVisible(e) ? edgeW(e) : 0.15)
-      .style("pointer-events", (e) => isEdgeVisible(e) ? "auto" : "none");
+      .attr("stroke-width", (e) => isEdgeVisible(e) ? edgeW(e) : 0.15);
 
     // Nodes: opacity + dynamic radius + reset fill-opacity (clears any prior highlight)
-    // Note: pointer-events stay "none" — hit detection is on the invisible overlay layer
+    // Hover target = visible icon size. Invisible nodes (count=0) get pointer-events:none.
     nodeSelRef.current
       .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visibleNodeIds.has(n.id) ? 1 : 0.08)
-      .attr("r", (n) => visibleNodeIds.has(n.id) ? nodeR(n) : 1.5);
+      .attr("r", (n) => visibleNodeIds.has(n.id) ? nodeR(n) : 1.5)
+      .style("pointer-events", (n) => visibleNodeIds.has(n.id) ? "auto" : "none");
 
     // Labels: position tracks dynamic radius + font-size
     labelSelRef.current
@@ -945,14 +936,13 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       }
     }
 
-    // Edges: reset stroke color + thickness variation
+    // Edges: reset stroke color + thickness — pointer-events stay "none" on the group
     mapEdgeSelRef.current
       .attr("stroke", "rgba(201,194,173,0.16)")
       .attr("opacity", (e) => isMapEdgeVisible(e) ? 0.5 : 0)
-      .attr("stroke-width", (e) => isMapEdgeVisible(e) ? edgeW(period === "125" ? e.weight_125 : e.weight_135) : 0.08)
-      .style("pointer-events", (e) => isMapEdgeVisible(e) ? "auto" : "none");
+      .attr("stroke-width", (e) => isMapEdgeVisible(e) ? edgeW(period === "125" ? e.weight_125 : e.weight_135) : 0.08);
 
-    // CN city nodes: reset fill-opacity + smaller, compact
+    // CN city nodes: hover target = visible icon size, no expanded hit area
     mapCnSelRef.current
       .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visCn.has(n.city) ? 0.88 : 0.10)
@@ -964,7 +954,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       })
       .style("pointer-events", (n) => visCn.has(n.city) ? "auto" : "none");
 
-    // CEEC nodes: reset fill-opacity
+    // CEEC nodes: hover target = visible icon size, no expanded hit area
     mapCeecSelRef.current
       .attr("fill-opacity", 0.82)
       .attr("opacity", (n) => visCeec.has(n.iso) ? 0.88 : 0.10)
@@ -1014,8 +1004,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     const { cnNodes, ceecNodes, edges } = mapData;
     mapDataRef.current = mapData;
 
-    // Layer 1: country polygons
-    const countryGroup = g.append("g").attr("class", "countries");
+    // Layer 1: country polygons (pointer-events: none — let hovers fall through to nodes)
+    const countryGroup = g.append("g").attr("class", "countries").style("pointer-events", "none");
     const ceecIsoSet = new Set(ceecNodes.map((n) => n.iso));
     countryGroup.selectAll("path")
       .data(topoFeatures)
@@ -1037,10 +1027,10 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       })
       .attr("stroke-width", 0.5);
 
-    // Layer 2: edges (city → CEEC country)
+    // Layer 2: edges (city → CEEC country) — pointer-events: none so they don't block node hover
     const cnByCity = new Map(cnNodes.map((n) => [n.city, n]));
     const ceecByIso = new Map(ceecNodes.map((n) => [n.iso, n]));
-    const edgeGroup = g.append("g").attr("class", "map-edges");
+    const edgeGroup = g.append("g").attr("class", "map-edges").style("pointer-events", "none");
     const edgeLines = edgeGroup.selectAll<SVGLineElement, MapEdge>("line")
       .data(edges)
       .join("line")
@@ -1121,14 +1111,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke", "var(--accent-cn-glow)")
       .attr("stroke-width", 0.6)
       .style("cursor", "pointer")
-      .on("click", function (event, d) {
-        event.stopPropagation();
-        // Toggle: same CN node clicked again → deselect
-        if (mapTooltipRef.current?.kind === "cn" && mapTooltipRef.current?.key === d.city) {
-          setMapTooltip(null);
-          applyMapVisibilityRef.current();
-          return;
-        }
+      .on("mouseenter", function (_, d) {
         setMapTooltip(buildCnTooltip(d));
         const neighborCeec = new Set<string>();
         edgeLines
@@ -1149,6 +1132,10 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           .attr("r", (nd) => neighborCeec.has(nd.iso) ? getHoverR(nd) * 1.4 : getHoverR(nd) * 0.5);
         mapLabelSelRef.current
           ?.attr("opacity", (nd: any) => nd.city === d.city || neighborCeec.has(nd.iso) ? 0.9 : 0);
+      })
+      .on("mouseleave", () => {
+        setMapTooltip(null);
+        applyMapVisibilityRef.current();
       });
     mapCnSelRef.current = cnCircles;
 
@@ -1165,13 +1152,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke", "var(--accent-eu-glow)")
       .attr("stroke-width", 0.6)
       .style("cursor", "pointer")
-      .on("click", function (event, d) {
-        event.stopPropagation();
-        if (mapTooltipRef.current?.kind === "ceec" && mapTooltipRef.current?.key === d.iso) {
-          setMapTooltip(null);
-          applyMapVisibilityRef.current();
-          return;
-        }
+      .on("mouseenter", function (_, d) {
         setMapTooltip(buildCeecTooltip(d));
         const neighborCn = new Set<string>();
         edgeLines
@@ -1192,12 +1173,16 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           .attr("r", (nd) => neighborCn.has(nd.city) ? getHoverR(nd) * 1.4 : getHoverR(nd) * 0.5);
         mapLabelSelRef.current
           ?.attr("opacity", (nd: any) => nd.iso === d.iso || neighborCn.has(nd.city) ? 0.9 : 0);
+      })
+      .on("mouseleave", () => {
+        setMapTooltip(null);
+        applyMapVisibilityRef.current();
       });
     mapCeecSelRef.current = ceecCircles;
 
     // Layer 5: labels (hidden by default)
     const allMapNodes: (MapNodeCN | MapNodeCEEC)[] = [...cnNodes, ...ceecNodes];
-    const labelGroup = g.append("g").attr("class", "map-labels");
+    const labelGroup = g.append("g").attr("class", "map-labels").style("pointer-events", "none");
     const labelTexts = labelGroup.selectAll<SVGTextElement, MapNodeCN | MapNodeCEEC>("text")
       .data(allMapNodes)
       .join("text")
@@ -1476,7 +1461,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         <div style={{ fontSize: 12, color: "var(--ink-2)", lineHeight: 1.5, fontWeight: 400 }}>
           {viewMode === "network" && !filterPhysics && "悬停节点查看详情 · 滚轮缩放"}
           {viewMode === "network" && filterPhysics && "已剥离物理合作 · 剩余连线以材料/医学/化学为主"}
-          {viewMode === "map" && !filterPhysics && "点击城市或国家查看合作详情 · 滚轮缩放 · 拖拽平移"}
+          {viewMode === "map" && !filterPhysics && "悬停城市或国家查看合作详情 · 滚轮缩放 · 拖拽平移"}
           {viewMode === "map" && filterPhysics && "已剥离物理合作 · 地理格局更加多元"}
         </div>
       </div>
