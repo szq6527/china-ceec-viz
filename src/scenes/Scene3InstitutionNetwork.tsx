@@ -143,10 +143,10 @@ const PHYSICS_CONCEPTS = new Set([
 ]);
 
 const CEEC_COLORS: Record<string, string> = {
-  PL: "#f5b14a", CZ: "#80ed99", GR: "#4cc9f0", HU: "#38bfa1",
-  RO: "#ff8366", RS: "#ff4d3d", BG: "#8ae3ff", SK: "#f5b14a",
-  HR: "#80ed99", SI: "#4cc9f0", EE: "#38bfa1", LV: "#ff8366",
-  LT: "#f5b14a", AL: "#80ed99", ME: "#4cc9f0", MK: "#38bfa1",
+  PL: "#c9a87c", CZ: "#8fb8b0", GR: "#7ea8a4", HU: "#b8a0b8",
+  RO: "#d4a090", RS: "#c4796e", BG: "#a3c4bf", SK: "#c9a87c",
+  HR: "#8fb8b0", SI: "#7ea8a4", EE: "#b8a0b8", LV: "#d4a090",
+  LT: "#c9a87c", AL: "#8fb8b0", ME: "#7ea8a4", MK: "#b8a0b8",
 };
 
 const INST_TYPE_SHORT: Record<string, string> = {
@@ -1024,15 +1024,15 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("fill", (f: any) => {
         const name = f.properties?.name ?? "";
         const iso3 = NAME_TO_ISO[name] ?? "";
-        if (iso3 === "CHN" || name === "China") return "rgba(255,77,61,0.14)";
-        if (ceecIsoSet.has(iso3)) return "rgba(76,201,240,0.12)";
+        if (iso3 === "CHN" || name === "China") return "rgba(196,121,110,0.14)";
+        if (ceecIsoSet.has(iso3)) return "rgba(126,168,164,0.12)";
         return "rgba(201,194,173,0.03)";
       })
       .attr("stroke", (f: any) => {
         const name = f.properties?.name ?? "";
         const iso3 = NAME_TO_ISO[name] ?? "";
-        if (iso3 === "CHN" || name === "China") return "rgba(255,77,61,0.25)";
-        if (ceecIsoSet.has(iso3)) return "rgba(76,201,240,0.25)";
+        if (iso3 === "CHN" || name === "China") return "rgba(196,121,110,0.25)";
+        if (ceecIsoSet.has(iso3)) return "rgba(126,168,164,0.25)";
         return "rgba(201,194,173,0.06)";
       })
       .attr("stroke-width", 0.5);
@@ -1390,10 +1390,10 @@ export function Scene3InstitutionNetwork({ active }: Props) {
                 <button key={v} onClick={() => setViewMode(v)}
                   style={{
                     background: isActive
-                      ? (v === "map" ? "rgba(76,201,240,0.18)" : "rgba(255,77,61,0.14)")
+                      ? (v === "map" ? "rgba(126,168,164,0.18)" : "rgba(196,121,110,0.14)")
                       : "transparent",
                     border: `1px solid ${isActive
-                      ? (v === "map" ? "rgba(76,201,240,0.40)" : "rgba(255,77,61,0.35)")
+                      ? (v === "map" ? "rgba(126,168,164,0.40)" : "rgba(196,121,110,0.35)")
                       : "rgba(255,255,255,0.08)"}`,
                     borderRadius: 5,
                     color: isActive
@@ -1482,9 +1482,11 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       </div>
 
       {/* Bridge → Scene 4 — raised above the controls panel */}
-      <div style={{
+      <div 
+        onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))}
+        style={{
         position: "absolute", right: 36, bottom: 280, zIndex: 2, maxWidth: 300,
-        pointerEvents: "none", textAlign: "right",
+        pointerEvents: "auto", cursor: "pointer", textAlign: "right",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 8 }}>
           下一个问题 →

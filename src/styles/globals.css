@@ -6,12 +6,12 @@
   --ink-0: #f6f1e0;
   --ink-1: #c9c2ad;
   --ink-2: #6e6a5c;
-  --accent-cn: #ff4d3d;        /* China red, slightly muted */
-  --accent-cn-glow: #ff8366;
-  --accent-eu: #4cc9f0;        /* CEEC blue */
-  --accent-eu-glow: #8ae3ff;
-  --accent-warn: #f5b14a;      /* Highlight gold */
-  --accent-physics: #2dcb8c;   /* Physics/CERN teal-green (formerly purple) */
+  --accent-cn: #c4796e;        /* Dusty terracotta rose */
+  --accent-cn-glow: #d4a090;
+  --accent-eu: #7ea8a4;        /* Sage teal */
+  --accent-eu-glow: #a3c4bf;
+  --accent-warn: #c9a87c;      /* Warm sand */
+  --accent-physics: #9b8ea8;   /* Dusty lavender */
   --grid: rgba(201, 194, 173, 0.06);
 
   --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
@@ -121,7 +121,7 @@ body::before {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 18px;
+  gap: 10px;
   padding: 16px 20px 22px;
   z-index: 5;
 }
@@ -131,11 +131,11 @@ body::before {
   border: none;
   color: var(--ink-2);
   font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 6px 4px;
+  padding: 4px 2px;
   border-bottom: 1px solid transparent;
   transition: color 160ms ease, border-color 160ms ease;
 }

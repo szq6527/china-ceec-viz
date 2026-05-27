@@ -25,10 +25,10 @@ interface ScatterData {
 }
 
 const GROUP_COLORS: Record<string, string> = {
-  eurozone_core: "#4cc9f0",
-  eurozone_special: "#f5b14a",
-  eu_non_eurozone: "#2dcb8c",
-  eu_candidate: "#80ed99",
+  eurozone_core: "#7ea8a4",
+  eurozone_special: "#c9a87c",
+  eu_non_eurozone: "#9b8ea8",
+  eu_candidate: "#8fb8b0",
 };
 
 const GROUP_ORDER = ["eurozone_core", "eurozone_special", "eu_non_eurozone", "eu_candidate"];
@@ -145,7 +145,7 @@ export function Scene9DualOutward({ active }: Props) {
     <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", overflow: "hidden" }}>
       {/* Header */}
       <div style={{ position: "absolute", top: 40, left: 48, maxWidth: 560, zIndex: 5, pointerEvents: "none" }}>
-        <div className="kicker">SCENE 09 · 相关视角</div>
+        <div className="kicker">SCENE 10 · 相关视角</div>
         <h1 className="headline" style={{ marginTop: 4, fontSize: "clamp(24px, 3vw, 40px)" }}>
           不是"选边站",<br />
           <span style={{ color: "var(--accent-eu-glow)" }}>越是EU导向的国家</span>
@@ -181,10 +181,10 @@ export function Scene9DualOutward({ active }: Props) {
               style={{
                 padding: "7px 18px",
                 background: active
-                  ? "linear-gradient(135deg, rgba(245,177,74,0.22) 0%, rgba(245,177,74,0.07) 100%)"
+                  ? "linear-gradient(135deg, rgba(201,168,124,0.22) 0%, rgba(201,168,124,0.07) 100%)"
                   : "transparent",
                 border: active
-                  ? "1px solid rgba(245,177,74,0.38)"
+                  ? "1px solid rgba(201,168,124,0.38)"
                   : "1px solid transparent",
                 borderRadius: 7,
                 color: active ? "rgba(255,255,255,0.95)" : "rgba(201,194,173,0.42)",
@@ -193,7 +193,7 @@ export function Scene9DualOutward({ active }: Props) {
                 fontWeight: active ? 700 : 400,
                 letterSpacing: "0.11em",
                 cursor: "pointer",
-                textShadow: active ? "0 0 12px rgba(245,177,74,0.55)" : "none",
+                textShadow: active ? "0 0 12px rgba(201,168,124,0.55)" : "none",
                 transition: "all 200ms ease",
                 whiteSpace: "nowrap",
               }}
@@ -226,7 +226,7 @@ export function Scene9DualOutward({ active }: Props) {
 
           {/* RCA = 1 reference */}
           <line x1={padL} x2={padL + plotW} y1={yScale(1)} y2={yScale(1)}
-            stroke="rgba(245,177,74,0.3)" strokeDasharray="6 6" strokeWidth="1.5" />
+            stroke="rgba(201,168,124,0.3)" strokeDasharray="6 6" strokeWidth="1.5" />
           <text x={padL + plotW + 8} y={yScale(1) + 4}
             fill="var(--ink-2)" fontFamily="var(--mono)" fontSize="10">RCA=1</text>
 

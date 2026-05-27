@@ -83,9 +83,9 @@ export function Scene2HeatMap({ data, cursorCounts, currentYear, max: _max }: Pr
   const ANCHORS: [number, [number, number, number]][] = [
     [0.00, [8,   76,  106]], // deep teal — visible against black
     [0.20, [20,  145, 165]], // cyan
-    [0.45, [245, 177, 74]],  // gold (var(--accent-warn))
-    [0.70, [255, 131, 102]], // coral (var(--accent-cn-glow) at 50%)
-    [1.00, [255, 77,  61]],  // hot red
+    [0.45, [201, 168, 124]],  // gold (var(--accent-warn))
+    [0.70, [212, 160, 144]], // coral (var(--accent-cn-glow) at 50%)
+    [1.00, [196, 121, 110]],  // hot red
   ];
 
   const lerp = (a: number, b: number, f: number) => Math.round(a + (b - a) * f);

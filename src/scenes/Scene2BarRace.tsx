@@ -158,12 +158,12 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
   }, [currentYear, top, bottom, ratio, top5Share]);
 
   const COLORS: Record<string, string> = {
-    POL: "#ff4d3d",       // 中国红高亮 — 头号合作伙伴
-    CZE: "#ff8366",
-    GRC: "#f5b14a",       // 暖金
-    HUN: "#f5b14a",
-    ROU: "#38bfa1",
-    SRB: "#38bfa1",
+    POL: "#c4796e",       // 中国红高亮 — 头号合作伙伴
+    CZE: "#d4a090",
+    GRC: "#c9a87c",       // 暖金
+    HUN: "#c9a87c",
+    ROU: "#b8a0b8",
+    SRB: "#b8a0b8",
   };
 
   const ROW_H = 30;
@@ -240,10 +240,10 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
           padding: "10px 16px",
           borderRadius: 8,
           border: paused
-            ? "1px solid rgba(255,77,61,0.35)"
+            ? "1px solid rgba(196,121,110,0.35)"
             : "1px solid transparent",
           background: paused
-            ? "rgba(255,77,61,0.04)"
+            ? "rgba(196,121,110,0.04)"
             : "transparent",
           transition: "all 400ms ease",
         }}
@@ -321,10 +321,10 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
                     background: isActive
                       ? "var(--accent-cn-glow)"
                       : isPast
-                        ? "rgba(255,77,61,0.45)"
+                        ? "rgba(196,121,110,0.45)"
                         : "rgba(201,194,173,0.15)",
                     border: isActive ? "2px solid var(--accent-cn-glow)" : "none",
-                    boxShadow: isActive ? "0 0 8px rgba(255,77,61,0.5)" : "none",
+                    boxShadow: isActive ? "0 0 8px rgba(196,121,110,0.5)" : "none",
                     transition: "all 300ms ease",
                   }}
                 />
@@ -359,8 +359,8 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
         {ranked.map((row, idx) => {
           const w = (row.value / max) * 100;
           const isTop = idx < 5;
-          const color = COLORS[row.iso] ?? (isTop ? "#4cc9f0" : "rgba(76,201,240,0.5)");
-          const glow = idx === 0 ? "0 0 18px rgba(255,77,61,0.7)" : "none";
+          const color = COLORS[row.iso] ?? (isTop ? "#7ea8a4" : "rgba(126,168,164,0.5)");
+          const glow = idx === 0 ? "0 0 18px rgba(196,121,110,0.7)" : "none";
           return (
             <div
               key={row.iso}
@@ -419,10 +419,10 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
                     width: `${w}%`,
                     background:
                       idx === 0
-                        ? `linear-gradient(90deg, ${color} 0%, #ff8366 100%)`
+                        ? `linear-gradient(90deg, ${color} 0%, #d4a090 100%)`
                         : isTop
                           ? `linear-gradient(90deg, ${color} 0%, rgba(255,255,255,0.25) 100%)`
-                          : "rgba(76,201,240,0.35)",
+                          : "rgba(126,168,164,0.35)",
                     boxShadow: glow,
                   }}
                 />
@@ -580,13 +580,15 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
 
       {/* Bridge to Scene 3 — fades in only at the end of the race */}
       <div
+        onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))}
         style={{
           position: "absolute",
           right: 56,
           bottom: 56,
           maxWidth: 380,
           zIndex: 4,
-          pointerEvents: "none",
+          pointerEvents: currentYear >= 2020 ? "auto" : "none",
+          cursor: currentYear >= 2020 ? "pointer" : "default",
           fontFamily: "var(--serif)",
           textAlign: "right",
           opacity: currentYear >= 2020 ? 1 : 0,

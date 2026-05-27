@@ -164,10 +164,10 @@ export function SceneCountryTypology({ active }: Props) {
         background: "rgba(5,8,16,0.85)",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 14 }}>
-          SCENE 09 · 类型视角
+          SCENE 10 · 类型视角
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 28, lineHeight: 1.2, margin: 0 }}>
-          同一时代，<br />走向<span style={{ color: "#4cc9f0" }}>四种</span><br />不同命运
+          同一时代，<br />走向<span style={{ color: "#7ea8a4" }}>四种</span><br />不同命运
         </h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 13, lineHeight: 1.65, color: "var(--ink-2)", marginTop: 16 }}>
           综合 EU6 合作强度（横轴）与中国内部 RCA（纵轴），
@@ -246,25 +246,25 @@ export function SceneCountryTypology({ active }: Props) {
 
         {/* RCA=1 reference line */}
         <line x1={SCATTER_L} x2={W - SCATTER_R} y1={yS(1)} y2={yS(1)}
-          stroke="rgba(76,201,240,0.25)" strokeWidth={1.5} strokeDasharray="6 4" />
+          stroke="rgba(126,168,164,0.25)" strokeWidth={1.5} strokeDasharray="6 4" />
         <text x={W - SCATTER_R + 6} y={yS(1) + 4}
-          fill="rgba(76,201,240,0.45)" fontFamily="var(--mono)" fontSize={9}>RCA=1</text>
+          fill="rgba(126,168,164,0.45)" fontFamily="var(--mono)" fontSize={9}>RCA=1</text>
 
         {/* Average EU6 intensity line */}
         <line x1={xS(avgEu6)} x2={xS(avgEu6)} y1={SCATTER_T} y2={SCATTER_T + PLOT_H}
-          stroke="rgba(245,177,74,0.2)" strokeWidth={1.5} strokeDasharray="6 4" />
+          stroke="rgba(201,168,124,0.2)" strokeWidth={1.5} strokeDasharray="6 4" />
         <text x={xS(avgEu6)} y={SCATTER_T - 10} textAnchor="middle"
-          fill="rgba(245,177,74,0.4)" fontFamily="var(--mono)" fontSize={9}>CEEC均值 EU6</text>
+          fill="rgba(201,168,124,0.4)" fontFamily="var(--mono)" fontSize={9}>CEEC均值 EU6</text>
 
         {/* Quadrant labels */}
         {phase === "annotate" && (
           <>
             <text x={xS(0.5)} y={yS(3.1)} textAnchor="middle"
-              fill="rgba(76,201,240,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
+              fill="rgba(126,168,164,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
               双超连接
             </text>
             <text x={xS(0.18)} y={yS(0.45)} textAnchor="middle"
-              fill="rgba(245,177,74,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
+              fill="rgba(201,168,124,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
               自给自足
             </text>
             <text x={xS(0.51)} y={yS(0.45)} textAnchor="middle"
@@ -363,22 +363,7 @@ export function SceneCountryTypology({ active }: Props) {
         />
       )}
 
-      {/* ── Bottom cue ── */}
-      <div style={{
-        position: "absolute", left: SCATTER_L + 24, right: SCATTER_R, bottom: 14,
-        display: "flex", justifyContent: "flex-end",
-        opacity: phase === "annotate" ? 1 : 0, transition: "opacity 800ms",
-        pointerEvents: "none", zIndex: 5,
-      }}>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 4 }}>
-            下一个问题 →
-          </div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-1)", fontFamily: "var(--serif)" }}>
-            各国的学科"指纹"如何?
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }
@@ -439,7 +424,7 @@ function DetailCard({
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
             <MiniCard label="China 内部RCA" value={country.china_internal_rca.toFixed(2)} color={cluster.color} />
             <MiniCard label="EU6 强度" value={`${(country.eu6_intensity * 100).toFixed(0)}%`} color={cluster.color} />
-            <MiniCard label="RCA 趋势" value={isRising ? "↑ 上升" : "↓ 下降"} color={isRising ? "#80ed99" : "#ff8366"} />
+            <MiniCard label="RCA 趋势" value={isRising ? "↑ 上升" : "↓ 下降"} color={isRising ? "#8fb8b0" : "#d4a090"} />
             <MiniCard label="全球合作排名" value={`#${country.china_portfolio_rank}`} color="var(--ink-1)" />
           </div>
 

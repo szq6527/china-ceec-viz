@@ -111,9 +111,9 @@ export function Scene8SubjectHeatmap({ active }: Props) {
 
   // 3 axes at 120° apart: top=physics, bottom-right=STEM, bottom-left=SH
   const axisAngles = [
-    { label: "物理", angle: -Math.PI / 2, color: "#2dcb8c" },
-    { label: "理工医农", angle: Math.PI / 6, color: "#4cc9f0" },
-    { label: "社科人文", angle: Math.PI * 5 / 6, color: "#f5b14a" },
+    { label: "物理", angle: -Math.PI / 2, color: "#9b8ea8" },
+    { label: "理工医农", angle: Math.PI / 6, color: "#7ea8a4" },
+    { label: "社科人文", angle: Math.PI * 5 / 6, color: "#c9a87c" },
   ];
 
   const axisEnd = (cx: number, cy: number, angle: number, r: number) => ({
@@ -125,7 +125,7 @@ export function Scene8SubjectHeatmap({ active }: Props) {
     <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", overflow: "hidden" }}>
       {/* Header */}
       <div style={{ position: "absolute", top: 42, left: 48, maxWidth: 380, zIndex: 5, pointerEvents: "none" }}>
-        <div className="kicker">SCENE 08 · 学科指纹</div>
+        <div className="kicker">SCENE 09 · 学科指纹</div>
         <h1 className="headline" style={{ marginTop: 4, fontSize: "clamp(26px, 3.2vw, 42px)" }}>
           每个国家有自己的<br />
           <span style={{ color: "var(--accent-eu-glow)" }}>合作学科指纹</span>
@@ -143,15 +143,15 @@ export function Scene8SubjectHeatmap({ active }: Props) {
         display: "flex", flexDirection: "column", gap: 6, letterSpacing: "0.12em",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#2dcb8c" }} />
+          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#9b8ea8" }} />
           物理 (上轴)
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#4cc9f0" }} />
+          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#7ea8a4" }} />
           理工医农 (右下)
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#f5b14a" }} />
+          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#c9a87c" }} />
           社科人文 (左下)
         </div>
       </div>
@@ -200,15 +200,15 @@ export function Scene8SubjectHeatmap({ active }: Props) {
 
                 {/* Filled polygon */}
                 <polygon points={polyPoints}
-                  fill={physDominant ? "rgba(45,203,140,0.18)" : "rgba(76,201,240,0.14)"}
-                  stroke={physDominant ? "rgba(45,203,140,0.45)" : "rgba(76,201,240,0.4)"}
+                  fill={physDominant ? "rgba(45,203,140,0.18)" : "rgba(126,168,164,0.14)"}
+                  stroke={physDominant ? "rgba(45,203,140,0.45)" : "rgba(126,168,164,0.4)"}
                   strokeWidth="1.2" />
 
                 {/* Data points on each axis */}
                 {[
-                  { end: physEnd, color: "#2dcb8c", val: c.phys },
-                  { end: stemEnd, color: "#4cc9f0", val: c.stem },
-                  { end: shEnd, color: "#f5b14a", val: c.sh },
+                  { end: physEnd, color: "#9b8ea8", val: c.phys },
+                  { end: stemEnd, color: "#7ea8a4", val: c.stem },
+                  { end: shEnd, color: "#c9a87c", val: c.sh },
                 ].map((dp, di) => (
                   <circle key={`dp-${di}`} cx={dp.end.x} cy={dp.end.y} r={2.8}
                     fill={dp.color} opacity={0.85} />
@@ -250,7 +250,10 @@ export function Scene8SubjectHeatmap({ active }: Props) {
           爱沙尼亚和拉脱维亚的轮廓则偏向生命科学与社科。
           <strong style={{ color: "var(--ink-0)" }}>每个国家有自己独特的合作节奏。</strong>
         </div>
-        <div style={{ textAlign: "right", flexShrink: 0, maxWidth: 300 }}>
+        <div 
+          onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))}
+          style={{ textAlign: "right", flexShrink: 0, maxWidth: 300, pointerEvents: progress > 0.7 ? "auto" : "none", cursor: progress > 0.7 ? "pointer" : "default" }}
+        >
           <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 6 }}>
             最后一问 →
           </div>

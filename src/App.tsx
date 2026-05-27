@@ -22,8 +22,8 @@ const SCENES = [
   { id: 6,  label: "06 · 大科学幻象" },
   { id: 7,  label: "07 · 大科学的真实面目" },
   { id: 8,  label: "08 · 真正的双边" },
-  { id: 9,  label: "09 · 十六国合作图谱" },
-  { id: 10, label: "10 · 学科指纹" },
+  { id: 9,  label: "09 · 学科指纹" },
+  { id: 10, label: "10 · 十六国合作图谱" },
 ];
 
 // Autoplay dwell time (ms) per scene
@@ -169,10 +169,10 @@ export default function App() {
               <Scene6RealBilateral data={data} active={scene === 8} />
             </Scene>
             <Scene className={`scene${scene === 9 ? " active" : ""}`}>
-              <UnifiedScene09 active={scene === 9} />
+              <Scene8SubjectHeatmap active={scene === 9} />
             </Scene>
             <Scene className={`scene${scene === 10 ? " active" : ""}`}>
-              <Scene8SubjectHeatmap active={scene === 10} />
+              <UnifiedScene09 active={scene === 10} />
             </Scene>
           </>
         )}

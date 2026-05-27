@@ -77,19 +77,19 @@ const FIELD_EN: Record<string, string> = {
 
 function getOrbitInfo(pen: number): { label: string; desc: string; color: string } {
   if (pen >= 0.25)
-    return { label: "CERN 轨道", desc: "大型对撞机实验署名驱动，一篇可覆盖数千作者", color: "#2dcb8c" };
+    return { label: "CERN 轨道", desc: "大型对撞机实验署名驱动，一篇可覆盖数千作者", color: "#9b8ea8" };
   if (pen >= 0.05)
-    return { label: "高渗透", desc: "存在相当比例的大科学论文，注意数据失真", color: "#f5b14a" };
+    return { label: "高渗透", desc: "存在相当比例的大科学论文，注意数据失真", color: "#c9a87c" };
   if (pen >= 0.01)
-    return { label: "低渗透", desc: "少量大科学影响，合作数据基本可信", color: "#4cc9f0" };
-  return { label: "双边轨道", desc: "大科学占比极低，合作论文完全反映真实双边关系", color: "#80ed99" };
+    return { label: "低渗透", desc: "少量大科学影响，合作数据基本可信", color: "#7ea8a4" };
+  return { label: "双边轨道", desc: "大科学占比极低，合作论文完全反映真实双边关系", color: "#8fb8b0" };
 }
 
 function getBarColor(pen: number): string {
-  if (pen >= 0.25) return "#2dcb8c";
-  if (pen >= 0.05) return "#f5b14a";
-  if (pen >= 0.01) return "#4cc9f0";
-  return "#80ed99";
+  if (pen >= 0.25) return "#9b8ea8";
+  if (pen >= 0.05) return "#c9a87c";
+  if (pen >= 0.01) return "#7ea8a4";
+  return "#8fb8b0";
 }
 
 interface TooltipData {
@@ -333,13 +333,13 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
         display: "flex", flexDirection: "column",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 14 }}>
-          SCENE 06 · 两个合作世界
+          SCENE 07 · 两个合作世界
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 30, lineHeight: 1.2, margin: 0 }}>
           物理学<br />
-          <span style={{ color: "#2dcb8c" }}>35%</span> 被大科学<br />
+          <span style={{ color: "#9b8ea8" }}>35%</span> 被大科学<br />
           渗透，其余<br />
-          近乎 <span style={{ color: "#80ed99" }}>零</span>
+          近乎 <span style={{ color: "#8fb8b0" }}>零</span>
         </h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 13, lineHeight: 1.65, color: "var(--ink-2)", marginTop: 18 }}>
           大科学论文（≥100 作者）在各学科的渗透率天差地别。CERN"署名效应"让物理学独成一档——
@@ -350,9 +350,9 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
 
         {/* Three key stats */}
         {[
-          { v: `${((physicsField?.big_penetration ?? 0.35) * 100).toFixed(0)}%`, l: "物理学渗透率", c: "#2dcb8c" },
+          { v: `${((physicsField?.big_penetration ?? 0.35) * 100).toFixed(0)}%`, l: "物理学渗透率", c: "#9b8ea8" },
           { v: `${(data.ceec_avg_penetration * 100).toFixed(1)}%`, l: "各学科均值", c: "var(--accent-warn)" },
-          { v: "4.5×", l: "物理 vs 第二名（心理学）", c: "#4cc9f0" },
+          { v: "4.5×", l: "物理 vs 第二名（心理学）", c: "#7ea8a4" },
         ].map(({ v, l, c }) => (
           <div key={l} style={{ marginBottom: 20, opacity: progress, transition: "opacity 500ms" }}>
             <div style={{ fontFamily: "var(--mono)", fontWeight: 700, fontSize: 28, color: c, letterSpacing: "-0.02em", lineHeight: 1 }}>{v}</div>
@@ -362,7 +362,7 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
 
         <div style={{ flex: 1 }} />
         <div style={{ fontSize: 12, fontFamily: "var(--serif)", color: "var(--ink-2)", lineHeight: 1.6, opacity: showAnnotations ? 1 : 0, transition: "opacity 600ms" }}>
-          <span style={{ color: "#80ed99" }}>零渗透学科</span>才是真正双边关系生长的土壤。
+          <span style={{ color: "#8fb8b0" }}>零渗透学科</span>才是真正双边关系生长的土壤。
         </div>
       </div>
 
@@ -437,8 +437,11 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
         </div>
 
         {/* Next scene cue */}
-        <div style={{
+        <div 
+          onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))}
+          style={{
           marginTop: 16, textAlign: "right",
+          pointerEvents: showAnnotations ? "auto" : "none", cursor: showAnnotations ? "pointer" : "default",
           opacity: showAnnotations ? 1 : 0, transition: "opacity 800ms",
         }}>
           <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 4 }}>
@@ -521,7 +524,7 @@ function BarRow({
           position: "absolute", left: 0, top: 0, bottom: 0,
           width: `${barW * (progress)}%`,
           background: isPhysics
-            ? "linear-gradient(90deg, #1a9068 0%, #2dcb8c 65%, #7af0c5 100%)"
+            ? "linear-gradient(90deg, #7d6f8a 0%, #9b8ea8 65%, #b8a0b8 100%)"
             : isZero
             ? `${color}30`
             : color,
