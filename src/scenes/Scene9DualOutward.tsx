@@ -238,12 +238,12 @@ export function Scene9DualOutward({ active }: Props) {
 
           <text x={padL + plotW / 2} y={padT + plotH + 44} textAnchor="middle"
             fill="var(--ink-2)" fontFamily="var(--mono)" fontSize="11" letterSpacing="0.1em">
-            EU6 科研嵌入度 (与 DE/FR/GB/IT/ES/NL 的合作占比)
+            EU6 合作强度 →
           </text>
           <text x={padL - 40} y={padT + plotH / 2} textAnchor="middle"
             fill="var(--ink-2)" fontFamily="var(--mono)" fontSize="11" letterSpacing="0.1em"
             transform={`rotate(-90, ${padL - 40}, ${padT + plotH / 2})`}>
-            中国合作 Internal RCA
+            中国内部 RCA ↑
           </text>
 
           {/* Trend line */}
@@ -280,9 +280,9 @@ export function Scene9DualOutward({ active }: Props) {
                   stroke="#ffffff" strokeWidth={isHL ? 2 : 1.4}
                   style={{ transition: "opacity 200ms ease" }} />
                 <text x={cx + radius + 6} y={cy - radius * 0.3} textAnchor="start"
-                  fill="var(--ink-0)" fontFamily="var(--serif)" fontSize="12" fontWeight={isHL ? 700 : 500}
+                  fill="var(--ink-0)" fontFamily="var(--mono)" fontSize="11" fontWeight={isHL ? 700 : 600}
                   style={{ paintOrder: "stroke", stroke: "var(--bg-0)", strokeWidth: 3 }}>
-                  {p.name_cn}
+                  {p.iso}
                 </text>
               </g>
             );

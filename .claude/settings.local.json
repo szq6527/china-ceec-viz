@@ -26,7 +26,9 @@
       "PowerShell(Copy-Item *)",
       "Bash(python *)",
       "Bash(npm run *)",
-      "Bash(ls *)"
+      "Bash(ls *)",
+      "Bash(Get-Process -Name \"node\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object Id, ProcessName, StartTime)"
     ]
   }
 }

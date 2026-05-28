@@ -404,7 +404,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
   // ---- map-specific refs ------------------------------------------------
   const mapSvgRef = useRef<SVGSVGElement>(null);
   const mapGRef = useRef<SVGGElement | null>(null);
-  const mapEdgeSelRef = useRef<d3.Selection<SVGLineElement, MapEdge, SVGGElement, unknown> | null>(null);
+  const mapEdgeGlowSelRef = useRef<d3.Selection<SVGPathElement, MapEdge, SVGGElement, unknown> | null>(null);
+  const mapEdgeSelRef = useRef<d3.Selection<SVGPathElement, MapEdge, SVGGElement, unknown> | null>(null);
   const mapCnSelRef = useRef<d3.Selection<SVGCircleElement, MapNodeCN, SVGGElement, unknown> | null>(null);
   const mapCeecSelRef = useRef<d3.Selection<SVGCircleElement, MapNodeCEEC, SVGGElement, unknown> | null>(null);
   const mapLabelSelRef = useRef<d3.Selection<SVGTextElement, MapNodeCN | MapNodeCEEC, SVGGElement, unknown> | null>(null);
@@ -1031,7 +1032,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
 
   // ---- Map visibility update -------------------------------------------
   const applyMapVisibility = useCallback(() => {
-    if (!mapEdgeSelRef.current || !mapCnSelRef.current || !mapCeecSelRef.current || !mapLabelSelRef.current || !mapDataRef.current) return;
+    if (!mapEdgeGlowSelRef.current || !mapEdgeSelRef.current || !mapCnSelRef.current || !mapCeecSelRef.current || !mapLabelSelRef.current || !mapDataRef.current) return;
 
     const { cnNodes, ceecNodes, edges } = mapDataRef.current;
     const nodeR = (w: number) => Math.max(1.8, Math.sqrt(Math.max(0, w)) * 0.35);
@@ -1047,11 +1048,17 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       }
     }
 
-    // Edges: reset stroke color + thickness — pointer-events stay "none" on the group
+    // Edges: reset glow + core layers — pointer-events stay "none" on the group
+    mapEdgeGlowSelRef.current
+      ?.attr("opacity", (e) => isMapEdgeVisible(e) ? 0.5 : 0);
     mapEdgeSelRef.current
       .attr("stroke", "rgba(201,194,173,0.16)")
       .attr("opacity", (e) => isMapEdgeVisible(e) ? 0.5 : 0)
-      .attr("stroke-width", (e) => isMapEdgeVisible(e) ? edgeW(period === "125" ? e.weight_125 : e.weight_135) : 0.08);
+      .attr("stroke-width", (e) => {
+        if (!isMapEdgeVisible(e)) return 0.08;
+        const base = edgeW(period === "125" ? e.weight_125 : e.weight_135);
+        return e.cnCity === "北京" ? base * 0.5 : base; // BEIJING_WIDTH_SCALE: 0.5 = 50% thinner
+      });
 
     // CN city nodes: hover target = visible icon size, no expanded hit area
     mapCnSelRef.current
@@ -1169,7 +1176,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     const edgeGroup = g.append("g").attr("class", "map-edges").style("pointer-events", "none");
 
     // Glow layer
-    edgeGroup.selectAll<SVGPathElement, typeof mapArcPaths[number]>("path")
+    const edgeGlow = edgeGroup.selectAll<SVGPathElement, typeof mapArcPaths[number]>("path")
       .data(mapArcPaths)
       .join("path")
       .attr("class", "map-edge-glow")
@@ -1179,6 +1186,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke-width", 2.5)
       .attr("filter", "url(#map-edge-blur)")
       .attr("stroke-linecap", "round");
+    mapEdgeGlowSelRef.current = edgeGlow as any;
 
     // Core edge layer
     const edgePaths = edgeGroup.selectAll<SVGPathElement, typeof mapArcPaths[number]>("path.map-edge-core")
@@ -1191,16 +1199,6 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke-width", 0.5)
       .attr("stroke-linecap", "round");
     mapEdgeSelRef.current = edgePaths as any;
-
-    // Helper: compute dynamic radius for hover scale
-    const getHoverR = (nd: MapNodeCN | MapNodeCEEC) => {
-      const p = periodRef.current;
-      const f = filterRef.current;
-      const w = p === "125"
-        ? (f ? nd.nonPhysWeight125 : nd.weight_125)
-        : (f ? nd.nonPhysWeight135 : nd.weight_135);
-      return Math.max(1.8, Math.sqrt(Math.max(0, w)) * 0.35);
-    };
 
     // Helper: build tooltip for CN city
     const buildCnTooltip = (cn: MapNodeCN): MapTooltip => {
@@ -1264,22 +1262,23 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .on("mouseenter", function (_, d) {
         setMapTooltip(buildCnTooltip(d));
         const neighborCeec = new Set<string>();
+        // Glow layer: hide non-connected edges
+        mapEdgeGlowSelRef.current
+          ?.attr("opacity", (ed: MapEdge) => ed.cnCity === d.city ? 0.25 : 0);
+        // Core edges: highlight connected, hide others
         edgePaths
           .attr("stroke", (ed) => {
-            if (ed.cnCity === d.city) { neighborCeec.add(ed.ceecIso); return "rgba(246,241,224,0.7)"; }
-            return "rgba(201,194,173,0.015)";
+            if (ed.cnCity === d.city) { neighborCeec.add(ed.ceecIso); return "rgba(246,241,224,0.5)"; }
+            return "rgba(201,194,173,0.16)";
           })
+          .attr("opacity", (ed) => ed.cnCity === d.city ? 0.6 : 0) // HOVER_HIGHLIGHT_OPACITY: main knob for hover edge brightness (0~1)
           .attr("stroke-width", (ed) => {
             if (ed.cnCity !== d.city) return 0.08;
             const w = periodRef.current === "125" ? ed.weight_125 : ed.weight_135;
-            return Math.pow(Math.max(0, w), 0.58) * 0.22 * 2.5;
+            const base = Math.pow(Math.max(0, w), 0.58) * 0.22 * 2.5;
+            return ed.cnCity === "北京" ? base * 0.5 : base;
           });
-        cnCircles
-          .attr("fill-opacity", (nd) => nd.city === d.city ? 1 : 0.12)
-          .attr("r", (nd) => nd.city === d.city ? getHoverR(nd) * 1.6 : getHoverR(nd) * 0.5);
-        ceecCircles
-          .attr("fill-opacity", (nd) => neighborCeec.has(nd.iso) ? 1 : 0.12)
-          .attr("r", (nd) => neighborCeec.has(nd.iso) ? getHoverR(nd) * 1.4 : getHoverR(nd) * 0.5);
+        // Labels: show for hovered node and connected neighbors only
         mapLabelSelRef.current
           ?.attr("opacity", (nd: any) => nd.city === d.city || neighborCeec.has(nd.iso) ? 0.9 : 0);
       })
@@ -1305,22 +1304,23 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .on("mouseenter", function (_, d) {
         setMapTooltip(buildCeecTooltip(d));
         const neighborCn = new Set<string>();
+        // Glow layer: hide non-connected edges
+        mapEdgeGlowSelRef.current
+          ?.attr("opacity", (ed: MapEdge) => ed.ceecIso === d.iso ? 0.25 : 0);
+        // Core edges: highlight connected, hide others
         edgePaths
           .attr("stroke", (ed) => {
-            if (ed.ceecIso === d.iso) { neighborCn.add(ed.cnCity); return "rgba(246,241,224,0.7)"; }
-            return "rgba(201,194,173,0.015)";
+            if (ed.ceecIso === d.iso) { neighborCn.add(ed.cnCity); return "rgba(246,241,224,0.5)"; }
+            return "rgba(201,194,173,0.16)";
           })
+          .attr("opacity", (ed) => ed.ceecIso === d.iso ? 0.6 : 0) // HOVER_HIGHLIGHT_OPACITY: main knob for hover edge brightness (0~1)
           .attr("stroke-width", (ed) => {
             if (ed.ceecIso !== d.iso) return 0.08;
             const w = periodRef.current === "125" ? ed.weight_125 : ed.weight_135;
-            return Math.pow(Math.max(0, w), 0.58) * 0.22 * 2.5;
+            const base = Math.pow(Math.max(0, w), 0.58) * 0.22 * 2.5;
+            return ed.cnCity === "北京" ? base * 0.5 : base;
           });
-        ceecCircles
-          .attr("fill-opacity", (nd) => nd.iso === d.iso ? 1 : 0.12)
-          .attr("r", (nd) => nd.iso === d.iso ? getHoverR(nd) * 1.6 : getHoverR(nd) * 0.5);
-        cnCircles
-          .attr("fill-opacity", (nd) => neighborCn.has(nd.city) ? 1 : 0.12)
-          .attr("r", (nd) => neighborCn.has(nd.city) ? getHoverR(nd) * 1.4 : getHoverR(nd) * 0.5);
+        // Labels: show for hovered node and connected neighbors only
         mapLabelSelRef.current
           ?.attr("opacity", (nd: any) => nd.iso === d.iso || neighborCn.has(nd.city) ? 0.9 : 0);
       })
