@@ -152,13 +152,14 @@ export function WorldMap({ beijing, countries, arcs, width, height, progress }: 
       <g>
         {features?.map((f, i) => {
           const isCN = f.properties?.name === "China";
+          const isTW = f.properties?.name === "Taiwan";
           const isCEEC = !!ceecByIso.get(isoFromName(f.properties?.name));
-          const fill = isCN
+          const fill = isCN || isTW
             ? "rgba(255, 77, 61, 0.16)"
             : isCEEC
               ? "rgba(76, 201, 240, 0.17)"
               : "rgba(201, 194, 173, 0.05)";
-          const stroke = isCN
+          const stroke = isCN || isTW
             ? "rgba(255, 77, 61, 0.55)"
             : isCEEC
               ? "rgba(76, 201, 240, 0.6)"

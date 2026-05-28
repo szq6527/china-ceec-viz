@@ -146,9 +146,14 @@ export function Scene8SubjectHeatmap({ active }: Props) {
           <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#9b8ea8" }} />
           物理 (上轴)
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#7ea8a4" }} />
-          理工医农 (右下)
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#7ea8a4" }} />
+            理工医农 (右下)
+          </div>
+          <div style={{ fontSize: 12, color: "var(--ink-2)", marginTop: 2, marginLeft: 20, letterSpacing: "0.06em" }}>
+            Tip: 已排除物理大类
+          </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#c9a87c" }} />

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import * as d3 from "d3";
-import { geoEquirectangular, geoPath } from "d3-geo";
+import { geoEquirectangular, geoPath, geoInterpolate } from "d3-geo";
 import { feature as topojsonFeature } from "topojson-client";
 
 /* ============================================================
@@ -215,6 +215,114 @@ const CN_COORD_LOOKUP: Record<string, InstitutionCoord> = {
   "Beihang University": { name: "Beihang University", city: "北京", lat: 39.9042, lon: 116.4074, isBeijing: true },
   "Harbin Institute of Technology": { name: "Harbin Institute of Technology", city: "哈尔滨", lat: 45.8038, lon: 126.5350, isBeijing: false },
 };
+
+/* ---- CN institution English → Chinese name mapping ---- */
+const CN_INST_CN: Record<string, string> = {
+  "Chinese Academy of Sciences": "中国科学院",
+  "Peking University": "北京大学",
+  "Tsinghua University": "清华大学",
+  "University of Chinese Academy of Sciences": "中国科学院大学",
+  "Beijing Normal University": "北京师范大学",
+  "Capital Medical University": "首都医科大学",
+  "Chinese Academy of Medical Sciences & Peking Union Medical College": "中国医学科学院北京协和医学院",
+  "Institute of High Energy Physics": "中国科学院高能物理研究所",
+  "Institute of Physics": "中国科学院物理研究所",
+  "Chinese Academy of Agricultural Sciences": "中国农业科学院",
+  "Fudan University": "复旦大学",
+  "Shanghai Jiao Tong University": "上海交通大学",
+  "East China Normal University": "华东师范大学",
+  "Zhejiang University": "浙江大学",
+  "Sun Yat-sen University": "中山大学",
+  "South China University of Technology": "华南理工大学",
+  "Nanjing University": "南京大学",
+  "Southeast University": "东南大学",
+  "Shandong University": "山东大学",
+  "University of Science and Technology of China": "中国科学技术大学",
+  "Huazhong University of Science and Technology": "华中科技大学",
+  "Wuhan University": "武汉大学",
+  "Central China Normal University": "华中师范大学",
+  "Sichuan University": "四川大学",
+  "Xi'an Jiaotong University": "西安交通大学",
+  "Lanzhou University": "兰州大学",
+  "Institute of Modern Physics": "中国科学院近代物理研究所",
+  "Nankai University": "南开大学",
+  "Soochow University": "苏州大学",
+  "Beihang University": "北京航空航天大学",
+  "Harbin Institute of Technology": "哈尔滨工业大学",
+  "Shanghai Institute of Applied Physics": "中国科学院上海应用物理研究所",
+  "Tianjin Medical University": "天津医科大学",
+  "University of Science and Technology Beijing": "北京科技大学",
+  "Chongqing University": "重庆大学",
+  "Chengdu University": "成都大学",
+  "Northwestern Polytechnical University": "西北工业大学",
+  "Xiamen University": "厦门大学",
+  "Southwest University": "西南大学",
+  "University of Electronic Science and Technology of China": "电子科技大学",
+  "Ministry of Education of the People's Republic of China": "中华人民共和国教育部",
+  "Institute of Chemistry": "中国科学院化学研究所",
+  "China Agricultural University": "中国农业大学",
+  "Tongji University": "同济大学",
+  "East China University of Science and Technology": "华东理工大学",
+  "Central South University": "中南大学",
+  "Chinese University of Hong Kong": "香港中文大学",
+  "Beijing Tongren Hospital": "北京同仁医院",
+  "Institute of Botany": "中国科学院植物研究所",
+  "Jilin University": "吉林大学",
+  "The First Affiliated Hospital, Sun Yat-sen University": "中山大学附属第一医院",
+  "Ministry of Agriculture and Rural Affairs": "农业农村部",
+  "Shandong Normal University": "山东师范大学",
+  "Shenzhen University": "深圳大学",
+  "Wuhan University of Technology": "武汉理工大学",
+  "Nanjing Agricultural University": "南京农业大学",
+  "Zhongshan Hospital": "中山医院",
+  "National Astronomical Observatories": "中国科学院国家天文台",
+  "Beijing Forestry University": "北京林业大学",
+  "Tianjin University": "天津大学",
+  "Chongqing University of Posts and Telecommunications": "重庆邮电大学",
+  "Huazhong Agricultural University": "华中农业大学",
+  "Northwest A&F University": "西北农林科技大学",
+  "Shanghai University": "上海大学",
+  "Jiangsu University": "江苏大学",
+  "Second Military Medical University": "海军军医大学",
+  "Fu Wai Hospital": "阜外医院",
+  "Nanjing Medical University": "南京医科大学",
+  "Tianjin Nankai Hospital": "天津市南开医院",
+  "Peking University People's Hospital": "北京大学人民医院",
+  "Dalian University of Technology": "大连理工大学",
+  "Jinan University": "暨南大学",
+  "Institute of Microbiology": "中国科学院微生物研究所",
+  "Zhejiang University of Technology": "浙江工业大学",
+  "Hunan University": "湖南大学",
+  "Peking Union Medical College Hospital": "北京协和医院",
+  "Beijing Institute of Technology": "北京理工大学",
+  "Zhengzhou University": "郑州大学",
+  "Queen Mary Hospital": "玛丽医院",
+  "Kavli Institute for Theoretical Sciences": "卡弗里理论科学研究所",
+  "BGI Group (China)": "华大基因",
+  "National Laboratory for Superconductivity": "国家超导实验室",
+  "State Council of the People's Republic of China": "中华人民共和国国务院",
+  "Beijing Anzhen Hospital": "北京安贞医院",
+  "Central University of Finance and Economics": "中央财经大学",
+  "Nanjing University of Science and Technology": "南京理工大学",
+  "Beijing National Laboratory for Molecular Sciences": "北京分子科学国家实验室",
+  "Peking University First Hospital": "北京大学第一医院",
+  "Centre of Excellence for Advanced Materials": "先进材料卓越中心",
+  "Tongji Hospital": "同济医院",
+  "Beijing University of Chemical Technology": "北京化工大学",
+  "Collaborative Innovation Center of Chemical Science and Engineering Tianjin": "天津化学科学与工程协同创新中心",
+  "Fujian Normal University": "福建师范大学",
+  "Nanchang University": "南昌大学",
+  "Nanjing University of Aeronautics and Astronautics": "南京航空航天大学",
+  "Nanjing University of Information Science and Technology": "南京信息工程大学",
+  "Guangzhou University": "广州大学",
+  "Baoji University of Arts and Sciences": "宝鸡文理学院",
+  "Beijing University of Technology": "北京工业大学",
+  "Xi'an University": "西安大学",
+};
+
+function toCnName(enName: string): string {
+  return CN_INST_CN[enName] || enName;
+}
 
 function applyBeijingOffset(index: number, total: number): { lat: number; lon: number } {
   const BEIJING_LAT = 39.9042;
@@ -803,7 +911,10 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("stroke", "#0a0d18")
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
-      .text((d) => (d.name.length > 32 ? d.name.slice(0, 30) + "…" : d.name));
+      .text((d) => {
+        const displayName = d.side === "cn" ? toCnName(d.name) : d.name;
+        return displayName.length > 16 ? displayName.slice(0, 14) + "…" : displayName;
+      });
     labelSelRef.current = labelTexts;
 
     // ---- Static decor: center divider + side labels (pointer-events: none) ----
@@ -1014,33 +1125,72 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("fill", (f: any) => {
         const name = f.properties?.name ?? "";
         const iso3 = NAME_TO_ISO[name] ?? "";
-        if (iso3 === "CHN" || name === "China") return "rgba(196,121,110,0.14)";
+        if (iso3 === "CHN" || name === "China" || name === "Taiwan") return "rgba(196,121,110,0.14)";
         if (ceecIsoSet.has(iso3)) return "rgba(126,168,164,0.12)";
         return "rgba(201,194,173,0.03)";
       })
       .attr("stroke", (f: any) => {
         const name = f.properties?.name ?? "";
         const iso3 = NAME_TO_ISO[name] ?? "";
-        if (iso3 === "CHN" || name === "China") return "rgba(196,121,110,0.25)";
+        if (iso3 === "CHN" || name === "China" || name === "Taiwan") return "rgba(196,121,110,0.25)";
         if (ceecIsoSet.has(iso3)) return "rgba(126,168,164,0.25)";
         return "rgba(201,194,173,0.06)";
       })
       .attr("stroke-width", 0.5);
 
-    // Layer 2: edges (city → CEEC country) — pointer-events: none so they don't block node hover
+    // Layer 2: edges (city → CEEC country) — curved arcs with glow
+    // pointer-events: none so they don't block node hover
     const cnByCity = new Map(cnNodes.map((n) => [n.city, n]));
     const ceecByIso = new Map(ceecNodes.map((n) => [n.iso, n]));
+
+    // Build curved arc paths (quadratic Bezier with lifted midpoint)
+    const mapArcPaths = edges.map((e) => {
+      const cn = cnByCity.get(e.cnCity)!;
+      const ceec = ceecByIso.get(e.ceecIso)!;
+      const p1 = MAP_PROJECTION([cn.lon, cn.lat])!;
+      const p2 = MAP_PROJECTION([ceec.lon, ceec.lat])!;
+      const interp = geoInterpolate([cn.lon, cn.lat], [ceec.lon, ceec.lat]);
+      const mid = MAP_PROJECTION(interp(0.5))!;
+      const dx = p2[0] - p1[0];
+      const dy = p2[1] - p1[1];
+      const dist = Math.hypot(dx, dy);
+      const lift = Math.min(120, dist * 0.28);
+      const cx = mid[0];
+      const cy = mid[1] - lift;
+      const d = `M ${p1[0]},${p1[1]} Q ${cx},${cy} ${p2[0]},${p2[1]}`;
+      return { ...e, d };
+    });
+
+    // Add blur filter for edge glow
+    const mapDefs = svg.append("defs");
+    mapDefs.append("filter").attr("id", "map-edge-blur")
+      .append("feGaussianBlur").attr("stdDeviation", "1.0");
+
     const edgeGroup = g.append("g").attr("class", "map-edges").style("pointer-events", "none");
-    const edgeLines = edgeGroup.selectAll<SVGLineElement, MapEdge>("line")
-      .data(edges)
-      .join("line")
-      .attr("x1", (d) => MAP_PROJECTION([cnByCity.get(d.cnCity)!.lon, cnByCity.get(d.cnCity)!.lat])![0])
-      .attr("y1", (d) => MAP_PROJECTION([cnByCity.get(d.cnCity)!.lon, cnByCity.get(d.cnCity)!.lat])![1])
-      .attr("x2", (d) => MAP_PROJECTION([ceecByIso.get(d.ceecIso)!.lon, ceecByIso.get(d.ceecIso)!.lat])![0])
-      .attr("y2", (d) => MAP_PROJECTION([ceecByIso.get(d.ceecIso)!.lon, ceecByIso.get(d.ceecIso)!.lat])![1])
+
+    // Glow layer
+    edgeGroup.selectAll<SVGPathElement, typeof mapArcPaths[number]>("path")
+      .data(mapArcPaths)
+      .join("path")
+      .attr("class", "map-edge-glow")
+      .attr("d", (d) => d.d)
+      .attr("fill", "none")
+      .attr("stroke", "rgba(201,194,173,0.06)")
+      .attr("stroke-width", 2.5)
+      .attr("filter", "url(#map-edge-blur)")
+      .attr("stroke-linecap", "round");
+
+    // Core edge layer
+    const edgePaths = edgeGroup.selectAll<SVGPathElement, typeof mapArcPaths[number]>("path.map-edge-core")
+      .data(mapArcPaths)
+      .join("path")
+      .attr("class", "map-edge-core")
+      .attr("d", (d) => d.d)
+      .attr("fill", "none")
       .attr("stroke", "rgba(201,194,173,0.16)")
-      .attr("stroke-width", 0.5);
-    mapEdgeSelRef.current = edgeLines;
+      .attr("stroke-width", 0.5)
+      .attr("stroke-linecap", "round");
+    mapEdgeSelRef.current = edgePaths as any;
 
     // Helper: compute dynamic radius for hover scale
     const getHoverR = (nd: MapNodeCN | MapNodeCEEC) => {
@@ -1114,7 +1264,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .on("mouseenter", function (_, d) {
         setMapTooltip(buildCnTooltip(d));
         const neighborCeec = new Set<string>();
-        edgeLines
+        edgePaths
           .attr("stroke", (ed) => {
             if (ed.cnCity === d.city) { neighborCeec.add(ed.ceecIso); return "rgba(246,241,224,0.7)"; }
             return "rgba(201,194,173,0.015)";
@@ -1155,7 +1305,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .on("mouseenter", function (_, d) {
         setMapTooltip(buildCeecTooltip(d));
         const neighborCn = new Set<string>();
-        edgeLines
+        edgePaths
           .attr("stroke", (ed) => {
             if (ed.ceecIso === d.iso) { neighborCn.add(ed.cnCity); return "rgba(246,241,224,0.7)"; }
             return "rgba(201,194,173,0.015)";
@@ -1307,7 +1457,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
             {" · "}{INST_TYPE_SHORT[hoveredNode.type] || hoveredNode.type}
           </div>
           <div style={{ fontSize: 16, fontWeight: 700, color: "var(--ink-0)", lineHeight: 1.3, marginBottom: 6 }}>
-            {hoveredNode.name}
+            {hoveredNode.side === "cn" ? toCnName(hoveredNode.name) : hoveredNode.name}
           </div>
           <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ink-2)", lineHeight: 1.5 }}>
             <span>2011–2015: {hoveredNode.weight_125} 篇</span>
@@ -1332,7 +1482,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
               </div>
               {mapTooltip.topInstitutions.map((inst, i) => (
                 <div key={i} style={{ fontSize: 11, color: "var(--ink-1)", lineHeight: 1.5, fontFamily: "var(--mono)" }}>
-                  {inst}
+                  {toCnName(inst)}
                 </div>
               ))}
             </div>

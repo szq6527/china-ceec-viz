@@ -29,6 +29,7 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
   const startedAt = useRef<number | null>(null);
   const pausedT = useRef<number>(0); // t value when paused
   const [paused, setPaused] = useState(false);
+  const [scaleMode, setScaleMode] = useState<"relative" | "absolute">("relative");
   const rafRef = useRef(0);
 
   // Snap t to the nearest whole year index
@@ -122,7 +123,17 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
     () => [...cursorCounts].sort((a, b) => b.value - a.value),
     [cursorCounts]
   );
-  const max = Math.max(...cursorCounts.map((c) => c.value), 1);
+  // Absolute max = Poland's final year value (overall maximum across all countries/time)
+  const absoluteMax = useMemo(() => {
+    let m = 1;
+    for (const row of series) {
+      const last = row.yearly[row.yearly.length - 1];
+      if (last.count > m) m = last.count;
+    }
+    return m;
+  }, [series]);
+
+  const barMax = scaleMode === "absolute" ? absoluteMax : Math.max(...cursorCounts.map((c) => c.value), 1);
   const currentYear = years[Math.round(t)] ?? 2011;
 
   // Total CEEC for current cursor year (from aggregate yearly file, more accurate than sum of estimates)
@@ -222,6 +233,37 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
           十年赛跑 ——<br />
           有人飞奔,<span style={{ color: "var(--accent-cn-glow)" }}>有人原地</span>
         </h1>
+      </div>
+
+      {/* Scale mode toggle — absolute vs relative */}
+      <div
+        onClick={() => setScaleMode((m) => (m === "relative" ? "absolute" : "relative"))}
+        style={{
+          position: "absolute",
+          top: 100,
+          right: 480,
+          textAlign: "right",
+          zIndex: 5,
+          fontFamily: "var(--mono)",
+          cursor: "pointer",
+          userSelect: "none",
+          padding: "10px 16px",
+          borderRadius: 8,
+          border: scaleMode === "absolute"
+            ? "1px solid rgba(201,168,124,0.35)"
+            : "1px solid rgba(201,194,173,0.12)",
+          background: scaleMode === "absolute"
+            ? "rgba(201,168,124,0.06)"
+            : "rgba(255,255,255,0.03)",
+          transition: "all 300ms ease",
+        }}
+      >
+        <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--ink-2)" }}>
+          标尺模式
+        </div>
+        <div style={{ fontSize: 15, fontWeight: 700, marginTop: 4, color: scaleMode === "absolute" ? "var(--accent-warn)" : "var(--ink-0)", transition: "color 300ms ease" }}>
+          {scaleMode === "absolute" ? "绝对长度" : "相对长度"}
+        </div>
       </div>
 
       {/* Big year ticker, top right — click to pause/resume */}
@@ -357,7 +399,7 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
         }}
       >
         {ranked.map((row, idx) => {
-          const w = (row.value / max) * 100;
+          const w = (row.value / barMax) * 100;
           const isTop = idx < 5;
           const color = COLORS[row.iso] ?? (isTop ? "#7ea8a4" : "rgba(126,168,164,0.5)");
           const glow = idx === 0 ? "0 0 18px rgba(196,121,110,0.7)" : "none";
@@ -634,7 +676,7 @@ export function Scene2BarRace({ data, active, viewMode }: Props) {
           data={data}
           cursorCounts={cursorCounts}
           currentYear={currentYear}
-          max={max}
+          max={barMax}
         />
       )}
 

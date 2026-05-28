@@ -366,84 +366,85 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
         </div>
       </div>
 
-      {/* ── Right chart panel ── */}
+      {/* ── Right chart panel: vertically centered bars ── */}
       <div style={{
         position: "absolute", top: 0, left: 300, right: 0, bottom: 0,
-        padding: "36px 48px 36px 40px",
-        display: "flex", flexDirection: "column",
-        overflow: "hidden",
+        display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        {/* Column headers */}
-        <div style={{
-          display: "grid", gridTemplateColumns: "140px 1fr 54px",
-          gap: 12, marginBottom: 14,
-          fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.18em",
-          textTransform: "uppercase", color: "var(--ink-2)",
-        }}>
-          <div style={{ textAlign: "right" }}>学科</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span>渗透率分布（悬停查看详情）</span>
-            <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
-              <span style={{ display: "inline-block", width: 14, height: 1, background: "rgba(201,194,173,0.4)", verticalAlign: "middle" }} />
-              均值
-            </span>
+        {/* 🔧 条形图整体垂直偏移：负值=上移，正值=下移，调整此数值即可微调 */}
+        <div style={{ width: "100%", padding: "0 48px 0 40px", transform: "translateY(-22%)" }}>
+          {/* Column headers */}
+          <div style={{
+            display: "grid", gridTemplateColumns: "140px 1fr 54px",
+            gap: 12, marginBottom: 14,
+            fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.18em",
+            textTransform: "uppercase", color: "var(--ink-2)",
+          }}>
+            <div style={{ textAlign: "right" }}>学科</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span>渗透率分布（悬停查看详情）</span>
+              <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ display: "inline-block", width: 14, height: 1, background: "rgba(201,194,173,0.4)", verticalAlign: "middle" }} />
+                均值
+              </span>
+            </div>
+            <div style={{ textAlign: "right" }}>渗透率</div>
           </div>
-          <div style={{ textAlign: "right" }}>渗透率</div>
-        </div>
 
-        {/* Physics hero */}
-        {physicsField && (
-          <div style={{ marginBottom: 12 }}>
-            <BarRow
-              field={physicsField}
-              maxPen={maxPen}
-              avgPen={data.ceec_avg_penetration}
-              progress={progress}
-              animDelay={0}
-              isPhysics
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            />
+          {/* Physics hero */}
+          {physicsField && (
+            <div style={{ marginBottom: 12 }}>
+              <BarRow
+                field={physicsField}
+                maxPen={maxPen}
+                avgPen={data.ceec_avg_penetration}
+                progress={progress}
+                animDelay={0}
+                isPhysics
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              />
+            </div>
+          )}
+
+          {/* Divider */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: 10, marginBottom: 10,
+            opacity: progress > 0.25 ? 1 : 0, transition: "opacity 400ms",
+          }}>
+            <div style={{ height: 1, flex: 1, background: "rgba(201,194,173,0.09)" }} />
+            <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", color: "var(--ink-2)", textTransform: "uppercase" }}>
+              其他学科（按渗透率排序）
+            </div>
+            <div style={{ height: 1, flex: 1, background: "rgba(201,194,173,0.09)" }} />
           </div>
-        )}
 
-        {/* Divider */}
-        <div style={{
-          display: "flex", alignItems: "center", gap: 10, marginBottom: 10,
-          opacity: progress > 0.25 ? 1 : 0, transition: "opacity 400ms",
-        }}>
-          <div style={{ height: 1, flex: 1, background: "rgba(201,194,173,0.09)" }} />
-          <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", color: "var(--ink-2)", textTransform: "uppercase" }}>
-            其他学科（按渗透率排序）
+          {/* Other bars */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            {otherFields.map((f, i) => (
+              <BarRow
+                key={f.field}
+                field={f}
+                maxPen={maxPen}
+                avgPen={data.ceec_avg_penetration}
+                progress={progress}
+                animDelay={80 + i * 55}
+                isPhysics={false}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              />
+            ))}
           </div>
-          <div style={{ height: 1, flex: 1, background: "rgba(201,194,173,0.09)" }} />
-        </div>
-
-        {/* Other bars */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 5, overflow: "hidden" }}>
-          {otherFields.map((f, i) => (
-            <BarRow
-              key={f.field}
-              field={f}
-              maxPen={maxPen}
-              avgPen={data.ceec_avg_penetration}
-              progress={progress}
-              animDelay={80 + i * 55}
-              isPhysics={false}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            />
-          ))}
         </div>
 
         {/* Next scene cue */}
-        <div 
+        <div
           onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))}
           style={{
-          marginTop: 16, textAlign: "right",
-          pointerEvents: showAnnotations ? "auto" : "none", cursor: showAnnotations ? "pointer" : "default",
-          opacity: showAnnotations ? 1 : 0, transition: "opacity 800ms",
-        }}>
+            position: "absolute", right: 48, bottom: 36, textAlign: "right",
+            pointerEvents: showAnnotations ? "auto" : "none", cursor: showAnnotations ? "pointer" : "default",
+            opacity: showAnnotations ? 1 : 0, transition: "opacity 800ms",
+          }}>
           <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 4 }}>
             下一个问题 →
           </div>

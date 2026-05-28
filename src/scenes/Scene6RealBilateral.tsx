@@ -223,14 +223,14 @@ export function Scene6RealBilateral({ data, active }: Props) {
         </div>
       </div>
 
-      {/* Bars */}
+      {/* Bars — vertically centered between header and bottom panel */}
       <div
         style={{
           position: "absolute",
           left: 48,
           right: 48,
-          top: "clamp(210px, 32vh, 245px)",
-          bottom: "clamp(112px, 18vh, 150px)",
+          top: "50%",
+          transform: "translateY(-50%)",
           zIndex: 3,
           display: "flex",
           flexDirection: "column",
