@@ -194,8 +194,8 @@ export default function App() {
             style={{
               position: "absolute",
               right: 64,
-              top: "50%",
-              transform: "translateY(-50%)",
+              bottom: "100%",
+              marginBottom: 16,
               background: "rgba(255,255,255,0.08)",
               border: "1px solid rgba(255,255,255,0.18)",
               borderRadius: 6,

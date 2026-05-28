@@ -360,8 +360,17 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
           </div>
         ))}
 
-        <div style={{ flex: 1 }} />
-        <div style={{ fontSize: 12, fontFamily: "var(--serif)", color: "var(--ink-2)", lineHeight: 1.6, opacity: showAnnotations ? 1 : 0, transition: "opacity 600ms" }}>
+        <div style={{ 
+          marginTop: 64, 
+          fontSize: 22, 
+          fontWeight: 700,
+          fontFamily: "var(--serif)", 
+          color: "var(--ink-0)", 
+          lineHeight: 1.6, 
+          letterSpacing: "0.02em",
+          opacity: showAnnotations ? 1 : 0, 
+          transition: "opacity 600ms" 
+        }}>
           <span style={{ color: "#8fb8b0" }}>零渗透学科</span>才是真正双边关系生长的土壤。
         </div>
       </div>
