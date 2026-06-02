@@ -24,45 +24,80 @@ interface Props {
  * multi-author physics paper. China and Poland get tinted highlights.
  */
 export function Scene5Collider({ data, active }: Props) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Measure the root container in *layout* pixels (clientWidth/clientHeight are
+  // unaffected by the `.app-shell` CSS `transform: scale()`, unlike
+  // getBoundingClientRect). react-three-fiber's own measurement
+  // (react-use-measure → getBoundingClientRect) returns the scaled box and,
+  // when the Canvas mounts inside a hidden `.scene` (visibility:hidden /
+  // opacity:0), it can latch onto a tiny/zero size and never recover — which
+  // is why the canvas rendered small in the top-left corner. We instead feed
+  // the Canvas explicit pixel dimensions so it always fills the full stage.
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const measure = () => setSize({ w: el.clientWidth, h: el.clientHeight });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const ready = size.w > 0 && size.h > 0;
+
   return (
-    <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)" }}>
-      <Canvas
-        camera={{ position: [0, 1.4, 7.5], fov: 45 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: false, toneMappingExposure: 1.15 }}
-      >
-        <color attach="background" args={["#040713"]} />
-        <fog attach="fog" args={["#040713", 8, 22]} />
-        <ambientLight intensity={0.18} />
-        <pointLight position={[0, 0, 0]} intensity={4.2} color="#9b8ea8" distance={14} />
-        <pointLight position={[5, 4, 6]} intensity={0.7} color="#7ea8a4" />
-        <pointLight position={[-5, -4, 6]} intensity={0.7} color="#c4796e" />
-        {active && (
-          <>
-            <CameraDolly />
-            <ColliderGeometry />
-            <EnergyCore />
-            <ParticleBurst count={3024} />
-            <BeamLines />
-            <EffectComposer multisampling={0}>
-              <Bloom
-                intensity={1.6}
-                luminanceThreshold={0.18}
-                luminanceSmoothing={0.55}
-                kernelSize={KernelSize.LARGE}
-                mipmapBlur
-              />
-              <ChromaticAberration
-                blendFunction={BlendFunction.NORMAL}
-                offset={new THREE.Vector2(0.0008, 0.0012)}
-                radialModulation={false}
-                modulationOffset={0}
-              />
-              <Vignette eskil={false} offset={0.25} darkness={0.85} />
-            </EffectComposer>
-          </>
-        )}
-      </Canvas>
+    <div
+      ref={rootRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        background: "var(--bg-0)",
+      }}
+    >
+      {/* Only mount the WebGL canvas when the scene is active (and therefore
+          visible + laid out) so it measures the correct full-stage size. The
+          CameraDolly entrance animation naturally replays on each remount. */}
+      {active && ready && (
+        <Canvas
+          camera={{ position: [0, 1.4, 7.5], fov: 45 }}
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: false, toneMappingExposure: 1.15 }}
+          resize={{ scroll: false, debounce: 0 }}
+          style={{ width: size.w, height: size.h, display: "block" }}
+        >
+          <color attach="background" args={["#110d1a"]} />
+          <fog attach="fog" args={["#110d1a", 8, 22]} />
+          <ambientLight intensity={0.18} />
+          <pointLight position={[0, 0, 0]} intensity={4.2} color="#b0a3d1" distance={14} />
+          <pointLight position={[5, 4, 6]} intensity={0.7} color="#8bd0d5" />
+          <pointLight position={[-5, -4, 6]} intensity={0.7} color="#e88db2" />
+          <CameraDolly />
+          <ColliderGeometry />
+          <EnergyCore />
+          <ParticleBurst count={3024} />
+          <BeamLines />
+          <EffectComposer multisampling={0}>
+            <Bloom
+              intensity={1.6}
+              luminanceThreshold={0.18}
+              luminanceSmoothing={0.55}
+              kernelSize={KernelSize.LARGE}
+              mipmapBlur
+            />
+            <ChromaticAberration
+              blendFunction={BlendFunction.NORMAL}
+              offset={new THREE.Vector2(0.0008, 0.0012)}
+              radialModulation={false}
+              modulationOffset={0}
+            />
+            <Vignette eskil={false} offset={0.25} darkness={0.85} />
+          </EffectComposer>
+        </Canvas>
+      )}
       <Overlay data={data} active={active} />
     </div>
   );
@@ -101,10 +136,10 @@ function CameraDolly() {
 function ColliderGeometry() {
   const rings = useMemo(
     () => [
-      { r: 1.3,  tube: 0.06,  color: "#9b8ea8", op: 0.65, emis: 2.2 },
-      { r: 1.7,  tube: 0.08,  color: "#9d4edd", op: 0.55, emis: 1.8 },
-      { r: 2.15, tube: 0.10,  color: "#7c5cbf", op: 0.45, emis: 1.4 },
-      { r: 2.6,  tube: 0.04,  color: "#7ea8a4", op: 0.65, emis: 2.4 },
+      { r: 1.3,  tube: 0.06,  color: "#b0a3d1", op: 0.65, emis: 2.2 },
+      { r: 1.7,  tube: 0.08,  color: "#c8a2c8", op: 0.55, emis: 1.8 },
+      { r: 2.15, tube: 0.10,  color: "#b0a3d1", op: 0.45, emis: 1.4 },
+      { r: 2.6,  tube: 0.04,  color: "#8bd0d5", op: 0.65, emis: 2.4 },
     ],
     []
   );
@@ -136,8 +171,8 @@ function ColliderGeometry() {
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[1.05, 1.05, 1.8, 64, 1, true]} />
         <meshStandardMaterial
-          color="#5a189a"
-          emissive="#7c5cbf"
+          color="#8b6fb0"
+          emissive="#b0a3d1"
           emissiveIntensity={0.6}
           metalness={0.6}
           roughness={0.4}
@@ -152,8 +187,8 @@ function ColliderGeometry() {
         <mesh key={i} position={[0, 0, z]}>
           <ringGeometry args={[0.15, 1.0, 64]} />
           <meshStandardMaterial
-            color="#9b8ea8"
-            emissive="#9b8ea8"
+            color="#b0a3d1"
+            emissive="#b0a3d1"
             emissiveIntensity={2.6}
             transparent
             opacity={0.65}
@@ -174,8 +209,8 @@ function ColliderGeometry() {
           >
             <boxGeometry args={[0.06, 0.5, 0.06]} />
             <meshStandardMaterial
-              color="#3a0ca3"
-              emissive="#4361ee"
+              color="#6f5b9e"
+              emissive="#8bd0d5"
               emissiveIntensity={0.4}
               metalness={0.7}
               roughness={0.3}
@@ -202,12 +237,12 @@ function EnergyCore() {
     <>
       <mesh ref={ref}>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshBasicMaterial color="#fff2c8" transparent opacity={0.98} toneMapped={false} />
+        <meshBasicMaterial color="#fffce0" transparent opacity={0.98} toneMapped={false} />
       </mesh>
       {/* outer halo */}
       <mesh scale={1.4}>
         <sphereGeometry args={[0.85, 24, 24]} />
-        <meshBasicMaterial color="#9b8ea8" transparent opacity={0.22} toneMapped={false} />
+        <meshBasicMaterial color="#b0a3d1" transparent opacity={0.22} toneMapped={false} />
       </mesh>
     </>
   );
@@ -230,10 +265,10 @@ function ParticleBurst({ count }: { count: number }) {
     const lives = new Float32Array(count);
     const lifespans = new Float32Array(count);
 
-    const cChina = new THREE.Color("#c4796e");
-    const cPoland = new THREE.Color("#7ea8a4");
-    const cWarm = new THREE.Color("#ffe6a8");
-    const cFaint = new THREE.Color("#9b8ea8");
+    const cChina = new THREE.Color("#e88db2");
+    const cPoland = new THREE.Color("#8bd0d5");
+    const cWarm = new THREE.Color("#ffe38b");
+    const cFaint = new THREE.Color("#b0a3d1");
 
     for (let i = 0; i < count; i++) {
       // random direction on a sphere
@@ -341,12 +376,12 @@ function BeamLines() {
     <>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.025, 0.025, 6, 16]} />
-        <meshBasicMaterial color="#c4796e" transparent opacity={0.7} toneMapped={false} />
+        <meshBasicMaterial color="#e88db2" transparent opacity={0.7} toneMapped={false} />
       </mesh>
       {[-3, 3].map((z) => (
         <mesh key={z} position={[0, 0, z]}>
           <sphereGeometry args={[0.07, 12, 12]} />
-          <meshBasicMaterial color="#fff2c8" toneMapped={false} />
+          <meshBasicMaterial color="#fffce0" toneMapped={false} />
         </mesh>
       ))}
     </>
@@ -459,7 +494,7 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
             wordBreak: "keep-all",
           }}
         >
-          <span style={{ color: "#ffe6a8" }}>
+          <span style={{ color: "#ffe38b" }}>
             {stats ? `${(stats.aggregate.share_big_papers * 100).toFixed(1)}%` : "—"}
           </span>{" "}
           的论文,<br />
@@ -527,10 +562,10 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
               lineHeight: 1.8,
             }}
           >
-            <span style={{ color: "#8fb8b0" }}>■</span> 1-9 作者&nbsp;&nbsp;
-            <span style={{ color: "#7ea8a4" }}>■</span> 10-49&nbsp;&nbsp;
-            <span style={{ color: "#c9a87c" }}>■</span> 50-99&nbsp;&nbsp;
-            <span style={{ color: "#9b8ea8" }}>■</span> 100+ (大科学)
+            <span style={{ color: "#aadd88" }}>■</span> 1-9 作者&nbsp;&nbsp;
+            <span style={{ color: "#8bd0d5" }}>■</span> 10-49&nbsp;&nbsp;
+            <span style={{ color: "#ffe38b" }}>■</span> 50-99&nbsp;&nbsp;
+            <span style={{ color: "#b0a3d1" }}>■</span> 100+ (大科学)
           </div>
         </div>
       )}
@@ -631,10 +666,10 @@ function Overlay({ data: _data, active }: { data: AppData; active: boolean }) {
 
 const BAND_ORDER = ["1-9", "10-49", "50-99", "100-499"] as const;
 const BAND_COLORS: Record<string, string> = {
-  "1-9": "#8fb8b0",
-  "10-49": "#7ea8a4",
-  "50-99": "#c9a87c",
-  "100-499": "#9b8ea8",
+  "1-9": "#aadd88",
+  "10-49": "#8bd0d5",
+  "50-99": "#ffe38b",
+  "100-499": "#b0a3d1",
 };
 
 function bandShares(record: Record<string, number>): Array<{ key: string; share: number }> {
@@ -695,7 +730,7 @@ function DisproportionRow({
           background: "rgba(255,255,255,0.04)",
           borderRadius: 2,
           overflow: "hidden",
-          boxShadow: emphasize ? "0 0 18px rgba(155, 142, 168, 0.25)" : "none",
+          boxShadow: emphasize ? "0 0 18px rgba(176, 163, 209, 0.25)" : "none",
         }}
       >
         {bands.map((b) => (

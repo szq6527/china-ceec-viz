@@ -77,15 +77,15 @@ export function Scene2HeatMap({ data, cursorCounts, currentYear, max: _max }: Pr
     return fc.features;
   }, [topo]);
 
-  // Continuous heat spectrum: dark teal (0) → cyan → gold → coral → hot red (1500+)
-  // Low end deliberately uses a visible dark-blue hue so small countries don't sink
-  // into the black background.
+  // Continuous macaron heat spectrum: 天空蓝 (0) → 薄荷绿 → 柠檬黄 → 樱花粉 → 蜜桃粉 (1500+)
+  // Cool pastel low end stays visible against the deep plum stage; the warm peach-pink
+  // high end carries the emphasis.
   const ANCHORS: [number, [number, number, number]][] = [
-    [0.00, [8,   76,  106]], // deep teal — visible against black
-    [0.20, [20,  145, 165]], // cyan
-    [0.45, [201, 168, 124]],  // gold (var(--accent-warn))
-    [0.70, [212, 160, 144]], // coral (var(--accent-cn-glow) at 50%)
-    [1.00, [196, 121, 110]],  // hot red
+    [0.00, [139, 208, 213]], // 天空蓝 — cool low end
+    [0.25, [170, 221, 136]], // 薄荷绿
+    [0.50, [255, 255, 153]], // 柠檬黄
+    [0.75, [255, 178, 193]], // 樱花粉
+    [1.00, [232, 141, 178]], // 蜜桃粉 — hot / emphasis high end
   ];
 
   const lerp = (a: number, b: number, f: number) => Math.round(a + (b - a) * f);

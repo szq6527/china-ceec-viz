@@ -173,16 +173,16 @@ export function SceneRcaTrajectory({ active }: Props) {
         padding: "40px 32px 36px",
         display: "flex",
         flexDirection: "column",
-        borderRight: "1px solid rgba(201,194,173,0.07)",
+        borderRight: "1px solid rgba(216,205,224,0.07)",
         zIndex: 10,
-        background: "linear-gradient(180deg, rgba(5,8,16,0.85) 0%, rgba(5,8,16,0.6) 100%)",
+        background: "linear-gradient(180deg, rgba(22,18,32,0.85) 0%, rgba(22,18,32,0.6) 100%)",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 14 }}>
           SCENE 05 · 增长之下
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 32, lineHeight: 1.2, margin: 0 }}>
           绝对量在增长，<br />
-          但<span style={{ color: "#d4a090" }}>聚焦度</span><br />
+          但<span style={{ color: "#ffb2c1" }}>聚焦度</span><br />
           正在衰退
         </h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 13, lineHeight: 1.7, color: "var(--ink-2)", marginTop: 18 }}>
@@ -194,7 +194,7 @@ export function SceneRcaTrajectory({ active }: Props) {
           悬停线条，查看各国十年轨迹详情。
         </p>
 
-        <div style={{ height: 1, background: "rgba(201,194,173,0.1)", margin: "22px 0" }} />
+        <div style={{ height: 1, background: "rgba(216,205,224,0.1)", margin: "22px 0" }} />
 
         {/* Key stats */}
         <div style={{
@@ -203,10 +203,10 @@ export function SceneRcaTrajectory({ active }: Props) {
           transition: "opacity 600ms, transform 600ms",
           display: "flex", flexDirection: "column", gap: 18,
         }}>
-          <StatBox value={`${fallingCount} / ${data.countries.length}`} label="国家的对华聚焦度低于 2011 年" color="#d4a090" />
-          <StatBox value={`${rising.length} 国`} label="逆势上升（多为从零起步的小国）" color="#8fb8b0" />
-          <StatBox value="LVA +1.30" label="涨幅最大 · 拉脱维亚（从边缘到核心）" color="#7ea8a4" />
-          <StatBox value="MKD −1.09" label="跌幅最大 · 北马其顿（从高峰回落）" color="#c9a87c" />
+          <StatBox value={`${fallingCount} / ${data.countries.length}`} label="国家的对华聚焦度低于 2011 年" color="#ffb2c1" />
+          <StatBox value={`${rising.length} 国`} label="逆势上升（多为从零起步的小国）" color="#aadd88" />
+          <StatBox value="LVA +1.30" label="涨幅最大 · 拉脱维亚（从边缘到核心）" color="#8bd0d5" />
+          <StatBox value="MKD −1.09" label="跌幅最大 · 北马其顿（从高峰回落）" color="#ffe38b" />
         </div>
 
         <div style={{ flex: 1 }} />
@@ -217,19 +217,19 @@ export function SceneRcaTrajectory({ active }: Props) {
           fontFamily: "var(--mono)", fontSize: 10,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-            <div style={{ width: 24, height: 2, background: "#8fb8b0", borderRadius: 1 }} />
+            <div style={{ width: 24, height: 2, background: "#aadd88", borderRadius: 1 }} />
             <span style={{ color: "var(--ink-2)" }}>对华聚焦度上升</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-            <div style={{ width: 24, height: 2, background: "#d4a090", borderRadius: 1 }} />
+            <div style={{ width: 24, height: 2, background: "#ffb2c1", borderRadius: 1 }} />
             <span style={{ color: "var(--ink-2)" }}>对华聚焦度下降</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-            <div style={{ width: 24, height: 1, background: "rgba(201,194,173,0.5)", borderRadius: 1, borderTop: "2px dashed rgba(201,194,173,0.5)" }} />
+            <div style={{ width: 24, height: 1, background: "rgba(216,205,224,0.5)", borderRadius: 1, borderTop: "2px dashed rgba(216,205,224,0.5)" }} />
             <span style={{ color: "var(--ink-2)" }}>CEEC 均值</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 1, background: "rgba(126,168,164,0.5)", borderTop: "2px dashed rgba(126,168,164,0.5)" }} />
+            <div style={{ width: 24, height: 1, background: "rgba(139,208,213,0.5)", borderTop: "2px dashed rgba(139,208,213,0.5)" }} />
             <span style={{ color: "var(--ink-2)" }}>RCA = 1 基准线</span>
           </div>
         </div>
@@ -249,10 +249,10 @@ export function SceneRcaTrajectory({ active }: Props) {
             <line
               x1={PAD_LEFT} x2={W - PAD_RIGHT}
               y1={yScale(v)} y2={yScale(v)}
-              stroke="rgba(201,194,173,0.06)" strokeWidth={1}
+              stroke="rgba(216,205,224,0.06)" strokeWidth={1}
             />
             <text x={PAD_LEFT - 10} y={yScale(v) + 4} textAnchor="end"
-              fill="rgba(201,194,173,0.3)" fontFamily="var(--mono)" fontSize={9}>
+              fill="rgba(216,205,224,0.3)" fontFamily="var(--mono)" fontSize={9}>
               {v.toFixed(1)}
             </text>
           </g>
@@ -262,10 +262,10 @@ export function SceneRcaTrajectory({ active }: Props) {
         <line
           x1={PAD_LEFT} x2={W - PAD_RIGHT}
           y1={yScale(1)} y2={yScale(1)}
-          stroke="rgba(126,168,164,0.35)" strokeWidth={1.5} strokeDasharray="6 4"
+          stroke="rgba(139,208,213,0.35)" strokeWidth={1.5} strokeDasharray="6 4"
         />
         <text x={W - PAD_RIGHT + 6} y={yScale(1) + 4}
-          fill="rgba(126,168,164,0.6)" fontFamily="var(--mono)" fontSize={10} fontWeight="600">
+          fill="rgba(139,208,213,0.6)" fontFamily="var(--mono)" fontSize={10} fontWeight="600">
           RCA=1
         </text>
 
@@ -275,10 +275,10 @@ export function SceneRcaTrajectory({ active }: Props) {
             <line
               x1={xScale(y)} x2={xScale(y)}
               y1={PAD_TOP} y2={PAD_TOP + PLOT_H + 8}
-              stroke="rgba(201,194,173,0.06)" strokeWidth={1}
+              stroke="rgba(216,205,224,0.06)" strokeWidth={1}
             />
             <text x={xScale(y)} y={PAD_TOP + PLOT_H + 22} textAnchor="middle"
-              fill="rgba(201,194,173,0.4)" fontFamily="var(--mono)" fontSize={10}>
+              fill="rgba(216,205,224,0.4)" fontFamily="var(--mono)" fontSize={10}>
               {y}
             </text>
           </g>
@@ -293,7 +293,7 @@ export function SceneRcaTrajectory({ active }: Props) {
           });
           return (
             <path d={d}
-              stroke="rgba(201,168,124,0.5)"
+              stroke="rgba(255,227,139,0.5)"
               strokeWidth={1.5} strokeDasharray="6 4"
               fill="none"
             />
@@ -305,7 +305,7 @@ export function SceneRcaTrajectory({ active }: Props) {
           .filter((c) => c.iso !== hovered)
           .map((country) => {
             const isRising = country.rca_trend === "increasing";
-            const color = isRising ? "#8fb8b0" : "#d4a090";
+            const color = isRising ? "#aadd88" : "#ffb2c1";
             const path = buildPath(country.yearly, drawProgress);
             const last = country.yearly[country.yearly.length - 1];
             const labelY = yScale(last.internal_rca);
@@ -346,7 +346,7 @@ export function SceneRcaTrajectory({ active }: Props) {
           const country = data.countries.find((c) => c.iso === hovered);
           if (!country) return null;
           const isRising = country.rca_trend === "increasing";
-          const color = isRising ? "#8fb8b0" : "#d4a090";
+          const color = isRising ? "#aadd88" : "#ffb2c1";
           const path = buildPath(country.yearly, drawProgress);
           const last = country.yearly[country.yearly.length - 1];
 
@@ -374,7 +374,7 @@ export function SceneRcaTrajectory({ active }: Props) {
 
         {/* Axis label */}
         <text x={PAD_LEFT - 40} y={PAD_TOP - 20} textAnchor="start"
-          fill="rgba(201,194,173,0.3)" fontFamily="var(--mono)" fontSize={9}
+          fill="rgba(216,205,224,0.3)" fontFamily="var(--mono)" fontSize={9}
           letterSpacing="0.18em">
           中国内部 RCA ↑
         </text>
@@ -397,7 +397,7 @@ export function SceneRcaTrajectory({ active }: Props) {
           borderRadius: 8,
           fontFamily: "var(--serif)", fontSize: 13, color: "var(--ink-1)", lineHeight: 1.5,
         }}>
-          <span style={{ color: "#d4a090", fontWeight: 700 }}>绝对量增长 ≠ 战略深化</span><br />
+          <span style={{ color: "#ffb2c1", fontWeight: 700 }}>绝对量增长 ≠ 战略深化</span><br />
           合作论文四年内翻倍，但大多数国家的对华聚焦度（RCA）却在下滑——<br />
           这说明，中欧合作的增长是大环境驱动的，而非政策性战略选择。
         </div>
@@ -435,7 +435,7 @@ function StatBox({ value, label, color }: { value: string; label: string; color:
 function RcaTooltip({ info }: { info: TooltipInfo }) {
   const { country, mouseX, mouseY } = info;
   const isRising = country.rca_trend === "increasing";
-  const color = isRising ? "#8fb8b0" : "#d4a090";
+  const color = isRising ? "#aadd88" : "#ffb2c1";
   const TW = 260, TH = 240;
   const left = Math.min(mouseX + 16, W - TW - 20);
   const top = Math.max(mouseY - TH - 12, 10);
@@ -450,7 +450,7 @@ function RcaTooltip({ info }: { info: TooltipInfo }) {
     }}>
       <style>{`@keyframes tooltipFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}`}</style>
       <div style={{
-        background: "rgba(6,5,18,0.97)",
+        background: "rgba(22,18,32,0.97)",
         border: `1px solid ${color}44`,
         borderRadius: 12,
         overflow: "hidden",

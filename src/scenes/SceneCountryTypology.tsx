@@ -159,15 +159,15 @@ export function SceneCountryTypology({ active }: Props) {
         position: "absolute", top: 0, left: 0, bottom: 0, width: SCATTER_L,
         padding: "40px 28px 36px",
         display: "flex", flexDirection: "column",
-        borderRight: "1px solid rgba(201,194,173,0.07)",
+        borderRight: "1px solid rgba(216,205,224,0.07)",
         zIndex: 10,
-        background: "rgba(5,8,16,0.85)",
+        background: "rgba(22,18,32,0.85)",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 14 }}>
           SCENE 10 · 类型视角
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 28, lineHeight: 1.2, margin: 0 }}>
-          同一时代，<br />走向<span style={{ color: "#7ea8a4" }}>四种</span><br />不同命运
+          同一时代，<br />走向<span style={{ color: "#8bd0d5" }}>四种</span><br />不同命运
         </h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 13, lineHeight: 1.65, color: "var(--ink-2)", marginTop: 16 }}>
           综合 EU6 合作强度（横轴）与中国内部 RCA（纵轴），
@@ -175,7 +175,7 @@ export function SceneCountryTypology({ active }: Props) {
           <strong style={{ color: "var(--ink-1)" }}> 点击国家圆点</strong>查看详细画像。
         </p>
 
-        <div style={{ height: 1, background: "rgba(201,194,173,0.08)", margin: "20px 0" }} />
+        <div style={{ height: 1, background: "rgba(216,205,224,0.08)", margin: "20px 0" }} />
 
         {/* Cluster legend cards */}
         <div style={{ display: "flex", flexDirection: "column", gap: 10, opacity: phase === "annotate" ? 1 : 0, transition: "opacity 600ms" }}>
@@ -226,9 +226,9 @@ export function SceneCountryTypology({ active }: Props) {
         {[0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5].map((v) => (
           <g key={v}>
             <line x1={SCATTER_L} x2={W - SCATTER_R} y1={yS(v)} y2={yS(v)}
-              stroke="rgba(201,194,173,0.05)" strokeWidth={1} />
+              stroke="rgba(216,205,224,0.05)" strokeWidth={1} />
             <text x={SCATTER_L - 8} y={yS(v) + 3} textAnchor="end"
-              fill="rgba(201,194,173,0.25)" fontFamily="var(--mono)" fontSize={9}>
+              fill="rgba(216,205,224,0.25)" fontFamily="var(--mono)" fontSize={9}>
               {v.toFixed(1)}
             </text>
           </g>
@@ -236,9 +236,9 @@ export function SceneCountryTypology({ active }: Props) {
         {[0.1, 0.2, 0.3, 0.4, 0.5, 0.6].map((v) => (
           <g key={v}>
             <line x1={xS(v)} x2={xS(v)} y1={SCATTER_T} y2={SCATTER_T + PLOT_H}
-              stroke="rgba(201,194,173,0.05)" strokeWidth={1} />
+              stroke="rgba(216,205,224,0.05)" strokeWidth={1} />
             <text x={xS(v)} y={SCATTER_T + PLOT_H + 18} textAnchor="middle"
-              fill="rgba(201,194,173,0.25)" fontFamily="var(--mono)" fontSize={9}>
+              fill="rgba(216,205,224,0.25)" fontFamily="var(--mono)" fontSize={9}>
               {(v * 100).toFixed(0)}%
             </text>
           </g>
@@ -246,29 +246,29 @@ export function SceneCountryTypology({ active }: Props) {
 
         {/* RCA=1 reference line */}
         <line x1={SCATTER_L} x2={W - SCATTER_R} y1={yS(1)} y2={yS(1)}
-          stroke="rgba(126,168,164,0.25)" strokeWidth={1.5} strokeDasharray="6 4" />
+          stroke="rgba(139,208,213,0.25)" strokeWidth={1.5} strokeDasharray="6 4" />
         <text x={W - SCATTER_R + 6} y={yS(1) + 4}
-          fill="rgba(126,168,164,0.45)" fontFamily="var(--mono)" fontSize={9}>RCA=1</text>
+          fill="rgba(139,208,213,0.45)" fontFamily="var(--mono)" fontSize={9}>RCA=1</text>
 
         {/* Average EU6 intensity line */}
         <line x1={xS(avgEu6)} x2={xS(avgEu6)} y1={SCATTER_T} y2={SCATTER_T + PLOT_H}
-          stroke="rgba(201,168,124,0.2)" strokeWidth={1.5} strokeDasharray="6 4" />
+          stroke="rgba(255,227,139,0.2)" strokeWidth={1.5} strokeDasharray="6 4" />
         <text x={xS(avgEu6)} y={SCATTER_T - 10} textAnchor="middle"
-          fill="rgba(201,168,124,0.4)" fontFamily="var(--mono)" fontSize={9}>CEEC均值 EU6</text>
+          fill="rgba(255,227,139,0.4)" fontFamily="var(--mono)" fontSize={9}>CEEC均值 EU6</text>
 
         {/* Quadrant labels */}
         {phase === "annotate" && (
           <>
             <text x={xS(0.5)} y={yS(3.1)} textAnchor="middle"
-              fill="rgba(126,168,164,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
+              fill="rgba(139,208,213,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
               双超连接
             </text>
             <text x={xS(0.18)} y={yS(0.45)} textAnchor="middle"
-              fill="rgba(201,168,124,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
+              fill="rgba(255,227,139,0.18)" fontFamily="var(--serif)" fontSize={22} fontWeight="900">
               自给自足
             </text>
             <text x={xS(0.51)} y={yS(0.45)} textAnchor="middle"
-              fill="rgba(201,194,173,0.12)" fontFamily="var(--serif)" fontSize={18} fontWeight="900">
+              fill="rgba(216,205,224,0.12)" fontFamily="var(--serif)" fontSize={18} fontWeight="900">
               高强度合作
             </text>
           </>
@@ -276,11 +276,11 @@ export function SceneCountryTypology({ active }: Props) {
 
         {/* Axis labels */}
         <text x={SCATTER_L + PLOT_W / 2} y={SCATTER_T + PLOT_H + 40} textAnchor="middle"
-          fill="rgba(201,194,173,0.3)" fontFamily="var(--mono)" fontSize={10} letterSpacing="0.16em">
+          fill="rgba(216,205,224,0.3)" fontFamily="var(--mono)" fontSize={10} letterSpacing="0.16em">
           EU6 合作强度 →
         </text>
         <text x={SCATTER_L - 46} y={SCATTER_T + PLOT_H / 2} textAnchor="middle"
-          fill="rgba(201,194,173,0.3)" fontFamily="var(--mono)" fontSize={10} letterSpacing="0.16em"
+          fill="rgba(216,205,224,0.3)" fontFamily="var(--mono)" fontSize={10} letterSpacing="0.16em"
           transform={`rotate(-90, ${SCATTER_L - 46}, ${SCATTER_T + PLOT_H / 2})`}>
           中国内部 RCA ↑
         </text>
@@ -389,7 +389,7 @@ function DetailCard({
     }}>
       <style>{`@keyframes cardIn{from{opacity:0;transform:translateY(calc(-50% + 10px))}to{opacity:1;transform:translateY(-50%)}}`}</style>
       <div style={{
-        background: "rgba(6,5,18,0.98)",
+        background: "rgba(22,18,32,0.98)",
         border: `1px solid ${cluster.color}44`,
         borderRadius: 14,
         overflow: "hidden",
@@ -424,7 +424,7 @@ function DetailCard({
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
             <MiniCard label="China 内部RCA" value={country.china_internal_rca.toFixed(2)} color={cluster.color} />
             <MiniCard label="EU6 强度" value={`${(country.eu6_intensity * 100).toFixed(0)}%`} color={cluster.color} />
-            <MiniCard label="RCA 趋势" value={isRising ? "↑ 上升" : "↓ 下降"} color={isRising ? "#8fb8b0" : "#d4a090"} />
+            <MiniCard label="RCA 趋势" value={isRising ? "↑ 上升" : "↓ 下降"} color={isRising ? "#aadd88" : "#ffb2c1"} />
             <MiniCard label="全球合作排名" value={`#${country.china_portfolio_rank}`} color="var(--ink-1)" />
           </div>
 

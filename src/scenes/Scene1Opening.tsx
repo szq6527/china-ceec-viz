@@ -215,7 +215,7 @@ function Leaderboard({ data }: { data: AppData }) {
                 style={{
                   position: "relative",
                   height: 3,
-                  background: "rgba(76, 201, 240, 0.1)",
+                  background: "rgba(139, 208, 213, 0.1)",
                   borderRadius: 2,
                   overflow: "hidden",
                 }}

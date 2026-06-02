@@ -28,12 +28,12 @@ const NUC_CODES = new Set(["0827"]);          // Nuclear Science (treat as physi
 type Bucket = "physics" | "medicine" | "materials" | "biology" | "chemistry" | "other";
 
 const BUCKET_COLOR: Record<Bucket, string> = {
-  physics: "#9b8ea8",
-  medicine: "#d4a090",
-  materials: "#c9a87c",
-  biology: "#7ea8a4",
-  chemistry: "#8fb8b0",
-  other: "rgba(201,194,173,0.18)",
+  physics: "#b0a3d1",
+  medicine: "#ffb2c1",
+  materials: "#ffe38b",
+  biology: "#8bd0d5",
+  chemistry: "#aadd88",
+  other: "rgba(216,205,224,0.18)",
 };
 
 const BUCKET_LABEL: Record<Bucket, string> = {
@@ -171,21 +171,21 @@ export function Scene6RealBilateral({ data, active }: Props) {
           padding: "14px 20px",
           borderRadius: 8,
           border: stripped
-            ? "1px solid rgba(201,168,124,0.35)"
-            : "1px solid rgba(201,194,173,0.12)",
+            ? "1px solid rgba(255,227,139,0.35)"
+            : "1px solid rgba(216,205,224,0.12)",
           background: stripped
-            ? "rgba(201,168,124,0.06)"
+            ? "rgba(255,227,139,0.06)"
             : "rgba(255,255,255,0.03)",
           transition: "all 400ms ease",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLDivElement).style.background = stripped
-            ? "rgba(201,168,124,0.12)"
+            ? "rgba(255,227,139,0.12)"
             : "rgba(255,255,255,0.07)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLDivElement).style.background = stripped
-            ? "rgba(201,168,124,0.06)"
+            ? "rgba(255,227,139,0.06)"
             : "rgba(255,255,255,0.03)";
         }}
       >
@@ -347,7 +347,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
           pointerEvents: "none",
           paddingTop: 18,
           background:
-            "linear-gradient(to bottom, rgba(5,8,16,0), rgba(5,8,16,0.9) 38%, var(--bg-0))",
+            "linear-gradient(to bottom, rgba(22,18,32,0), rgba(22,18,32,0.9) 38%, var(--bg-0))",
         }}
       >
         <Insight
@@ -360,7 +360,7 @@ export function Scene6RealBilateral({ data, active }: Props) {
           label="最多元化"
           name={mostDiverse.name}
           value={`${(mostDiverse.physicsShare * 100).toFixed(0)}%`}
-          tint="#8fb8b0"
+          tint="#aadd88"
         />
         <Insight
           label={`${rows.length} 国(有学科数据)· 物理 + 天文均值`}

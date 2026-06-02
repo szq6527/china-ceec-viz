@@ -2,6 +2,13 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import * as d3 from "d3";
 import { geoEquirectangular, geoPath, geoInterpolate } from "d3-geo";
 import { feature as topojsonFeature } from "topojson-client";
+import {
+  sankey as d3Sankey,
+  sankeyLinkHorizontal,
+  sankeyJustify,
+  type SankeyNode as D3SankeyNode,
+  type SankeyLink as D3SankeyLink,
+} from "d3-sankey";
 
 /* ============================================================
  * Data types (matches institution_network.json)
@@ -128,8 +135,34 @@ interface MapTooltip {
   subtitle: string;          // "7 所机构" or "首都 · 32 所机构"
   topInstitutions: string[]; // top institution names (CN cities) or empty (CEEC)
   topPartners: { name: string; weight: number }[]; // top 3 collaboration partners
+  topFields: { name: string; weight: number }[];   // top collaboration fields (中文)
   weight_125: number;
   weight_135: number;
+}
+
+/* ============================================================
+ * Sankey view types
+ * ============================================================ */
+interface SankeyDatum {
+  nodeId: string;          // unique id e.g. "cn:<openalexId>" | "field:Physics" | "country:PL"
+  kind: "cn" | "field" | "country";
+  label: string;           // display label (中文)
+  color: string;
+  raw?: string;            // extra detail (e.g. iso / english field)
+}
+
+interface SankeyLinkDatum {
+  source: string;
+  target: string;
+  value: number;
+}
+
+interface SankeyTooltip {
+  title: string;
+  subtitle: string;
+  value: number;
+  color: string;
+  lines?: string[];
 }
 
 /* ============================================================
@@ -143,10 +176,10 @@ const PHYSICS_CONCEPTS = new Set([
 ]);
 
 const CEEC_COLORS: Record<string, string> = {
-  PL: "#c9a87c", CZ: "#8fb8b0", GR: "#7ea8a4", HU: "#b8a0b8",
-  RO: "#d4a090", RS: "#c4796e", BG: "#a3c4bf", SK: "#c9a87c",
-  HR: "#8fb8b0", SI: "#7ea8a4", EE: "#b8a0b8", LV: "#d4a090",
-  LT: "#c9a87c", AL: "#8fb8b0", ME: "#7ea8a4", MK: "#b8a0b8",
+  PL: "#ffe38b", CZ: "#aadd88", GR: "#8bd0d5", HU: "#c8a2c8",
+  RO: "#ffb2c1", RS: "#e88db2", BG: "#b3e6ea", SK: "#ffe38b",
+  HR: "#aadd88", SI: "#8bd0d5", EE: "#c8a2c8", LV: "#ffb2c1",
+  LT: "#ffe38b", AL: "#aadd88", ME: "#8bd0d5", MK: "#c8a2c8",
 };
 
 const INST_TYPE_SHORT: Record<string, string> = {
@@ -160,6 +193,35 @@ const COUNTRY_CN: Record<string, string> = {
   HR: "克罗地亚", SI: "斯洛文尼亚", EE: "爱沙尼亚", LV: "拉脱维亚",
   LT: "立陶宛", AL: "阿尔巴尼亚", ME: "黑山", MK: "北马其顿",
 };
+
+/* ---- Field (collaboration concept) English → Chinese ---- */
+const FIELD_CN: Record<string, string> = {
+  "Medicine": "医学", "Biology": "生物学", "Materials science": "材料科学",
+  "Chemistry": "化学", "Computer science": "计算机科学", "Physics": "物理学",
+  "Internal medicine": "内科学", "Environmental science": "环境科学",
+  "Genetics": "遗传学", "Ecology": "生态学", "Nanotechnology": "纳米技术",
+  "Geography": "地理学", "Psychology": "心理学", "Gene": "基因",
+  "Organic chemistry": "有机化学", "Mathematics": "数学",
+  "Intensive care medicine": "重症医学", "Geology": "地质学",
+  "Catalysis": "催化", "Engineering": "工程学", "Artificial intelligence": "人工智能",
+  "Astrophysics": "天体物理", "Chemical engineering": "化学工程", "Botany": "植物学",
+  "Astronomy": "天文学", "Nuclear physics": "核物理", "Particle physics": "粒子物理",
+  "High energy physics": "高能物理", "Quantum mechanics": "量子力学",
+  "Biochemistry": "生物化学", "Pathology": "病理学", "Surgery": "外科学",
+  "Immunology": "免疫学", "Optics": "光学", "Cancer research": "癌症研究",
+  "Condensed matter physics": "凝聚态物理", "Microbiology": "微生物学",
+  "Neuroscience": "神经科学", "Statistics": "统计学", "Economics": "经济学",
+  "Other": "其他",
+};
+function toFieldCn(name: string): string {
+  return FIELD_CN[name] || name;
+}
+
+/* ---- Distinct macaron colors for field nodes (cycled by rank) ---- */
+const FIELD_PALETTE = [
+  "#e88db2", "#8bd0d5", "#ffe38b", "#aadd88", "#c8a2c8",
+  "#ffb2c1", "#b3e6ea", "#ffff99", "#b0a3d1", "#ff9e9e",
+];
 
 /* ---- CEEC capital coordinates ---- */
 const CEEC_COORDS: Record<string, { name_cn: string; lat: number; lon: number }> = {
@@ -324,6 +386,19 @@ function toCnName(enName: string): string {
   return CN_INST_CN[enName] || enName;
 }
 
+/** 增长率文案 (135 vs 125). */
+function growthInfo(w125: number, w135: number): { text: string; color: string } {
+  if (w125 <= 0) {
+    return w135 > 0
+      ? { text: "新增", color: "var(--accent-cn-glow)" }
+      : { text: "—", color: "var(--ink-2)" };
+  }
+  const pct = Math.round(((w135 - w125) / w125) * 100);
+  if (pct > 0) return { text: `+${pct}%`, color: "#aadd88" };
+  if (pct < 0) return { text: `${pct}%`, color: "var(--accent-cn-glow)" };
+  return { text: "持平", color: "var(--ink-2)" };
+}
+
 function applyBeijingOffset(index: number, total: number): { lat: number; lon: number } {
   const BEIJING_LAT = 39.9042;
   const BEIJING_LON = 116.4074;
@@ -377,8 +452,10 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     hoveredNodeRef.current = n;
     _setHoveredNode(n);
   }, []);
-  const [viewMode, setViewMode] = useState<"network" | "map">("network");
+  const [viewMode, setViewMode] = useState<"network" | "map" | "sankey">("network");
   const [topoFeatures, setTopoFeatures] = useState<any[] | null>(null);
+  const [sankeyTooltip, setSankeyTooltip] = useState<SankeyTooltip | null>(null);
+  const [sankeyHoverKey, setSankeyHoverKey] = useState<string | null>(null);
   const [mapTooltip, _setMapTooltip] = useState<MapTooltip | null>(null);
   const setMapTooltip = useCallback((t: MapTooltip | null) => {
     mapTooltipRef.current = t;
@@ -706,6 +783,303 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     return { cnNodes, ceecNodes, edges: mapEdges };
   }, [data]);
 
+  /* ============================================================
+   * Per-node hover aggregation (network view) — top partners + top fields
+   * Recomputed only when data / period / filterPhysics change.
+   * ============================================================ */
+  const nodeAgg = useMemo(() => {
+    const agg = new Map<string, {
+      partners: { name: string; side: "cn" | "ceec"; ceec_country: string | null; weight: number }[];
+      fields: { name: string; weight: number }[];
+    }>();
+    if (!data) return agg;
+
+    const idToNode = new Map(data.nodes.map((n) => [n.id, n]));
+    const partnerTally = new Map<string, Map<string, number>>(); // nodeId → (partnerId → weight)
+    const fieldTally = new Map<string, Map<string, number>>();    // nodeId → (field → weight)
+
+    const bump = (m: Map<string, Map<string, number>>, key: string, sub: string, w: number) => {
+      let inner = m.get(key);
+      if (!inner) { inner = new Map(); m.set(key, inner); }
+      inner.set(sub, (inner.get(sub) ?? 0) + w);
+    };
+
+    for (const e of data.edges) {
+      const w = period === "125" ? e.weight_125 : e.weight_135;
+      if (w <= 0) continue;
+      const physCount = e.top_concepts.filter((c) => PHYSICS_CONCEPTS.has(c)).length;
+      const isPhysics = physCount >= e.top_concepts.length * 0.5 && physCount > 0;
+      if (filterPhysics && isPhysics) continue;
+
+      bump(partnerTally, e.source, e.target, w);
+      bump(partnerTally, e.target, e.source, w);
+
+      const concepts = filterPhysics
+        ? e.top_concepts.filter((c) => !PHYSICS_CONCEPTS.has(c))
+        : e.top_concepts;
+      for (const c of concepts) {
+        bump(fieldTally, e.source, c, w);
+        bump(fieldTally, e.target, c, w);
+      }
+    }
+
+    const allIds = new Set<string>([...partnerTally.keys(), ...fieldTally.keys()]);
+    for (const id of allIds) {
+      const partners = Array.from(partnerTally.get(id)?.entries() ?? [])
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([pid, weight]) => {
+          const pn = idToNode.get(pid);
+          return {
+            name: pn ? (pn.side === "cn" ? toCnName(pn.name) : pn.name) : pid,
+            side: (pn?.side ?? "ceec") as "cn" | "ceec",
+            ceec_country: pn?.ceec_country ?? null,
+            weight,
+          };
+        });
+      const fields = Array.from(fieldTally.get(id)?.entries() ?? [])
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([name, weight]) => ({ name: toFieldCn(name), weight }));
+      agg.set(id, { partners, fields });
+    }
+    return agg;
+  }, [data, period, filterPhysics]);
+
+  /* ============================================================
+   * Per-city / per-country FIELD aggregation (map tooltip enrichment)
+   * Stored in a ref so D3 hover handlers can read the latest value.
+   * ============================================================ */
+  const mapHoverAgg = useMemo(() => {
+    const cnCityFields = new Map<string, { name: string; weight: number }[]>();
+    const ceecFields = new Map<string, { name: string; weight: number }[]>();
+    if (!data) return { cnCityFields, ceecFields };
+
+    const cnIdToCity = new Map<string, string>();
+    for (const n of data.nodes) {
+      if (n.side === "cn" && CN_COORD_LOOKUP[n.name]) cnIdToCity.set(n.id, CN_COORD_LOOKUP[n.name].city);
+    }
+    const ceecIdToCountry = new Map<string, string>();
+    for (const n of data.nodes) {
+      if (n.side === "ceec" && n.ceec_country) ceecIdToCountry.set(n.id, n.ceec_country);
+    }
+
+    const cityTally = new Map<string, Map<string, number>>();
+    const isoTally = new Map<string, Map<string, number>>();
+    const bump = (m: Map<string, Map<string, number>>, key: string, sub: string, w: number) => {
+      let inner = m.get(key);
+      if (!inner) { inner = new Map(); m.set(key, inner); }
+      inner.set(sub, (inner.get(sub) ?? 0) + w);
+    };
+
+    for (const e of data.edges) {
+      let cnId: string, ceecId: string;
+      if (cnIdToCity.has(e.source) && ceecIdToCountry.has(e.target)) { cnId = e.source; ceecId = e.target; }
+      else if (cnIdToCity.has(e.target) && ceecIdToCountry.has(e.source)) { cnId = e.target; ceecId = e.source; }
+      else continue;
+
+      const w = period === "125" ? e.weight_125 : e.weight_135;
+      if (w <= 0) continue;
+      const physCount = e.top_concepts.filter((c) => PHYSICS_CONCEPTS.has(c)).length;
+      const isPhysics = physCount >= e.top_concepts.length * 0.5 && physCount > 0;
+      if (filterPhysics && isPhysics) continue;
+
+      const concepts = filterPhysics
+        ? e.top_concepts.filter((c) => !PHYSICS_CONCEPTS.has(c))
+        : e.top_concepts;
+      const city = cnIdToCity.get(cnId)!;
+      const iso = ceecIdToCountry.get(ceecId)!;
+      for (const c of concepts) {
+        bump(cityTally, city, c, w);
+        bump(isoTally, iso, c, w);
+      }
+    }
+
+    const top5 = (inner?: Map<string, number>) =>
+      Array.from(inner?.entries() ?? [])
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([name, weight]) => ({ name: toFieldCn(name), weight }));
+    for (const [city, inner] of cityTally) cnCityFields.set(city, top5(inner));
+    for (const [iso, inner] of isoTally) ceecFields.set(iso, top5(inner));
+    return { cnCityFields, ceecFields };
+  }, [data, period, filterPhysics]);
+  const mapHoverAggRef = useRef(mapHoverAgg);
+  mapHoverAggRef.current = mapHoverAgg;
+
+  /* ============================================================
+   * Sankey data: CN institutions → collaboration fields → CEEC countries
+   *
+   * Semantics:
+   *   • LEFT  = top 8 CN institutions (by paper count for the period)
+   *   • MID   = top collaboration FIELDS (others grouped into 其他)
+   *   • RIGHT = CEEC countries (with meaningful flow)
+   *   • Each CN↔CEEC edge's period weight is split across its top_concepts
+   *     using a decreasing rank weighting (rank-1 gets most). The same split
+   *     feeds both the CN→field link and the field→country link, so the middle
+   *     column ties institutions to countries through fields.
+   *   • filterPhysics: physics-dominated edges are dropped (matching the
+   *     network/map views) AND physics concepts are removed from the split.
+   * ============================================================ */
+  const sankeyData = useMemo(() => {
+    if (!data) return null;
+    const TOP_CN = 8;
+    const TOP_FIELDS = 9;
+    const MAX_COUNTRIES = 12;
+
+    const pc = (n: NetworkNode) => (period === "125" ? n.paper_count_125 : n.paper_count_135);
+
+    // top CN institutions for the period
+    const cnNodes = data.nodes
+      .filter((n) => n.side === "cn" && pc(n) > 0)
+      .sort((a, b) => pc(b) - pc(a))
+      .slice(0, TOP_CN);
+    const cnIds = new Set(cnNodes.map((n) => n.id));
+
+    // ceec id → country iso
+    const ceecIdToCountry = new Map<string, string>();
+    for (const n of data.nodes) {
+      if (n.side === "ceec" && n.ceec_country) ceecIdToCountry.set(n.id, n.ceec_country);
+    }
+
+    // rank-based split weights (decreasing) for up to 5 concepts
+    const rankWeights = (k: number) => {
+      const base = Array.from({ length: k }, (_, i) => k - i); // e.g. [5,4,3,2,1]
+      const sum = base.reduce((a, b) => a + b, 0) || 1;
+      return base.map((v) => v / sum);
+    };
+
+    const cnFieldFlow = new Map<string, number>();   // `${cnId}|||${field}`
+    const fieldCountryFlow = new Map<string, number>(); // `${field}|||${iso}`
+    const fieldTotal = new Map<string, number>();
+    const countryTotal = new Map<string, number>();
+
+    for (const e of data.edges) {
+      // identify cn (must be a top CN node) + ceec endpoint
+      let cnId: string, ceecId: string;
+      if (cnIds.has(e.source) && ceecIdToCountry.has(e.target)) { cnId = e.source; ceecId = e.target; }
+      else if (cnIds.has(e.target) && ceecIdToCountry.has(e.source)) { cnId = e.target; ceecId = e.source; }
+      else continue;
+
+      const w = period === "125" ? e.weight_125 : e.weight_135;
+      if (w <= 0) continue;
+
+      const physCount = e.top_concepts.filter((c) => PHYSICS_CONCEPTS.has(c)).length;
+      const isPhysics = physCount >= e.top_concepts.length * 0.5 && physCount > 0;
+      if (filterPhysics && isPhysics) continue;
+
+      const concepts = (filterPhysics
+        ? e.top_concepts.filter((c) => !PHYSICS_CONCEPTS.has(c))
+        : e.top_concepts
+      ).slice(0, 5);
+      if (concepts.length === 0) continue;
+
+      const iso = ceecIdToCountry.get(ceecId)!;
+      const splits = rankWeights(concepts.length);
+      concepts.forEach((field, i) => {
+        const portion = w * splits[i];
+        cnFieldFlow.set(`${cnId}|||${field}`, (cnFieldFlow.get(`${cnId}|||${field}`) ?? 0) + portion);
+        fieldCountryFlow.set(`${field}|||${iso}`, (fieldCountryFlow.get(`${field}|||${iso}`) ?? 0) + portion);
+        fieldTotal.set(field, (fieldTotal.get(field) ?? 0) + portion);
+        countryTotal.set(iso, (countryTotal.get(iso) ?? 0) + portion);
+      });
+    }
+
+    if (fieldTotal.size === 0) return null;
+
+    // pick top fields, group the rest into Other
+    const sortedFields = Array.from(fieldTotal.entries()).sort((a, b) => b[1] - a[1]);
+    const keepFields = new Set(sortedFields.slice(0, TOP_FIELDS).map(([f]) => f));
+    const hasOther = sortedFields.length > TOP_FIELDS;
+    const fieldKey = (f: string) => (keepFields.has(f) ? f : "Other");
+
+    // pick countries with meaningful flow
+    const keepCountries = new Set(
+      Array.from(countryTotal.entries())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, MAX_COUNTRIES)
+        .filter(([, v]) => v > 0)
+        .map(([iso]) => iso),
+    );
+
+    // build node list
+    const nodes: SankeyDatum[] = [];
+    const nodeIndex = new Map<string, number>();
+    const addNode = (n: SankeyDatum) => {
+      if (nodeIndex.has(n.nodeId)) return;
+      nodeIndex.set(n.nodeId, nodes.length);
+      nodes.push(n);
+    };
+
+    cnNodes.forEach((n) => addNode({
+      nodeId: `cn:${n.id}`, kind: "cn", label: toCnName(n.name), color: "var(--accent-cn)", raw: n.name,
+    }));
+
+    const orderedFields = [...sortedFields.filter(([f]) => keepFields.has(f)).map(([f]) => f)];
+    if (hasOther) orderedFields.push("Other");
+    orderedFields.forEach((f, i) => addNode({
+      nodeId: `field:${f}`, kind: "field", label: toFieldCn(f),
+      color: FIELD_PALETTE[i % FIELD_PALETTE.length], raw: f,
+    }));
+
+    Array.from(keepCountries).forEach((iso) => addNode({
+      nodeId: `country:${iso}`, kind: "country", label: COUNTRY_CN[iso] ?? iso,
+      color: CEEC_COLORS[iso] ?? "var(--accent-eu)", raw: iso,
+    }));
+
+    // build links (collapse into kept-field buckets)
+    const cnFieldAgg = new Map<string, number>();
+    for (const [key, v] of cnFieldFlow) {
+      const [cnId, field] = key.split("|||");
+      const fk = fieldKey(field);
+      const k = `cn:${cnId}|||field:${fk}`;
+      cnFieldAgg.set(k, (cnFieldAgg.get(k) ?? 0) + v);
+    }
+    const fieldCountryAgg = new Map<string, number>();
+    for (const [key, v] of fieldCountryFlow) {
+      const [field, iso] = key.split("|||");
+      if (!keepCountries.has(iso)) continue;
+      const fk = fieldKey(field);
+      const k = `field:${fk}|||country:${iso}`;
+      fieldCountryAgg.set(k, (fieldCountryAgg.get(k) ?? 0) + v);
+    }
+
+    const links: SankeyLinkDatum[] = [];
+    for (const [key, v] of cnFieldAgg) {
+      const [source, target] = key.split("|||");
+      if (nodeIndex.has(source) && nodeIndex.has(target) && v > 0) links.push({ source, target, value: v });
+    }
+    for (const [key, v] of fieldCountryAgg) {
+      const [source, target] = key.split("|||");
+      if (nodeIndex.has(source) && nodeIndex.has(target) && v > 0) links.push({ source, target, value: v });
+    }
+
+    return { nodes, links };
+  }, [data, period, filterPhysics]);
+
+  /* ---- d3-sankey layout (positions) ---- */
+  const sankeyLayout = useMemo(() => {
+    if (!sankeyData || sankeyData.nodes.length === 0 || sankeyData.links.length === 0) return null;
+    const MX = 168;  // left/right margin for labels
+    const MTop = 64;
+    const MBot = 40;
+    type SN = D3SankeyNode<SankeyDatum, SankeyLinkDatum>;
+    type SL = D3SankeyLink<SankeyDatum, SankeyLinkDatum>;
+    const layout = d3Sankey<SankeyDatum, SankeyLinkDatum>()
+      .nodeId((d) => d.nodeId)
+      .nodeAlign(sankeyJustify)
+      .nodeWidth(16)
+      .nodePadding(14)
+      .extent([[MX, MTop], [W - MX, H - MBot]]);
+
+    // d3-sankey mutates the input — give it fresh clones
+    const graph = layout({
+      nodes: sankeyData.nodes.map((d) => ({ ...d })),
+      links: sankeyData.links.map((d) => ({ ...d })),
+    });
+    return graph as { nodes: SN[]; links: SL[] };
+  }, [sankeyData]);
+
   // ---- map projection + path generator ---------------------------------
   const MAP_PROJECTION = useMemo(
     () => geoEquirectangular()
@@ -819,7 +1193,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("y1", (d) => nodeMap.get(d.source)!.y)
       .attr("x2", (d) => nodeMap.get(d.target)!.x)
       .attr("y2", (d) => nodeMap.get(d.target)!.y)
-      .attr("stroke", "rgba(201,194,173,0.12)")
+      .attr("stroke", "rgba(216,205,224,0.12)")
       .attr("stroke-width", (d) => Math.max(0.3, Math.pow(d.total_weight, 0.55) * 0.28));
     edgeSelRef.current = edgeLines;
 
@@ -857,9 +1231,9 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           .attr("stroke", (ed) => {
             if (ed.source === d.id || ed.target === d.id) {
               neighborIds.add(ed.source === d.id ? ed.target : ed.source);
-              return "rgba(246,241,224,0.55)";
+              return "rgba(253,246,239,0.55)";
             }
-            return "rgba(201,194,173,0.04)";
+            return "rgba(216,205,224,0.04)";
           })
           .attr("stroke-width", (ed) => {
             if (ed.source === d.id || ed.target === d.id) return getEW(ed) * 1.6;
@@ -909,7 +1283,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("letter-spacing", "0.04em")
       .attr("opacity", (d) => (d.showLabel ? 0.95 : 0))
       .attr("paint-order", "stroke")
-      .attr("stroke", "#0a0d18")
+      .attr("stroke", "#161320")
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .text((d) => {
@@ -922,7 +1296,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     const decorGroup = g.append("g").attr("class", "decor").style("pointer-events", "none");
     decorGroup.append("line")
       .attr("x1", 0).attr("y1", -H * 0.42).attr("x2", 0).attr("y2", H * 0.42)
-      .attr("stroke", "rgba(201,194,173,0.08)").attr("stroke-width", 1).attr("stroke-dasharray", "4 8");
+      .attr("stroke", "rgba(216,205,224,0.08)").attr("stroke-width", 1).attr("stroke-dasharray", "4 8");
 
     // Side labels — inside the decor group so they don't block hover
     decorGroup.append("text")
@@ -1000,7 +1374,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     // Edges: opacity + dynamic width + reset stroke color (clears any prior highlight)
     // pointer-events stay "none" on the group — edges shouldn't block hover
     edgeSelRef.current
-      .attr("stroke", "rgba(201,194,173,0.12)")
+      .attr("stroke", "rgba(216,205,224,0.12)")
       .attr("opacity", (e) => isEdgeVisible(e) ? 1 : 0)
       .attr("stroke-width", (e) => isEdgeVisible(e) ? edgeW(e) : 0.15);
 
@@ -1052,7 +1426,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
     mapEdgeGlowSelRef.current
       ?.attr("opacity", (e) => isMapEdgeVisible(e) ? 0.5 : 0);
     mapEdgeSelRef.current
-      .attr("stroke", "rgba(201,194,173,0.16)")
+      .attr("stroke", "rgba(216,205,224,0.16)")
       .attr("opacity", (e) => isMapEdgeVisible(e) ? 0.5 : 0)
       .attr("stroke-width", (e) => {
         if (!isMapEdgeVisible(e)) return 0.08;
@@ -1132,16 +1506,16 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("fill", (f: any) => {
         const name = f.properties?.name ?? "";
         const iso3 = NAME_TO_ISO[name] ?? "";
-        if (iso3 === "CHN" || name === "China" || name === "Taiwan") return "rgba(196,121,110,0.14)";
-        if (ceecIsoSet.has(iso3)) return "rgba(126,168,164,0.12)";
-        return "rgba(201,194,173,0.03)";
+        if (iso3 === "CHN" || name === "China" || name === "Taiwan") return "rgba(232,141,178,0.14)";
+        if (ceecIsoSet.has(iso3)) return "rgba(139,208,213,0.12)";
+        return "rgba(216,205,224,0.03)";
       })
       .attr("stroke", (f: any) => {
         const name = f.properties?.name ?? "";
         const iso3 = NAME_TO_ISO[name] ?? "";
-        if (iso3 === "CHN" || name === "China" || name === "Taiwan") return "rgba(196,121,110,0.25)";
-        if (ceecIsoSet.has(iso3)) return "rgba(126,168,164,0.25)";
-        return "rgba(201,194,173,0.06)";
+        if (iso3 === "CHN" || name === "China" || name === "Taiwan") return "rgba(232,141,178,0.25)";
+        if (ceecIsoSet.has(iso3)) return "rgba(139,208,213,0.25)";
+        return "rgba(216,205,224,0.06)";
       })
       .attr("stroke-width", 0.5);
 
@@ -1182,7 +1556,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("class", "map-edge-glow")
       .attr("d", (d) => d.d)
       .attr("fill", "none")
-      .attr("stroke", "rgba(201,194,173,0.06)")
+      .attr("stroke", "rgba(216,205,224,0.06)")
       .attr("stroke-width", 2.5)
       .attr("filter", "url(#map-edge-blur)")
       .attr("stroke-linecap", "round");
@@ -1195,7 +1569,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
       .attr("class", "map-edge-core")
       .attr("d", (d) => d.d)
       .attr("fill", "none")
-      .attr("stroke", "rgba(201,194,173,0.16)")
+      .attr("stroke", "rgba(216,205,224,0.16)")
       .attr("stroke-width", 0.5)
       .attr("stroke-linecap", "round");
     mapEdgeSelRef.current = edgePaths as any;
@@ -1218,6 +1592,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         subtitle: `${cn.institutionCount} 所机构`,
         topInstitutions: cn.institutions.slice(0, 5),
         topPartners: ceecList,
+        topFields: mapHoverAggRef.current.cnCityFields.get(cn.city) ?? [],
         weight_125: cn.weight_125,
         weight_135: cn.weight_135,
       };
@@ -1241,6 +1616,7 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         subtitle: `首都 · ${ceec.institutionCount} 所机构`,
         topInstitutions: [],
         topPartners: cnList,
+        topFields: mapHoverAggRef.current.ceecFields.get(ceec.iso) ?? [],
         weight_125: ceec.weight_125,
         weight_135: ceec.weight_135,
       };
@@ -1268,8 +1644,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         // Core edges: highlight connected, hide others
         edgePaths
           .attr("stroke", (ed) => {
-            if (ed.cnCity === d.city) { neighborCeec.add(ed.ceecIso); return "rgba(246,241,224,0.5)"; }
-            return "rgba(201,194,173,0.16)";
+            if (ed.cnCity === d.city) { neighborCeec.add(ed.ceecIso); return "rgba(253,246,239,0.5)"; }
+            return "rgba(216,205,224,0.16)";
           })
           .attr("opacity", (ed) => ed.cnCity === d.city ? 0.6 : 0) // HOVER_HIGHLIGHT_OPACITY: main knob for hover edge brightness (0~1)
           .attr("stroke-width", (ed) => {
@@ -1310,8 +1686,8 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         // Core edges: highlight connected, hide others
         edgePaths
           .attr("stroke", (ed) => {
-            if (ed.ceecIso === d.iso) { neighborCn.add(ed.cnCity); return "rgba(246,241,224,0.5)"; }
-            return "rgba(201,194,173,0.16)";
+            if (ed.ceecIso === d.iso) { neighborCn.add(ed.cnCity); return "rgba(253,246,239,0.5)"; }
+            return "rgba(216,205,224,0.16)";
           })
           .attr("opacity", (ed) => ed.ceecIso === d.iso ? 0.6 : 0) // HOVER_HIGHLIGHT_OPACITY: main knob for hover edge brightness (0~1)
           .attr("stroke-width", (ed) => {
@@ -1418,6 +1794,9 @@ export function Scene3InstitutionNetwork({ active }: Props) {
   }, [period, filterPhysics, isEdgeVisible]);
 
   // ---- Render ---------------------------------------------------------
+  const hovAgg = hoveredNode ? nodeAgg.get(hoveredNode.id) : null;
+  const hovGrowth = hoveredNode ? growthInfo(hoveredNode.weight_125, hoveredNode.weight_135) : null;
+
   return (
     <div style={{ position: "absolute", inset: 0, background: "var(--bg-0)", overflow: "hidden" }}>
       {/* Network SVG */}
@@ -1432,8 +1811,133 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         ref={mapSvgRef}
         viewBox="0 0 1200 750"
         preserveAspectRatio="xMidYMid meet"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", cursor: "grab", display: viewMode === "map" ? "block" : "none", background: "#080d18" }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", cursor: "grab", display: viewMode === "map" ? "block" : "none", background: "#131019" }}
       />
+
+      {/* Sankey SVG */}
+      {viewMode === "sankey" && (
+        <svg
+          viewBox="0 0 1200 750"
+          preserveAspectRatio="xMidYMid meet"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
+        >
+          <defs>
+            {sankeyLayout?.links.map((l, i) => {
+              const s = l.source as D3SankeyNode<SankeyDatum, SankeyLinkDatum>;
+              const t = l.target as D3SankeyNode<SankeyDatum, SankeyLinkDatum>;
+              return (
+                <linearGradient key={i} id={`sankey-grad-${i}`} gradientUnits="userSpaceOnUse"
+                  x1={s.x1} x2={t.x0}>
+                  <stop offset="0%" stopColor={s.color} />
+                  <stop offset="100%" stopColor={t.color} />
+                </linearGradient>
+              );
+            })}
+          </defs>
+
+          {sankeyLayout && (() => {
+            const linkPath = sankeyLinkHorizontal<SankeyDatum, SankeyLinkDatum>();
+            const hov = sankeyHoverKey;
+            return (
+              <>
+                {/* column headers */}
+                <text x={168} y={42} fill="var(--accent-cn)" fontFamily="var(--serif)" fontSize={13} fontWeight={700} letterSpacing="0.06em" opacity={0.8} textAnchor="start">中国大陆机构</text>
+                <text x={W / 2} y={42} fill="var(--ink-1)" fontFamily="var(--serif)" fontSize={13} fontWeight={700} letterSpacing="0.06em" opacity={0.8} textAnchor="middle">合作领域</text>
+                <text x={W - 168} y={42} fill="var(--accent-eu)" fontFamily="var(--serif)" fontSize={13} fontWeight={700} letterSpacing="0.06em" opacity={0.8} textAnchor="end">中东欧国家</text>
+
+                {/* links */}
+                <g fill="none">
+                  {sankeyLayout.links.map((l, i) => {
+                    const s = l.source as D3SankeyNode<SankeyDatum, SankeyLinkDatum>;
+                    const t = l.target as D3SankeyNode<SankeyDatum, SankeyLinkDatum>;
+                    const key = `link:${s.nodeId}->${t.nodeId}`;
+                    const dimmed = hov !== null && hov !== key && hov !== `node:${s.nodeId}` && hov !== `node:${t.nodeId}`;
+                    return (
+                      <path
+                        key={i}
+                        d={linkPath(l) ?? undefined}
+                        stroke={`url(#sankey-grad-${i})`}
+                        strokeWidth={Math.max(1, l.width ?? 1)}
+                        strokeOpacity={dimmed ? 0.07 : (hov === key ? 0.78 : 0.34)}
+                        style={{ transition: "stroke-opacity 160ms ease", cursor: "pointer" }}
+                        onMouseEnter={() => {
+                          setSankeyHoverKey(key);
+                          setSankeyTooltip({
+                            title: `${s.label} → ${t.label}`,
+                            subtitle: s.kind === "cn" ? "机构 → 领域" : "领域 → 国家",
+                            value: Math.round(l.value as number),
+                            color: t.color,
+                          });
+                        }}
+                        onMouseLeave={() => { setSankeyHoverKey(null); setSankeyTooltip(null); }}
+                      />
+                    );
+                  })}
+                </g>
+
+                {/* nodes + labels */}
+                <g>
+                  {sankeyLayout.nodes.map((n, i) => {
+                    const x0 = n.x0 ?? 0, x1 = n.x1 ?? 0, y0 = n.y0 ?? 0, y1 = n.y1 ?? 0;
+                    const h = Math.max(1, y1 - y0);
+                    const key = `node:${n.nodeId}`;
+                    const dimmed = hov !== null && hov !== key && !(typeof hov === "string" && hov.includes(n.nodeId));
+                    const total = Math.round((n.value as number) ?? 0);
+                    const labelLeft = n.kind === "country";  // country labels go to the right; cn/field to left except field which we center-left
+                    return (
+                      <g key={i}
+                        style={{ cursor: "pointer" }}
+                        onMouseEnter={() => {
+                          setSankeyHoverKey(key);
+                          const sub = n.kind === "cn" ? "中国大陆机构" : n.kind === "field" ? "合作领域" : "中东欧国家";
+                          setSankeyTooltip({ title: n.label, subtitle: sub, value: total, color: n.color });
+                        }}
+                        onMouseLeave={() => { setSankeyHoverKey(null); setSankeyTooltip(null); }}
+                      >
+                        <rect
+                          x={x0} y={y0} width={Math.max(1, x1 - x0)} height={h}
+                          fill={n.color}
+                          fillOpacity={dimmed ? 0.28 : 0.95}
+                          rx={3}
+                          stroke="rgba(22,18,32,0.85)" strokeWidth={0.75}
+                          style={{ transition: "fill-opacity 160ms ease" }}
+                        />
+                        {h > 9 && (
+                          <text
+                            x={n.kind === "country" ? x1 + 8 : (n.kind === "cn" ? x0 - 8 : x1 + 8)}
+                            y={(y0 + y1) / 2}
+                            dy="0.32em"
+                            textAnchor={n.kind === "cn" ? "end" : "start"}
+                            fill="var(--ink-0)"
+                            fontFamily="var(--mono)"
+                            fontSize={n.kind === "field" ? 10.5 : 10}
+                            opacity={dimmed ? 0.3 : 0.96}
+                            paintOrder="stroke"
+                            stroke="#161320"
+                            strokeWidth={3}
+                            strokeLinejoin="round"
+                            style={{ transition: "opacity 160ms ease" }}
+                          >
+                            {n.label}
+                            <tspan fill="var(--ink-2)" fontSize={8.5}>{`  ${total}`}</tspan>
+                          </text>
+                        )}
+                      </g>
+                    );
+                  })}
+                </g>
+              </>
+            );
+          })()}
+        </svg>
+      )}
+
+      {/* Sankey empty-state */}
+      {viewMode === "sankey" && !sankeyLayout && (
+        <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", color: "var(--ink-2)", fontFamily: "var(--mono)", fontSize: 12, letterSpacing: "0.2em" }}>
+          {filterPhysics ? "剥离物理后该时段流量过少 · 试试关闭过滤" : "数据加载中 ·  ·  ·"}
+        </div>
+      )}
 
       {/* Top‑left: header */}
       <div style={{ position: "absolute", top: 28, left: 36, zIndex: 2, pointerEvents: "none" }}>
@@ -1448,154 +1952,254 @@ export function Scene3InstitutionNetwork({ active }: Props) {
 
       {/* Side labels removed — integrated into SVG via D3 render so they zoom/pan with the network */}
 
-      {/* Hover tooltip (network view) */}
-      {/* Network hover tooltip */}
-      {viewMode === "network" && hoveredNode && (
-        <div style={{ position: "absolute", right: 36, top: 28, zIndex: 4, maxWidth: 280, background: "rgba(10,15,28,0.94)", border: "1px solid rgba(201,194,173,0.15)", borderRadius: 6, padding: "14px 18px", pointerEvents: "none" }}>
-          <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.16em", textTransform: "uppercase", color: hoveredNode.side === "cn" ? "var(--accent-cn)" : "var(--accent-eu)", marginBottom: 4 }}>
-            {hoveredNode.side === "cn" ? "中国大陆" : COUNTRY_CN[hoveredNode.ceec_country || ""] || hoveredNode.country}
-            {" · "}{INST_TYPE_SHORT[hoveredNode.type] || hoveredNode.type}
-          </div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: "var(--ink-0)", lineHeight: 1.3, marginBottom: 6 }}>
-            {hoveredNode.side === "cn" ? toCnName(hoveredNode.name) : hoveredNode.name}
-          </div>
-          <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ink-2)", lineHeight: 1.5 }}>
-            <span>2011–2015: {hoveredNode.weight_125} 篇</span>
-            <span style={{ marginLeft: 12 }}>2016–2020: {hoveredNode.weight_135} 篇</span>
-          </div>
-        </div>
-      )}
-
-      {/* Map hover tooltip */}
-      {viewMode === "map" && mapTooltip && (
-        <div style={{ position: "absolute", right: 36, top: 28, zIndex: 4, maxWidth: 300, background: "rgba(10,15,28,0.95)", border: "1px solid rgba(201,194,173,0.15)", borderRadius: 6, padding: "14px 18px", pointerEvents: "none" }}>
-          <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 4 }}>
-            {mapTooltip.subtitle}
-          </div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: "var(--ink-0)", lineHeight: 1.2, marginBottom: 8 }}>
-            {mapTooltip.label}
-          </div>
-          {mapTooltip.topInstitutions.length > 0 && (
-            <div style={{ marginBottom: 8 }}>
-              <div style={{ fontFamily: "var(--mono)", fontSize: 8, color: "var(--ink-2)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 3 }}>
-                主要机构
+      {/* Network hover tooltip — prominent enriched card */}
+      {viewMode === "network" && hoveredNode && (() => {
+        const accent = hoveredNode.side === "cn" ? "var(--accent-cn)" : (CEEC_COLORS[hoveredNode.ceec_country || ""] || "var(--accent-eu)");
+        const accentGlow = hoveredNode.side === "cn" ? "var(--accent-cn-glow)" : "var(--accent-eu-glow)";
+        const maxField = Math.max(1, ...(hovAgg?.fields.map((f) => f.weight) ?? [1]));
+        return (
+          <div style={{
+            position: "absolute", right: 36, top: "50%", transform: "translateY(-50%)",
+            zIndex: 6, width: 320, background: "rgba(22,18,32,0.94)",
+            border: `1.5px solid ${accent}`, borderRadius: 16,
+            boxShadow: `0 0 0 1px rgba(22,18,32,0.6), 0 18px 50px rgba(0,0,0,0.5), 0 0 36px ${accentGlow}33`,
+            backdropFilter: "blur(10px)", padding: "20px 22px", pointerEvents: "none",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <span style={{ width: 9, height: 9, borderRadius: 999, background: accent, boxShadow: `0 0 10px ${accent}` }} />
+              <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: accent }}>
+                {hoveredNode.side === "cn" ? "中国大陆" : COUNTRY_CN[hoveredNode.ceec_country || ""] || hoveredNode.country}
+                {" · "}{INST_TYPE_SHORT[hoveredNode.type] || hoveredNode.type}
               </div>
-              {mapTooltip.topInstitutions.map((inst, i) => (
-                <div key={i} style={{ fontSize: 11, color: "var(--ink-1)", lineHeight: 1.5, fontFamily: "var(--mono)" }}>
-                  {toCnName(inst)}
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: "var(--ink-0)", lineHeight: 1.25, fontFamily: "var(--serif)", marginBottom: 14 }}>
+              {hoveredNode.side === "cn" ? toCnName(hoveredNode.name) : hoveredNode.name}
+            </div>
+
+            {/* paper counts + growth */}
+            <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
+              {([["2011–2015", hoveredNode.weight_125], ["2016–2020", hoveredNode.weight_135]] as const).map(([lbl, val]) => (
+                <div key={lbl} style={{ flex: 1, background: "rgba(216,205,224,0.06)", borderRadius: 9, padding: "8px 10px" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, letterSpacing: "0.1em", color: "var(--ink-2)", marginBottom: 2 }}>{lbl}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "var(--ink-0)" }}>{val}<span style={{ fontSize: 9, color: "var(--ink-2)", marginLeft: 3 }}>篇</span></div>
+                </div>
+              ))}
+              {hovGrowth && (
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "0 4px" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, letterSpacing: "0.1em", color: "var(--ink-2)", marginBottom: 2 }}>增长</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: hovGrowth.color }}>{hovGrowth.text}</div>
+                </div>
+              )}
+            </div>
+
+            {/* top partners */}
+            {hovAgg && hovAgg.partners.length > 0 && (
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 6 }}>主要合作伙伴</div>
+                {hovAgg.partners.slice(0, 4).map((p, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline", lineHeight: 1.7 }}>
+                    <span style={{ fontSize: 11.5, color: "var(--ink-1)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      <span style={{ color: p.side === "cn" ? "var(--accent-cn)" : (CEEC_COLORS[p.ceec_country || ""] || "var(--accent-eu)"), marginRight: 5 }}>●</span>
+                      {p.name}
+                    </span>
+                    <span style={{ fontSize: 10.5, color: "var(--ink-2)", fontFamily: "var(--mono)", flexShrink: 0 }}>{p.weight} 次</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* top fields with bars */}
+            {hovAgg && hovAgg.fields.length > 0 && (
+              <div>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent-eu)", marginBottom: 6 }}>主要合作领域</div>
+                {hovAgg.fields.slice(0, 4).map((f, i) => (
+                  <div key={i} style={{ marginBottom: 5 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10.5, color: "var(--ink-1)", marginBottom: 2 }}>
+                      <span>{f.name}</span>
+                      <span style={{ color: "var(--ink-2)", fontFamily: "var(--mono)" }}>{Math.round(f.weight)}</span>
+                    </div>
+                    <div style={{ height: 4, background: "rgba(216,205,224,0.08)", borderRadius: 999, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${(f.weight / maxField) * 100}%`, background: FIELD_PALETTE[i % FIELD_PALETTE.length], borderRadius: 999 }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
+      {/* Map hover tooltip — prominent enriched card */}
+      {viewMode === "map" && mapTooltip && (() => {
+        const accent = mapTooltip.kind === "cn" ? "var(--accent-cn)" : (CEEC_COLORS[mapTooltip.key] || "var(--accent-eu)");
+        const accentGlow = mapTooltip.kind === "cn" ? "var(--accent-cn-glow)" : "var(--accent-eu-glow)";
+        const g = growthInfo(mapTooltip.weight_125, mapTooltip.weight_135);
+        const maxField = Math.max(1, ...(mapTooltip.topFields.map((f) => f.weight)));
+        return (
+          <div style={{
+            position: "absolute", right: 36, top: "50%", transform: "translateY(-50%)",
+            zIndex: 6, width: 326, background: "rgba(22,18,32,0.94)",
+            border: `1.5px solid ${accent}`, borderRadius: 16,
+            boxShadow: `0 0 0 1px rgba(22,18,32,0.6), 0 18px 50px rgba(0,0,0,0.5), 0 0 36px ${accentGlow}33`,
+            backdropFilter: "blur(10px)", padding: "20px 22px", pointerEvents: "none",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <span style={{ width: 9, height: 9, borderRadius: 999, background: accent, boxShadow: `0 0 10px ${accent}` }} />
+              <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: accent }}>
+                {mapTooltip.subtitle}
+              </div>
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: "var(--ink-0)", lineHeight: 1.15, fontFamily: "var(--serif)", marginBottom: 14 }}>
+              {mapTooltip.label}
+            </div>
+
+            <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
+              {([["2011–2015", mapTooltip.weight_125], ["2016–2020", mapTooltip.weight_135]] as const).map(([lbl, val]) => (
+                <div key={lbl} style={{ flex: 1, background: "rgba(216,205,224,0.06)", borderRadius: 9, padding: "8px 10px" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, letterSpacing: "0.1em", color: "var(--ink-2)", marginBottom: 2 }}>{lbl}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "var(--ink-0)" }}>{val}<span style={{ fontSize: 9, color: "var(--ink-2)", marginLeft: 3 }}>篇</span></div>
+                </div>
+              ))}
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "0 4px" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, letterSpacing: "0.1em", color: "var(--ink-2)", marginBottom: 2 }}>增长</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: g.color }}>{g.text}</div>
+              </div>
+            </div>
+
+            {mapTooltip.topInstitutions.length > 0 && (
+              <div style={{ marginBottom: 12 }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, color: "var(--accent-warn)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 5 }}>主要机构</div>
+                {mapTooltip.topInstitutions.slice(0, 4).map((inst, i) => (
+                  <div key={i} style={{ fontSize: 11, color: "var(--ink-1)", lineHeight: 1.6, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {toCnName(inst)}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div style={{ marginBottom: mapTooltip.topFields.length > 0 ? 12 : 0 }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, color: "var(--accent-cn-glow)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 5 }}>合作最紧密</div>
+              {mapTooltip.topPartners.map((p, i) => (
+                <div key={i} style={{ fontSize: 11.5, color: "var(--ink-1)", lineHeight: 1.7, display: "flex", justifyContent: "space-between", gap: 18 }}>
+                  <span>{p.name}</span>
+                  <span style={{ color: "var(--ink-2)", fontFamily: "var(--mono)" }}>{p.weight} 次</span>
                 </div>
               ))}
             </div>
-          )}
-          <div style={{ marginBottom: 8 }}>
-            <div style={{ fontFamily: "var(--mono)", fontSize: 8, color: "var(--ink-2)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 3 }}>
-              合作最紧密
-            </div>
-            {mapTooltip.topPartners.map((p, i) => (
-              <div key={i} style={{ fontSize: 11, color: "var(--ink-1)", lineHeight: 1.6, display: "flex", justifyContent: "space-between", gap: 24 }}>
-                <span>{p.name}</span>
-                <span style={{ color: "var(--ink-2)", fontFamily: "var(--mono)" }}>{p.weight} 次</span>
+
+            {mapTooltip.topFields.length > 0 && (
+              <div>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 8.5, color: "var(--accent-eu)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 5 }}>主要合作领域</div>
+                {mapTooltip.topFields.slice(0, 4).map((f, i) => (
+                  <div key={i} style={{ marginBottom: 5 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10.5, color: "var(--ink-1)", marginBottom: 2 }}>
+                      <span>{f.name}</span>
+                      <span style={{ color: "var(--ink-2)", fontFamily: "var(--mono)" }}>{Math.round(f.weight)}</span>
+                    </div>
+                    <div style={{ height: 4, background: "rgba(216,205,224,0.08)", borderRadius: 999, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${(f.weight / maxField) * 100}%`, background: FIELD_PALETTE[i % FIELD_PALETTE.length], borderRadius: 999 }} />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-          <div style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--ink-2)", lineHeight: 1.5, borderTop: "1px solid rgba(201,194,173,0.08)", paddingTop: 6 }}>
-            2011–2015: {mapTooltip.weight_125} 篇 · 2016–2020: {mapTooltip.weight_135} 篇
+        );
+      })()}
+
+      {/* Sankey hover tooltip */}
+      {viewMode === "sankey" && sankeyTooltip && (
+        <div style={{
+          position: "absolute", right: 36, top: "50%", transform: "translateY(-50%)",
+          zIndex: 6, width: 280, background: "rgba(22,18,32,0.94)",
+          border: `1.5px solid ${sankeyTooltip.color}`, borderRadius: 16,
+          boxShadow: `0 0 0 1px rgba(22,18,32,0.6), 0 18px 50px rgba(0,0,0,0.5), 0 0 30px ${sankeyTooltip.color}33`,
+          backdropFilter: "blur(10px)", padding: "18px 20px", pointerEvents: "none",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <span style={{ width: 9, height: 9, borderRadius: 999, background: sankeyTooltip.color, boxShadow: `0 0 10px ${sankeyTooltip.color}` }} />
+            <div style={{ fontFamily: "var(--mono)", fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: sankeyTooltip.color }}>
+              {sankeyTooltip.subtitle}
+            </div>
+          </div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: "var(--ink-0)", lineHeight: 1.3, fontFamily: "var(--serif)", marginBottom: 10 }}>
+            {sankeyTooltip.title}
+          </div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+            <span style={{ fontSize: 26, fontWeight: 700, color: sankeyTooltip.color, fontFamily: "var(--mono)" }}>{sankeyTooltip.value}</span>
+            <span style={{ fontSize: 10, color: "var(--ink-2)" }}>次合作 (按领域分配)</span>
           </div>
         </div>
       )}
 
-      {/* Bottom‑right controls — three clearly labelled groups */}
+      {/* Bottom‑right controls — polished segmented controls */}
       <div style={{
-        position: "absolute", right: 36, bottom: 36, zIndex: 3,
+        position: "absolute", right: 36, bottom: 36, zIndex: 5,
         display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-end",
       }}>
 
-        {/* ── 1. 视图模式 ── */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-          <div style={{
-            fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
-            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.6,
-          }}>
-            视图模式
-          </div>
-          <div style={{ display: "flex", gap: 4 }}>
-            {(["network", "map"] as const).map((v) => {
-              const isActive = viewMode === v;
-              return (
-                <button key={v} onClick={() => setViewMode(v)}
-                  style={{
-                    background: isActive
-                      ? (v === "map" ? "rgba(126,168,164,0.18)" : "rgba(196,121,110,0.14)")
-                      : "transparent",
-                    border: `1px solid ${isActive
-                      ? (v === "map" ? "rgba(126,168,164,0.40)" : "rgba(196,121,110,0.35)")
-                      : "rgba(255,255,255,0.08)"}`,
-                    borderRadius: 5,
-                    color: isActive
-                      ? (v === "map" ? "var(--accent-eu)" : "var(--accent-cn-glow)")
-                      : "var(--ink-2)",
-                    fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em",
-                    padding: "7px 16px", cursor: "pointer", transition: "all 250ms ease",
-                    fontWeight: isActive ? 700 : 400,
-                  }}
-                >
-                  {isActive ? "● " : "○ "}{v === "map" ? "地理视图" : "网络视图"}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* ── 1. 视图模式 (segmented) ── */}
+        <SegmentedControl
+          label="视图模式"
+          options={[
+            { key: "network", label: "网络图" },
+            { key: "map", label: "地理图" },
+            { key: "sankey", label: "桑基图" },
+          ]}
+          value={viewMode}
+          onChange={(v) => setViewMode(v as "network" | "map" | "sankey")}
+        />
 
-        {/* ── 2. 数据时段 ── */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-          <div style={{
-            fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
-            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.6,
-          }}>
-            数据时段
-          </div>
-          <div style={{ display: "flex", gap: 4 }}>
-            {(["125", "135"] as const).map((p) => {
-              const isActive = period === p;
-              return (
-                <button key={p} onClick={() => setPeriod(p)}
-                  style={{
-                    background: isActive ? "rgba(246,241,224,0.10)" : "transparent",
-                    border: `1px solid ${isActive ? "rgba(246,241,224,0.30)" : "rgba(255,255,255,0.08)"}`,
-                    borderRadius: 5,
-                    color: isActive ? "var(--ink-0)" : "var(--ink-2)",
-                    fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em",
-                    padding: "7px 16px", cursor: "pointer", transition: "all 250ms ease",
-                    fontWeight: isActive ? 700 : 400,
-                  }}
-                >
-                  {isActive ? "● " : "○ "}{p === "125" ? "2011–2015" : "2016–2020"}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* ── 2. 数据时段 (segmented) ── */}
+        <SegmentedControl
+          label="数据时段"
+          options={[
+            { key: "125", label: "2011–2015" },
+            { key: "135", label: "2016–2020" },
+          ]}
+          value={period}
+          onChange={(v) => setPeriod(v as "125" | "135")}
+        />
 
-        {/* ── 3. 物理合作过滤 ── */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+        {/* ── 3. 物理领域 (toggle pill) ── */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 7 }}>
           <div style={{
             fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
-            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.6,
+            textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.7,
           }}>
             物理领域
           </div>
           <button onClick={() => setFilterPhysics((f) => !f)}
             style={{
-              background: filterPhysics ? "rgba(45,203,140,0.18)" : "transparent",
-              border: `1px solid ${filterPhysics ? "rgba(45,203,140,0.45)" : "rgba(255,255,255,0.08)"}`,
-              borderRadius: 5,
-              color: filterPhysics ? "var(--accent-physics)" : "var(--ink-2)",
-              fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em",
-              padding: "7px 16px", cursor: "pointer", transition: "all 250ms ease",
-              fontWeight: filterPhysics ? 700 : 400,
+              display: "flex", alignItems: "center", gap: 10,
+              background: filterPhysics
+                ? "linear-gradient(135deg, #aadd88, var(--accent-physics))"
+                : "rgba(22,18,32,0.82)",
+              border: `1px solid ${filterPhysics ? "transparent" : "rgba(216,205,224,0.18)"}`,
+              borderRadius: 999,
+              color: filterPhysics ? "#1c2412" : "var(--ink-1)",
+              fontFamily: "var(--mono)", fontSize: 12, letterSpacing: "0.06em",
+              fontWeight: filterPhysics ? 700 : 500,
+              padding: "8px 16px 8px 12px", cursor: "pointer",
+              backdropFilter: "blur(8px)",
+              boxShadow: filterPhysics ? "0 4px 16px rgba(170,221,136,0.35)" : "none",
+              transition: "background 220ms ease, color 220ms ease, box-shadow 220ms ease",
             }}
           >
-            {filterPhysics ? "● 已剥离物理合作" : "○ 剥离物理合作"}
+            {/* switch track */}
+            <span style={{
+              position: "relative", width: 30, height: 16, borderRadius: 999,
+              background: filterPhysics ? "rgba(28,36,18,0.55)" : "rgba(216,205,224,0.18)",
+              transition: "background 220ms ease", flexShrink: 0,
+            }}>
+              <span style={{
+                position: "absolute", top: 2, left: filterPhysics ? 16 : 2,
+                width: 12, height: 12, borderRadius: 999,
+                background: filterPhysics ? "#eafbe0" : "var(--ink-1)",
+                transition: "left 220ms cubic-bezier(0.4,0,0.2,1)",
+              }} />
+            </span>
+            {filterPhysics ? "已剥离物理合作" : "剥离物理合作"}
           </button>
         </div>
 
@@ -1606,13 +2210,17 @@ export function Scene3InstitutionNetwork({ active }: Props) {
         <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 4 }}>
           {viewMode === "map"
             ? (filterPhysics ? "地理视角 · 剥离物理后" : "地理视角")
-            : (filterPhysics ? "剥离物理后" : "全景网络")}
+            : viewMode === "sankey"
+              ? (filterPhysics ? "领域桑基图 · 剥离物理后" : "领域桑基图")
+              : (filterPhysics ? "剥离物理后" : "全景网络")}
         </div>
         <div style={{ fontSize: 12, color: "var(--ink-2)", lineHeight: 1.5, fontWeight: 400 }}>
-          {viewMode === "network" && !filterPhysics && "悬停节点查看详情 · 滚轮缩放"}
+          {viewMode === "network" && !filterPhysics && "悬停节点查看机构详情 · 滚轮缩放"}
           {viewMode === "network" && filterPhysics && "已剥离物理合作 · 剩余连线以材料/医学/化学为主"}
           {viewMode === "map" && !filterPhysics && "悬停城市或国家查看合作详情 · 滚轮缩放 · 拖拽平移"}
           {viewMode === "map" && filterPhysics && "已剥离物理合作 · 地理格局更加多元"}
+          {viewMode === "sankey" && !filterPhysics && "头部机构 → 合作领域 → 中东欧国家 · 悬停连线/节点看流量"}
+          {viewMode === "sankey" && filterPhysics && "已剥离物理 · 看材料/医学/化学如何连接各国"}
         </div>
       </div>
 
@@ -1630,6 +2238,67 @@ export function Scene3InstitutionNetwork({ active }: Props) {
           合作在增长——但这些国家在中国全球合作版图里的{" "}
           <span style={{ color: "var(--accent-cn-glow)" }}>排位</span>，在往哪个方向走？
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+ * SegmentedControl — rounded pill container with a gradient-highlighted
+ * active segment. Matches the Scene 2 view switcher visual language.
+ * ============================================================ */
+function SegmentedControl({
+  label, options, value, onChange,
+}: {
+  label: string;
+  options: { key: string; label: string }[];
+  value: string;
+  onChange: (key: string) => void;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 7 }}>
+      <div style={{
+        fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.2em",
+        textTransform: "uppercase", color: "var(--ink-2)", opacity: 0.7,
+      }}>
+        {label}
+      </div>
+      <div style={{
+        display: "flex", alignItems: "center", gap: 4, padding: 4,
+        borderRadius: 999, background: "rgba(22,18,32,0.82)",
+        border: "1px solid rgba(216,205,224,0.16)",
+        boxShadow: "0 6px 22px rgba(0,0,0,0.35)",
+        backdropFilter: "blur(8px)",
+      }}>
+        {options.map((opt) => {
+          const isActive = value === opt.key;
+          return (
+            <button
+              key={opt.key}
+              onClick={() => onChange(opt.key)}
+              style={{
+                border: "none", borderRadius: 999,
+                padding: "7px 15px",
+                fontFamily: "var(--mono)", fontSize: 12, fontWeight: isActive ? 700 : 500,
+                letterSpacing: "0.06em", cursor: "pointer", whiteSpace: "nowrap",
+                background: isActive
+                  ? "linear-gradient(135deg, var(--accent-cn), var(--accent-eu))"
+                  : "transparent",
+                color: isActive ? "#2a0f1c" : "var(--ink-1)",
+                boxShadow: isActive ? "0 2px 12px rgba(232,141,178,0.4)" : "none",
+                transition: "background 200ms ease, color 200ms ease, box-shadow 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = "rgba(216,205,224,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+              }}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

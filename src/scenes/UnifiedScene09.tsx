@@ -17,15 +17,15 @@ export function UnifiedScene09({ active }: Props) {
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
       <style>{`
         @keyframes scene09PillGlow {
-          0%, 100% { box-shadow: 0 0 10px rgba(76,201,240,0.25), inset 0 1px 0 rgba(255,255,255,0.12); }
-          50%       { box-shadow: 0 0 22px rgba(76,201,240,0.5),  inset 0 1px 0 rgba(255,255,255,0.22); }
+          0%, 100% { box-shadow: 0 0 10px rgba(139,208,213,0.25), inset 0 1px 0 rgba(255,255,255,0.12); }
+          50%       { box-shadow: 0 0 22px rgba(139,208,213,0.5),  inset 0 1px 0 rgba(255,255,255,0.22); }
         }
         .s09-pill {
           position: absolute;
           top: 4px; bottom: 4px;
           border-radius: 7px;
-          background: linear-gradient(135deg, rgba(76,201,240,0.22) 0%, rgba(76,201,240,0.07) 100%);
-          border: 1px solid rgba(76,201,240,0.38);
+          background: linear-gradient(135deg, rgba(139,208,213,0.22) 0%, rgba(139,208,213,0.07) 100%);
+          border: 1px solid rgba(139,208,213,0.38);
           animation: scene09PillGlow 3.2s ease-in-out infinite;
           transition: left 230ms cubic-bezier(0.4,0,0.2,1);
           pointer-events: none;
@@ -73,7 +73,7 @@ function SegmentedControl({
         zIndex: 50,
         display: "inline-flex",
         alignItems: "center",
-        background: "rgba(6,5,18,0.78)",
+        background: "rgba(22,18,32,0.78)",
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
         borderRadius: 11,
@@ -96,11 +96,11 @@ function SegmentedControl({
             color:
               view === tab.id
                 ? "rgba(255,255,255,0.95)"
-                : "rgba(201,194,173,0.4)",
+                : "rgba(216,205,224,0.4)",
             fontWeight: view === tab.id ? 700 : 400,
             textShadow:
               view === tab.id
-                ? "0 0 14px rgba(76,201,240,0.65)"
+                ? "0 0 14px rgba(139,208,213,0.65)"
                 : "none",
           }}
           onClick={() => onChange(tab.id)}

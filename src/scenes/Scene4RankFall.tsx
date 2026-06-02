@@ -135,18 +135,18 @@ export function Scene4RankFall({ data, active }: Props) {
       >
         <defs>
           <linearGradient id="line-fall" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#d4a090" stopOpacity="0.0" />
-            <stop offset="20%" stopColor="#d4a090" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#c4796e" stopOpacity="0.95" />
+            <stop offset="0%" stopColor="#ffb2c1" stopOpacity="0.0" />
+            <stop offset="20%" stopColor="#ffb2c1" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#e88db2" stopOpacity="0.95" />
           </linearGradient>
           <linearGradient id="line-rise" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#a3c4bf" stopOpacity="0.0" />
-            <stop offset="20%" stopColor="#a3c4bf" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#7ea8a4" stopOpacity="0.95" />
+            <stop offset="0%" stopColor="#b3e6ea" stopOpacity="0.0" />
+            <stop offset="20%" stopColor="#b3e6ea" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#8bd0d5" stopOpacity="0.95" />
           </linearGradient>
           <linearGradient id="line-hold" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#c9a87c" stopOpacity="0.0" />
-            <stop offset="100%" stopColor="#c9a87c" stopOpacity="0.85" />
+            <stop offset="0%" stopColor="#ffe38b" stopOpacity="0.0" />
+            <stop offset="100%" stopColor="#ffe38b" stopOpacity="0.85" />
           </linearGradient>
           <filter id="ball-glow">
             <feGaussianBlur stdDeviation="3" />
@@ -154,8 +154,8 @@ export function Scene4RankFall({ data, active }: Props) {
         </defs>
 
         {/* Vertical period axes */}
-        <line x1={x125} x2={x125} y1={padTop - 50} y2={H - padBottom + 30} stroke="rgba(201,194,173,0.12)" strokeWidth="1" />
-        <line x1={x135} x2={x135} y1={padTop - 50} y2={H - padBottom + 30} stroke="rgba(201,194,173,0.12)" strokeWidth="1" />
+        <line x1={x125} x2={x125} y1={padTop - 50} y2={H - padBottom + 30} stroke="rgba(216,205,224,0.12)" strokeWidth="1" />
+        <line x1={x135} x2={x135} y1={padTop - 50} y2={H - padBottom + 30} stroke="rgba(216,205,224,0.12)" strokeWidth="1" />
 
         {/* Period labels */}
         <text x={x125} y={padTop - 70} textAnchor="middle" fill="var(--ink-2)" fontFamily="var(--mono)" fontSize="11" letterSpacing="0.22em" >
@@ -177,7 +177,7 @@ export function Scene4RankFall({ data, active }: Props) {
                 x2={x135}
                 y1={yScale(r)}
                 y2={yScale(r)}
-                stroke="rgba(201,194,173,0.05)"
+                stroke="rgba(216,205,224,0.05)"
                 strokeDasharray="4 8"
               />
               <text
@@ -215,7 +215,7 @@ export function Scene4RankFall({ data, active }: Props) {
           const lineFill =
             cls === "fall" ? "url(#line-fall)" : cls === "rise" ? "url(#line-rise)" : "url(#line-hold)";
           const ballColor =
-            cls === "fall" ? "#c4796e" : cls === "rise" ? "#7ea8a4" : "#c9a87c";
+            cls === "fall" ? "#e88db2" : cls === "rise" ? "#8bd0d5" : "#ffe38b";
           const r1 = radiusFor(c.count_125);
           const r2 = radiusFor(c.count_135);
           const r2cur = r1 + (r2 - r1) * progress;
@@ -356,9 +356,9 @@ export function Scene4RankFall({ data, active }: Props) {
           {data.perCountry.length} 国 · 排位变化分布
         </div>
         <div style={{ display: "flex", gap: 28 }}>
-          <Stat label="排位下降" value={fallers} hint="头部国家普遍下滑" color="#d4a090" />
-          <Stat label="排位上升" value={risers} hint="小国从底部追赶" color="#a3c4bf" />
-          <Stat label="持平" value={holders} hint="" color="#c9a87c" />
+          <Stat label="排位下降" value={fallers} hint="头部国家普遍下滑" color="#ffb2c1" />
+          <Stat label="排位上升" value={risers} hint="小国从底部追赶" color="#b3e6ea" />
+          <Stat label="持平" value={holders} hint="" color="#ffe38b" />
         </div>
         <div
           style={{
@@ -388,9 +388,9 @@ export function Scene4RankFall({ data, active }: Props) {
       >
         {/* Tiny legend */}
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--ink-2)", letterSpacing: "0.16em", lineHeight: 1.9, marginBottom: 16 }}>
-          <div><span style={{ color: "#c4796e" }}>●</span> 排位下降</div>
-          <div><span style={{ color: "#7ea8a4" }}>●</span> 排位上升</div>
-          <div><span style={{ color: "#c9a87c" }}>●</span> 持平</div>
+          <div><span style={{ color: "#e88db2" }}>●</span> 排位下降</div>
+          <div><span style={{ color: "#8bd0d5" }}>●</span> 排位上升</div>
+          <div><span style={{ color: "#ffe38b" }}>●</span> 持平</div>
           <div style={{ marginTop: 4 }}>球大小 = 当期合作论文量</div>
         </div>
         {/* Bridge */}
@@ -399,7 +399,7 @@ export function Scene4RankFall({ data, active }: Props) {
           style={{
             opacity: progress > 0.85 ? 1 : 0,
             transition: "opacity 800ms ease",
-            borderTop: "1px solid rgba(201,194,173,0.1)",
+            borderTop: "1px solid rgba(216,205,224,0.1)",
             paddingTop: 14,
             maxWidth: 340,
             pointerEvents: progress > 0.85 ? "auto" : "none",

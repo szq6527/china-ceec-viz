@@ -121,8 +121,8 @@ export default function App() {
             title="按空格键切换自动播放"
             style={{
               background: autoplay ? "var(--accent-cn)" : "transparent",
-              color: autoplay ? "#150202" : "var(--ink-2)",
-              border: `1px solid ${autoplay ? "var(--accent-cn)" : "rgba(201,194,173,0.18)"}`,
+              color: autoplay ? "#2a0f1c" : "var(--ink-2)",
+              border: `1px solid ${autoplay ? "var(--accent-cn)" : "rgba(216,205,224,0.18)"}`,
               padding: "4px 10px",
               fontFamily: "var(--mono)",
               fontSize: 10,
@@ -176,6 +176,81 @@ export default function App() {
             </Scene>
           </>
         )}
+
+        {/* Scene 2 view switcher — pinned to the top-center of the stage so it's
+            obvious users can flip between the bar race and the heat map. */}
+        {scene === 2 && (
+          <div
+            style={{
+              position: "absolute",
+              top: 22,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 60,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              padding: 5,
+              borderRadius: 999,
+              background: "rgba(22,18,32,0.82)",
+              border: "1.5px solid var(--accent-cn)",
+              boxShadow: "0 0 0 1px rgba(232,141,178,0.25), 0 8px 30px rgba(232,141,178,0.32)",
+              backdropFilter: "blur(8px)",
+              fontFamily: "var(--mono)",
+            }}
+          >
+            <span
+              style={{
+                fontSize: 10,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--ink-2)",
+                padding: "0 8px 0 12px",
+              }}
+            >
+              视图
+            </span>
+            {([
+              { mode: "bars", label: "动态条形图" },
+              { mode: "heatmap", label: "热力地图" },
+            ] as const).map(({ mode, label }) => {
+              const isActive = viewMode === mode;
+              return (
+                <button
+                  key={mode}
+                  onClick={() => setViewMode(mode)}
+                  style={{
+                    border: "none",
+                    borderRadius: 999,
+                    padding: "9px 20px",
+                    fontFamily: "var(--mono)",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    cursor: "pointer",
+                    transition: "background 200ms ease, color 200ms ease, box-shadow 200ms ease",
+                    background: isActive
+                      ? "linear-gradient(135deg, var(--accent-cn), var(--accent-eu))"
+                      : "transparent",
+                    color: isActive ? "#2a0f1c" : "var(--ink-1)",
+                    boxShadow: isActive ? "0 2px 12px rgba(232,141,178,0.45)" : "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive)
+                      (e.currentTarget as HTMLButtonElement).style.background =
+                        "rgba(216,205,224,0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive)
+                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  }}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <nav className="scene-nav" style={{ position: "relative" }}>
@@ -188,36 +263,6 @@ export default function App() {
             {s.label}
           </button>
         ))}
-        {scene === 2 && (
-          <button
-            onClick={() => setViewMode((v) => v === "bars" ? "heatmap" : "bars")}
-            style={{
-              position: "absolute",
-              right: 64,
-              bottom: "100%",
-              marginBottom: 16,
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              borderRadius: 6,
-              color: "var(--ink-1)",
-              fontFamily: "var(--mono)",
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              padding: "8px 16px",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.15)";
-              (e.currentTarget as HTMLButtonElement).style.color = "var(--ink-0)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)";
-              (e.currentTarget as HTMLButtonElement).style.color = "var(--ink-1)";
-            }}
-          >
-            {viewMode === "bars" ? "▸ 热力地图" : "▸ 动态条形图"}
-          </button>
-        )}
       </nav>
 
       {/* Autoplay progress bar at the very bottom */}
@@ -230,7 +275,7 @@ export default function App() {
             left: 0,
             right: 0,
             height: 2,
-            background: "rgba(255, 77, 61, 0.12)",
+            background: "rgba(232, 141, 178, 0.12)",
             zIndex: 50,
             pointerEvents: "none",
           }}

@@ -77,19 +77,19 @@ const FIELD_EN: Record<string, string> = {
 
 function getOrbitInfo(pen: number): { label: string; desc: string; color: string } {
   if (pen >= 0.25)
-    return { label: "CERN 轨道", desc: "大型对撞机实验署名驱动，一篇可覆盖数千作者", color: "#9b8ea8" };
+    return { label: "CERN 轨道", desc: "大型对撞机实验署名驱动，一篇可覆盖数千作者", color: "#b0a3d1" };
   if (pen >= 0.05)
-    return { label: "高渗透", desc: "存在相当比例的大科学论文，注意数据失真", color: "#c9a87c" };
+    return { label: "高渗透", desc: "存在相当比例的大科学论文，注意数据失真", color: "#ffe38b" };
   if (pen >= 0.01)
-    return { label: "低渗透", desc: "少量大科学影响，合作数据基本可信", color: "#7ea8a4" };
-  return { label: "双边轨道", desc: "大科学占比极低，合作论文完全反映真实双边关系", color: "#8fb8b0" };
+    return { label: "低渗透", desc: "少量大科学影响，合作数据基本可信", color: "#8bd0d5" };
+  return { label: "双边轨道", desc: "大科学占比极低，合作论文完全反映真实双边关系", color: "#aadd88" };
 }
 
 function getBarColor(pen: number): string {
-  if (pen >= 0.25) return "#9b8ea8";
-  if (pen >= 0.05) return "#c9a87c";
-  if (pen >= 0.01) return "#7ea8a4";
-  return "#8fb8b0";
+  if (pen >= 0.25) return "#b0a3d1";
+  if (pen >= 0.05) return "#ffe38b";
+  if (pen >= 0.01) return "#8bd0d5";
+  return "#aadd88";
 }
 
 interface TooltipData {
@@ -129,7 +129,7 @@ function Tooltip({ data }: { data: TooltipData }) {
     >
       {/* Card */}
       <div style={{
-        background: "rgba(8, 6, 20, 0.97)",
+        background: "rgba(26, 21, 38, 0.97)",
         border: `1px solid ${orbit.color}44`,
         borderRadius: 12,
         overflow: "hidden",
@@ -185,7 +185,7 @@ function Tooltip({ data }: { data: TooltipData }) {
                   position: "absolute",
                   left: `${Math.min((data.avgPen / Math.max(data.pen, data.avgPen * 1.1)) * 100, 100)}%`,
                   top: 0, bottom: 0, width: 1,
-                  background: "rgba(201,194,173,0.5)",
+                  background: "rgba(216,205,224,0.5)",
                 }} />
                 {/* fill */}
                 <div style={{
@@ -329,7 +329,7 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
       <div style={{
         position: "absolute", top: 0, left: 0, bottom: 0, width: 300,
         padding: "40px 28px 36px",
-        borderRight: "1px solid rgba(201,194,173,0.07)",
+        borderRight: "1px solid rgba(216,205,224,0.07)",
         display: "flex", flexDirection: "column",
       }}>
         <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent-warn)", marginBottom: 14 }}>
@@ -337,22 +337,22 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: 30, lineHeight: 1.2, margin: 0 }}>
           物理学<br />
-          <span style={{ color: "#9b8ea8" }}>35%</span> 被大科学<br />
+          <span style={{ color: "#b0a3d1" }}>35%</span> 被大科学<br />
           渗透，其余<br />
-          近乎 <span style={{ color: "#8fb8b0" }}>零</span>
+          近乎 <span style={{ color: "#aadd88" }}>零</span>
         </h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 13, lineHeight: 1.65, color: "var(--ink-2)", marginTop: 18 }}>
           大科学论文（≥100 作者）在各学科的渗透率天差地别。CERN"署名效应"让物理学独成一档——
           <strong style={{ color: "var(--ink-1)" }}>悬停柱条查看各学科详情。</strong>
         </p>
 
-        <div style={{ height: 1, background: "rgba(201,194,173,0.08)", margin: "22px 0" }} />
+        <div style={{ height: 1, background: "rgba(216,205,224,0.08)", margin: "22px 0" }} />
 
         {/* Three key stats */}
         {[
-          { v: `${((physicsField?.big_penetration ?? 0.35) * 100).toFixed(0)}%`, l: "物理学渗透率", c: "#9b8ea8" },
+          { v: `${((physicsField?.big_penetration ?? 0.35) * 100).toFixed(0)}%`, l: "物理学渗透率", c: "#b0a3d1" },
           { v: `${(data.ceec_avg_penetration * 100).toFixed(1)}%`, l: "各学科均值", c: "var(--accent-warn)" },
-          { v: "4.5×", l: "物理 vs 第二名（心理学）", c: "#7ea8a4" },
+          { v: "4.5×", l: "物理 vs 第二名（心理学）", c: "#8bd0d5" },
         ].map(({ v, l, c }) => (
           <div key={l} style={{ marginBottom: 20, opacity: progress, transition: "opacity 500ms" }}>
             <div style={{ fontFamily: "var(--mono)", fontWeight: 700, fontSize: 28, color: c, letterSpacing: "-0.02em", lineHeight: 1 }}>{v}</div>
@@ -371,7 +371,7 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
           opacity: showAnnotations ? 1 : 0, 
           transition: "opacity 600ms" 
         }}>
-          <span style={{ color: "#8fb8b0" }}>零渗透学科</span>才是真正双边关系生长的土壤。
+          <span style={{ color: "#aadd88" }}>零渗透学科</span>才是真正双边关系生长的土壤。
         </div>
       </div>
 
@@ -393,7 +393,7 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span>渗透率分布（悬停查看详情）</span>
               <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 14, height: 1, background: "rgba(201,194,173,0.4)", verticalAlign: "middle" }} />
+                <span style={{ display: "inline-block", width: 14, height: 1, background: "rgba(216,205,224,0.4)", verticalAlign: "middle" }} />
                 均值
               </span>
             </div>
@@ -421,11 +421,11 @@ export function Scene6BigScienceDecomposition({ active }: Props) {
             display: "flex", alignItems: "center", gap: 10, marginBottom: 10,
             opacity: progress > 0.25 ? 1 : 0, transition: "opacity 400ms",
           }}>
-            <div style={{ height: 1, flex: 1, background: "rgba(201,194,173,0.09)" }} />
+            <div style={{ height: 1, flex: 1, background: "rgba(216,205,224,0.09)" }} />
             <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.18em", color: "var(--ink-2)", textTransform: "uppercase" }}>
               其他学科（按渗透率排序）
             </div>
-            <div style={{ height: 1, flex: 1, background: "rgba(201,194,173,0.09)" }} />
+            <div style={{ height: 1, flex: 1, background: "rgba(216,205,224,0.09)" }} />
           </div>
 
           {/* Other bars */}
@@ -534,7 +534,7 @@ function BarRow({
           position: "absolute", left: 0, top: 0, bottom: 0,
           width: `${barW * (progress)}%`,
           background: isPhysics
-            ? "linear-gradient(90deg, #7d6f8a 0%, #9b8ea8 65%, #b8a0b8 100%)"
+            ? "linear-gradient(90deg, #8b7bb0 0%, #b0a3d1 65%, #c8a2c8 100%)"
             : isZero
             ? `${color}30`
             : color,
@@ -553,7 +553,7 @@ function BarRow({
         {/* Average marker */}
         <div style={{
           position: "absolute", left: `${avgX}%`, top: 0, bottom: 0, width: 1,
-          background: "rgba(201,194,173,0.28)",
+          background: "rgba(216,205,224,0.28)",
         }} />
         {/* Orbit badge — top-right inside bar, only for physics or on hover */}
         {(isPhysics || hovered) && !isZero && (

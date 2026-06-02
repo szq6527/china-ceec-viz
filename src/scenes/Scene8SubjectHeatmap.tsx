@@ -111,9 +111,9 @@ export function Scene8SubjectHeatmap({ active }: Props) {
 
   // 3 axes at 120° apart: top=physics, bottom-right=STEM, bottom-left=SH
   const axisAngles = [
-    { label: "物理", angle: -Math.PI / 2, color: "#9b8ea8" },
-    { label: "理工医农", angle: Math.PI / 6, color: "#7ea8a4" },
-    { label: "社科人文", angle: Math.PI * 5 / 6, color: "#c9a87c" },
+    { label: "物理", angle: -Math.PI / 2, color: "#b0a3d1" },
+    { label: "理工医农", angle: Math.PI / 6, color: "#8bd0d5" },
+    { label: "社科人文", angle: Math.PI * 5 / 6, color: "#ffe38b" },
   ];
 
   const axisEnd = (cx: number, cy: number, angle: number, r: number) => ({
@@ -143,12 +143,12 @@ export function Scene8SubjectHeatmap({ active }: Props) {
         display: "flex", flexDirection: "column", gap: 6, letterSpacing: "0.12em",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#9b8ea8" }} />
+          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#b0a3d1" }} />
           物理 (上轴)
         </div>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#7ea8a4" }} />
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#8bd0d5" }} />
             理工医农 (右下)
           </div>
           <div style={{ fontSize: 12, color: "var(--ink-2)", marginTop: 2, marginLeft: 20, letterSpacing: "0.06em" }}>
@@ -156,7 +156,7 @@ export function Scene8SubjectHeatmap({ active }: Props) {
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#c9a87c" }} />
+          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ffe38b" }} />
           社科人文 (左下)
         </div>
       </div>
@@ -193,27 +193,27 @@ export function Scene8SubjectHeatmap({ active }: Props) {
                     return `${end.x},${end.y}`;
                   }).join(" ");
                   return <polygon key={`ring-${frac}`} points={pts}
-                    fill="none" stroke="rgba(201,194,173,0.06)" strokeWidth="0.6" />;
+                    fill="none" stroke="rgba(216,205,224,0.06)" strokeWidth="0.6" />;
                 })}
 
                 {/* Axis lines */}
                 {axisAngles.map((a) => {
                   const end = axisEnd(cx, cy, a.angle, radarR);
                   return <line key={`axis-${a.label}`} x1={cx} y1={cy} x2={end.x} y2={end.y}
-                    stroke="rgba(201,194,173,0.1)" strokeWidth="0.6" />;
+                    stroke="rgba(216,205,224,0.1)" strokeWidth="0.6" />;
                 })}
 
                 {/* Filled polygon */}
                 <polygon points={polyPoints}
-                  fill={physDominant ? "rgba(45,203,140,0.18)" : "rgba(126,168,164,0.14)"}
-                  stroke={physDominant ? "rgba(45,203,140,0.45)" : "rgba(126,168,164,0.4)"}
+                  fill={physDominant ? "rgba(170,221,136,0.18)" : "rgba(139,208,213,0.14)"}
+                  stroke={physDominant ? "rgba(170,221,136,0.45)" : "rgba(139,208,213,0.4)"}
                   strokeWidth="1.2" />
 
                 {/* Data points on each axis */}
                 {[
-                  { end: physEnd, color: "#9b8ea8", val: c.phys },
-                  { end: stemEnd, color: "#7ea8a4", val: c.stem },
-                  { end: shEnd, color: "#c9a87c", val: c.sh },
+                  { end: physEnd, color: "#b0a3d1", val: c.phys },
+                  { end: stemEnd, color: "#8bd0d5", val: c.stem },
+                  { end: shEnd, color: "#ffe38b", val: c.sh },
                 ].map((dp, di) => (
                   <circle key={`dp-${di}`} cx={dp.end.x} cy={dp.end.y} r={2.8}
                     fill={dp.color} opacity={0.85} />

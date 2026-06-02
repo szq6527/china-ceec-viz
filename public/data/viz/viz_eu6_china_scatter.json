@@ -12,19 +12,19 @@
   "geopolitical_groups": {
     "eurozone_core": {
       "label": "欧元区核心",
-      "color": "#4cc9f0"
+      "color": "#8bd0d5"
     },
     "eurozone_special": {
       "label": "希腊(欧元区·债务危机)",
-      "color": "#f5b14a"
+      "color": "#ffe38b"
     },
     "eu_non_eurozone": {
       "label": "欧盟·非欧元区",
-      "color": "#c77dff"
+      "color": "#b0a3d1"
     },
     "eu_candidate": {
       "label": "欧盟候选/潜在候选国",
-      "color": "#80ed99"
+      "color": "#aadd88"
     }
   },
   "annotation_lines": {

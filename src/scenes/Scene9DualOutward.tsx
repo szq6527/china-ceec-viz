@@ -25,10 +25,10 @@ interface ScatterData {
 }
 
 const GROUP_COLORS: Record<string, string> = {
-  eurozone_core: "#7ea8a4",
-  eurozone_special: "#c9a87c",
-  eu_non_eurozone: "#9b8ea8",
-  eu_candidate: "#8fb8b0",
+  eurozone_core: "#8bd0d5",
+  eurozone_special: "#ffe38b",
+  eu_non_eurozone: "#b0a3d1",
+  eu_candidate: "#aadd88",
 };
 
 const GROUP_ORDER = ["eurozone_core", "eurozone_special", "eu_non_eurozone", "eu_candidate"];
@@ -163,7 +163,7 @@ export function Scene9DualOutward({ active }: Props) {
       <div style={{
         position: "absolute", right: 48, top: 48, zIndex: 10,
         display: "inline-flex", alignItems: "center",
-        background: "rgba(6,5,18,0.72)",
+        background: "rgba(22,18,32,0.72)",
         backdropFilter: "blur(18px)",
         WebkitBackdropFilter: "blur(18px)",
         borderRadius: 9,
@@ -181,19 +181,19 @@ export function Scene9DualOutward({ active }: Props) {
               style={{
                 padding: "7px 18px",
                 background: active
-                  ? "linear-gradient(135deg, rgba(201,168,124,0.22) 0%, rgba(201,168,124,0.07) 100%)"
+                  ? "linear-gradient(135deg, rgba(255,227,139,0.22) 0%, rgba(255,227,139,0.07) 100%)"
                   : "transparent",
                 border: active
-                  ? "1px solid rgba(201,168,124,0.38)"
+                  ? "1px solid rgba(255,227,139,0.38)"
                   : "1px solid transparent",
                 borderRadius: 7,
-                color: active ? "rgba(255,255,255,0.95)" : "rgba(201,194,173,0.42)",
+                color: active ? "rgba(255,255,255,0.95)" : "rgba(216,205,224,0.42)",
                 fontFamily: "var(--mono)",
                 fontSize: 11,
                 fontWeight: active ? 700 : 400,
                 letterSpacing: "0.11em",
                 cursor: "pointer",
-                textShadow: active ? "0 0 12px rgba(201,168,124,0.55)" : "none",
+                textShadow: active ? "0 0 12px rgba(255,227,139,0.55)" : "none",
                 transition: "all 200ms ease",
                 whiteSpace: "nowrap",
               }}
@@ -220,21 +220,21 @@ export function Scene9DualOutward({ active }: Props) {
             v <= maxRCA ? (
               <line key={`h-${v}`} x1={padL} x2={padL + plotW}
                 y1={yScale(v)} y2={yScale(v)}
-                stroke="rgba(201,194,173,0.06)" strokeDasharray="3 6" />
+                stroke="rgba(216,205,224,0.06)" strokeDasharray="3 6" />
             ) : null
           )}
 
           {/* RCA = 1 reference */}
           <line x1={padL} x2={padL + plotW} y1={yScale(1)} y2={yScale(1)}
-            stroke="rgba(201,168,124,0.3)" strokeDasharray="6 6" strokeWidth="1.5" />
+            stroke="rgba(255,227,139,0.3)" strokeDasharray="6 6" strokeWidth="1.5" />
           <text x={padL + plotW + 8} y={yScale(1) + 4}
             fill="var(--ink-2)" fontFamily="var(--mono)" fontSize="10">RCA=1</text>
 
           {/* Axes */}
           <line x1={padL} x2={padL + plotW} y1={padT + plotH + 16} y2={padT + plotH + 16}
-            stroke="rgba(201,194,173,0.15)" strokeWidth="1" />
+            stroke="rgba(216,205,224,0.15)" strokeWidth="1" />
           <line x1={padL - 8} x2={padL - 8} y1={padT} y2={padT + plotH}
-            stroke="rgba(201,194,173,0.15)" strokeWidth="1" />
+            stroke="rgba(216,205,224,0.15)" strokeWidth="1" />
 
           <text x={padL + plotW / 2} y={padT + plotH + 44} textAnchor="middle"
             fill="var(--ink-2)" fontFamily="var(--mono)" fontSize="11" letterSpacing="0.1em">
@@ -297,7 +297,7 @@ export function Scene9DualOutward({ active }: Props) {
           left: Math.min(W - padR - 10, Math.max(padL + 10, hovered.cx + 24)),
           top: Math.min(H - padB - 10, Math.max(padT + 10, hovered.cy - 60)),
           zIndex: 20,
-          background: "rgba(12,10,8,0.94)",
+          background: "rgba(30,25,42,0.94)",
           border: `1px solid ${hovered.color}44`,
           borderLeft: `3px solid ${hovered.color}`,
           borderRadius: 6,
@@ -372,7 +372,7 @@ export function Scene9DualOutward({ active }: Props) {
                       {row.groupLabel}
                     </text>
                     <line x1={barPadL} y1={row.y + 18} x2={barStartX + barMaxW} y2={row.y + 18}
-                      stroke="rgba(201,194,173,0.06)" strokeWidth="0.8" />
+                      stroke="rgba(216,205,224,0.06)" strokeWidth="0.8" />
                   </g>
                 );
               }
@@ -436,7 +436,7 @@ export function Scene9DualOutward({ active }: Props) {
 
           {phase === "annotations" && (
             <>
-              <div style={{ marginTop: 22, paddingTop: 14, borderTop: "1px solid rgba(201,194,173,0.1)" }}>
+              <div style={{ marginTop: 22, paddingTop: 14, borderTop: "1px solid rgba(216,205,224,0.1)" }}>
                 <div style={{ fontSize: 10, fontFamily: "var(--mono)", letterSpacing: "0.1em",
                   color: "var(--accent-eu-glow)", marginBottom: 6 }}>
                   东向替代不成立
@@ -461,7 +461,7 @@ export function Scene9DualOutward({ active }: Props) {
                 </div>
               </div>
 
-              <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid rgba(201,194,173,0.1)" }}>
+              <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid rgba(216,205,224,0.1)" }}>
                 <div style={{ fontSize: 10, fontFamily: "var(--mono)", letterSpacing: "0.1em",
                   color: "var(--ink-1)", marginBottom: 4 }}>
                   小结

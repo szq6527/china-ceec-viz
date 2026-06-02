@@ -116,7 +116,7 @@ export function WorldMap({ beijing, countries, arcs, width, height, progress }: 
         </radialGradient>
         <linearGradient id="arc-grad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="var(--accent-cn)" stopOpacity="0.95" />
-          <stop offset="50%" stopColor="#ffd9c2" stopOpacity="0.85" />
+          <stop offset="50%" stopColor="#fff2b0" stopOpacity="0.85" />
           <stop offset="100%" stopColor="var(--accent-eu)" stopOpacity="0.95" />
         </linearGradient>
         <filter id="arc-blur">
@@ -155,15 +155,15 @@ export function WorldMap({ beijing, countries, arcs, width, height, progress }: 
           const isTW = f.properties?.name === "Taiwan";
           const isCEEC = !!ceecByIso.get(isoFromName(f.properties?.name));
           const fill = isCN || isTW
-            ? "rgba(255, 77, 61, 0.16)"
+            ? "rgba(232, 141, 178, 0.16)"
             : isCEEC
-              ? "rgba(76, 201, 240, 0.17)"
-              : "rgba(201, 194, 173, 0.05)";
+              ? "rgba(139, 208, 213, 0.17)"
+              : "rgba(216, 205, 224, 0.05)";
           const stroke = isCN || isTW
-            ? "rgba(255, 77, 61, 0.55)"
+            ? "rgba(232, 141, 178, 0.55)"
             : isCEEC
-              ? "rgba(76, 201, 240, 0.6)"
-              : "rgba(201, 194, 173, 0.18)";
+              ? "rgba(139, 208, 213, 0.6)"
+              : "rgba(216, 205, 224, 0.18)";
           return (
             <path
               key={i}
@@ -258,7 +258,7 @@ export function WorldMap({ beijing, countries, arcs, width, height, progress }: 
                   y1={0}
                   x2={off.dx * 0.75}
                   y2={off.dy * 0.75}
-                  stroke="rgba(138, 227, 255, 0.35)"
+                  stroke="rgba(179, 230, 234, 0.35)"
                   strokeWidth="0.6"
                 />
                 <text

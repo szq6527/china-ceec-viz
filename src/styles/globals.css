@@ -1,18 +1,19 @@
 /* === Design tokens === */
 :root {
-  --bg-0: #050810;
-  --bg-1: #0a0f1c;
-  --bg-2: #111728;
-  --ink-0: #f6f1e0;
-  --ink-1: #c9c2ad;
-  --ink-2: #6e6a5c;
-  --accent-cn: #c4796e;        /* Dusty terracotta rose */
-  --accent-cn-glow: #d4a090;
-  --accent-eu: #7ea8a4;        /* Sage teal */
-  --accent-eu-glow: #a3c4bf;
-  --accent-warn: #c9a87c;      /* Warm sand */
-  --accent-physics: #9b8ea8;   /* Dusty lavender */
-  --grid: rgba(201, 194, 173, 0.06);
+  /* Macaron palette · deep plum stage so pastels pop with strong contrast */
+  --bg-0: #161320;             /* deep plum ink */
+  --bg-1: #1f1b2e;
+  --bg-2: #2a243c;
+  --ink-0: #fdf6ef;            /* warm cream white */
+  --ink-1: #d8cde0;            /* soft lilac-grey */
+  --ink-2: #8b8299;            /* muted mauve-grey */
+  --accent-cn: #e88db2;        /* 蜜桃粉 — China, primary emphasis */
+  --accent-cn-glow: #ffb2c1;   /* 樱花粉 */
+  --accent-eu: #8bd0d5;        /* 天空蓝 — CEEC / Europe */
+  --accent-eu-glow: #b3e6ea;   /* lighter sky */
+  --accent-warn: #ffe38b;      /* 奶油黄 — kicker / warning */
+  --accent-physics: #b0a3d1;   /* 香芋紫 — physics / big-science */
+  --grid: rgba(216, 205, 224, 0.06);
 
   --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
   --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
@@ -176,11 +177,11 @@ body::before {
   background:
     linear-gradient(
       to bottom,
-      rgba(5, 8, 16, 0) 0%,
-      rgba(5, 8, 16, 0) 38%,
-      rgba(5, 8, 16, 0.55) 50%,
-      rgba(5, 8, 16, 0) 62%,
-      rgba(5, 8, 16, 0) 100%
+      rgba(22, 18, 32, 0) 0%,
+      rgba(22, 18, 32, 0) 38%,
+      rgba(22, 18, 32, 0.55) 50%,
+      rgba(22, 18, 32, 0) 62%,
+      rgba(22, 18, 32, 0) 100%
     );
   background-size: 100% 220%;
   background-position: 0 0;
