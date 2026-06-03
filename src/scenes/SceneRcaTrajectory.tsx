@@ -93,6 +93,14 @@ function buildPath(points: YearlyPoint[], drawFraction: number): string {
   return d;
 }
 
+function rcaChange(country: Pick<CountryRca, "internal_rca_2011" | "internal_rca_2020">) {
+  return country.internal_rca_2020 - country.internal_rca_2011;
+}
+
+function isRcaRising(country: Pick<CountryRca, "internal_rca_2011" | "internal_rca_2020">) {
+  return rcaChange(country) >= 0;
+}
+
 interface TooltipInfo {
   country: CountryRca;
   mouseX: number;
@@ -158,8 +166,8 @@ export function SceneRcaTrajectory({ active }: Props) {
     rca: data.ceec_avg_internal_rca[String(y)] ?? 0,
   }));
 
-  const rising = data.countries.filter((c) => c.rca_trend === "increasing");
-  const falling = data.countries.filter((c) => c.rca_trend === "decreasing");
+  const rising = data.countries.filter(isRcaRising);
+  const falling = data.countries.filter((c) => !isRcaRising(c));
   const fallingCount = falling.length;
 
   return (
@@ -218,11 +226,11 @@ export function SceneRcaTrajectory({ active }: Props) {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
             <div style={{ width: 24, height: 2, background: "#aadd88", borderRadius: 1 }} />
-            <span style={{ color: "var(--ink-2)" }}>对华聚焦度上升</span>
+            <span style={{ color: "var(--ink-2)" }}>对华聚焦度上升（2011→2020）</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
             <div style={{ width: 24, height: 2, background: "#ffb2c1", borderRadius: 1 }} />
-            <span style={{ color: "var(--ink-2)" }}>对华聚焦度下降</span>
+            <span style={{ color: "var(--ink-2)" }}>对华聚焦度下降（2011→2020）</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
             <div style={{ width: 24, height: 1, background: "rgba(216,205,224,0.5)", borderRadius: 1, borderTop: "2px dashed rgba(216,205,224,0.5)" }} />
@@ -304,7 +312,7 @@ export function SceneRcaTrajectory({ active }: Props) {
         {[...falling, ...rising]
           .filter((c) => c.iso !== hovered)
           .map((country) => {
-            const isRising = country.rca_trend === "increasing";
+            const isRising = isRcaRising(country);
             const color = isRising ? "#aadd88" : "#ffb2c1";
             const path = buildPath(country.yearly, drawProgress);
             const last = country.yearly[country.yearly.length - 1];
@@ -345,7 +353,7 @@ export function SceneRcaTrajectory({ active }: Props) {
         {hovered && (() => {
           const country = data.countries.find((c) => c.iso === hovered);
           if (!country) return null;
-          const isRising = country.rca_trend === "increasing";
+          const isRising = isRcaRising(country);
           const color = isRising ? "#aadd88" : "#ffb2c1";
           const path = buildPath(country.yearly, drawProgress);
           const last = country.yearly[country.yearly.length - 1];
@@ -434,12 +442,12 @@ function StatBox({ value, label, color }: { value: string; label: string; color:
 
 function RcaTooltip({ info }: { info: TooltipInfo }) {
   const { country, mouseX, mouseY } = info;
-  const isRising = country.rca_trend === "increasing";
+  const isRising = isRcaRising(country);
   const color = isRising ? "#aadd88" : "#ffb2c1";
   const TW = 260, TH = 240;
   const left = Math.min(mouseX + 16, W - TW - 20);
   const top = Math.max(mouseY - TH - 12, 10);
-  const change = country.internal_rca_2020 - country.internal_rca_2011;
+  const change = rcaChange(country);
 
   return (
     <div style={{

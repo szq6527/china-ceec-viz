@@ -45,7 +45,7 @@ export default function App() {
   const [scene, setScene] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
-  const [viewMode, setViewMode] = useState<"bars" | "heatmap">("bars");
+  const [viewMode, setViewMode] = useState<"bars" | "standardized" | "heatmap">("bars");
 
   // Fire the cinematic flash + letterbox whenever scene changes
   useEffect(() => {
@@ -212,6 +212,7 @@ export default function App() {
             </span>
             {([
               { mode: "bars", label: "动态条形图" },
+              { mode: "standardized", label: "标准化RCA" },
               { mode: "heatmap", label: "热力地图" },
             ] as const).map(({ mode, label }) => {
               const isActive = viewMode === mode;
