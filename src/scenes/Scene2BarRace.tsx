@@ -757,7 +757,7 @@ function Scene2StandardizedRca({
   const rising = rows.filter((r) => r.isRising).length;
   const ROW_H = 30;
   const chartLeft = 92;
-  const chartTop = 218;
+  const chartTop = 290;
   const chartWidth = 900;
   const chartHeight = ROW_H * Math.max(rows.length, 1);
   const referenceX = chartLeft + (1 / maxRca) * chartWidth;

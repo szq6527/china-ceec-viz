@@ -670,5 +670,101 @@
         "count": 27
       }
     ]
+  },
+  {
+    "iso": "LTU",
+    "name_cn": "立陶宛",
+    "total": 991,
+    "growth": 1.8262548262548264,
+    "yearly": [
+      {
+        "year": 2011,
+        "count": 38
+      },
+      {
+        "year": 2012,
+        "count": 55
+      },
+      {
+        "year": 2013,
+        "count": 52
+      },
+      {
+        "year": 2014,
+        "count": 52
+      },
+      {
+        "year": 2015,
+        "count": 62
+      },
+      {
+        "year": 2016,
+        "count": 80
+      },
+      {
+        "year": 2017,
+        "count": 97
+      },
+      {
+        "year": 2018,
+        "count": 121
+      },
+      {
+        "year": 2019,
+        "count": 182
+      },
+      {
+        "year": 2020,
+        "count": 252
+      }
+    ]
+  },
+  {
+    "iso": "MKD",
+    "name_cn": "北马其顿",
+    "total": 780,
+    "growth": 0.9213483146067416,
+    "yearly": [
+      {
+        "year": 2011,
+        "count": 40
+      },
+      {
+        "year": 2012,
+        "count": 48
+      },
+      {
+        "year": 2013,
+        "count": 33
+      },
+      {
+        "year": 2014,
+        "count": 60
+      },
+      {
+        "year": 2015,
+        "count": 86
+      },
+      {
+        "year": 2016,
+        "count": 99
+      },
+      {
+        "year": 2017,
+        "count": 86
+      },
+      {
+        "year": 2018,
+        "count": 77
+      },
+      {
+        "year": 2019,
+        "count": 109
+      },
+      {
+        "year": 2020,
+        "count": 142
+      }
+    ]
   }
 ]
